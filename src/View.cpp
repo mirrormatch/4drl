@@ -4,7 +4,7 @@
 #include "GameState.h"
 
 View::View(GameState* parent, int w, int h) : 
-	m_parent(parent), m_width(w), m_height(h), m_screenData(NULL) {
+	m_parent(parent), m_width(w), m_height(h), m_screenData(NULL), start(33) {
 }
 
 void View::Initialize() {
@@ -33,6 +33,14 @@ void View::RequestInput() {
 		case 'q':
 			m_parent->RequestQuit();
 			break;
+		case 'n':
+			start++;
+			ClearWith(start);
+			break;
+		case 'p':
+			start--;
+			ClearWith(start);
+			break;
 	}
 }
 
@@ -41,9 +49,8 @@ void View::Update() {
 }
 
 void View::Draw() {
-	refresh(); // clear the curses screen
+	clear(); // clear the curses screen
 	// draw our stuff
-	// FIXME: color support
 	for(int y = 0; y < m_height; y++) {
 		for(int x = 0; x < m_width; x++) {
 			addch(m_screenData[x][y]);
@@ -63,8 +70,13 @@ void View::SetStringAt(int x, int y, string& value, int flags) {
 }
 
 void View::Clear() {
-	for(int x = 0; x < m_width; x++) {
-		memset(m_screenData[x], ' ', m_height);
-	}
+	ClearWith(' ');
 }
 
+void View::ClearWith(char ch, int flags) {
+	for(int x = 0; x < m_width; x++) {
+		for(int y = 0; y < m_height; y++) {
+			m_screenData[x][y] = ch | flags;
+		}
+	}
+}

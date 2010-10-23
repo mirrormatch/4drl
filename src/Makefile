@@ -4,7 +4,12 @@ CFLAGS=-g -Wall
 IFLAGS=
 LFLAGS=-lncurses
 
-FILES=Main.o GameState.o View.o
+FILES=\
+	Main.o \
+	GameState.o \
+	View.o \
+	ColorPairs.o
+
 EXECUTABLE=4drl
 
 main: $(FILES)

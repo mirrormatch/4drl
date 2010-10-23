@@ -1,5 +1,6 @@
 #include <ncurses.h>
 #include "GameState.h"
+#include "ColorPairs.h"
 
 void InitCurses() {
 	initscr();
@@ -7,6 +8,7 @@ void InitCurses() {
 	keypad(stdscr, TRUE);
 	noecho();
 	refresh();
+	ColorPairs::InitializePairs();
 }
 
 void EndCurses() {
