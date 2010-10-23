@@ -1,0 +1,26 @@
+Things I gotta have:
+* Level generation
+	* Rooms
+	* Hallways connectiong rooms
+	* Entry points
+	* Exit points
+* Items
+* Monsters
+* Player commands
+	* Move
+	* Attack
+	* Use item
+	* Equip/unequip
+* Inventory
+	* Paper doll slots
+	* Backpack for other items
+* Required monster AI
+	* Wander
+	* Attack
+	* Flee
+* Stats
+	* XP
+	* Str
+	* Dex
+	* HP
+	* AC	
