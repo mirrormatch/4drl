@@ -1,4 +1,6 @@
 0. Get curses working with c#, ruby, or c++
+	* #@$% .net and ruby for not having better console support out of the box
+	* C++ it is, will need to read up on ncurses since it's been a decade
 1. Level generation and display
 2. Moving player
 3. Stats display

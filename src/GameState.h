@@ -12,6 +12,7 @@ class GameState {
 		void Initialize();
 		void Update();
 		bool IsRunning();
+		void RequestQuit();
 
 	private:
 		bool m_isRunning;

@@ -1,15 +1,17 @@
 
-#include "View.h"
 #include <ncurses.h>
+#include "View.h"
+#include "GameState.h"
 
-View::View(int w, int h) : m_width(w), m_height(h), m_screenData(NULL) {
+View::View(GameState* parent, int w, int h) : 
+	m_parent(parent), m_width(w), m_height(h), m_screenData(NULL) {
 }
 
 void View::Initialize() {
 	m_screenData = new char*[m_width];
 	for(int x = 0; x < m_width; x++) {
 		m_screenData[x] = new char[m_height];
-		memset(m_screenData[x], ' ', m_height);
+		memset(m_screenData[x], 33, m_height);
 	}
 }
 
@@ -24,6 +26,14 @@ View::~View() {
 }
 
 void View::RequestInput() {
+	char ch = getch();
+	//TODO: remove this once we have real game screens, for now just so we reset
+	// term
+	switch(ch) {
+		case 'q':
+			m_parent->RequestQuit();
+			break;
+	}
 }
 
 void View::Update() {
@@ -46,7 +56,7 @@ void View::SetCharAt(int x, int y, char value, int flags) {
 }
 
 void View::SetStringAt(int x, int y, string& value, int flags) {
-	for(int i = 0; i < value.length(); i++) {
+	for(unsigned int i = 0; i < value.length(); i++) {
 		char c = value[i];
 		m_screenData[x][y] = c | flags;
 	}

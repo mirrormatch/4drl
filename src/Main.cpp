@@ -18,6 +18,7 @@ int main(int argc, char** argv) {
 	InitCurses();
 
 	GameState* gs = new GameState();
+	gs->Initialize();
 	while(gs->IsRunning()) {
 		gs->Update();
 	}

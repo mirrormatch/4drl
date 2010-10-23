@@ -4,9 +4,11 @@
 
 #include "GeneralIncludes.h"
 
+class GameState;
+
 class View {
 	public:
-		View(int w, int h);
+		View(GameState* parent, int w, int h);
 		virtual ~View();
 		virtual void Initialize();
 
@@ -18,9 +20,10 @@ class View {
 		virtual void Update();
 
 	protected:
-		char** m_screenData;
+		GameState* m_parent;
 		int m_width;
 		int m_height;
+		char** m_screenData;
 };
 
 #endif
