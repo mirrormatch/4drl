@@ -24,3 +24,11 @@ Things I gotta have:
 	* Dex
 	* HP
 	* AC	
+* Game flow
+	* Start screen
+	* Name player
+	* Death -> game over -> start screen
+	* Save/load game?
+
+* Theme
+	* More sci-fi instead of fantasy?
