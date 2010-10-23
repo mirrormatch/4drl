@@ -1,0 +1,60 @@
+
+#include "View.h"
+#include <ncurses.h>
+
+View::View(int w, int h) : m_width(w), m_height(h), m_screenData(NULL) {
+}
+
+void View::Initialize() {
+	m_screenData = new char*[m_width];
+	for(int x = 0; x < m_width; x++) {
+		m_screenData[x] = new char[m_height];
+		memset(m_screenData[x], ' ', m_height);
+	}
+}
+
+View::~View() {
+	if(m_screenData) {
+		for(int x = 0; x < m_width; x++) {
+			delete [] m_screenData[x];
+		}
+		delete [] m_screenData;
+		m_screenData = NULL;
+	}
+}
+
+void View::RequestInput() {
+}
+
+void View::Update() {
+	//default class doesn't do anything
+}
+
+void View::Draw() {
+	refresh(); // clear the curses screen
+	// draw our stuff
+	// FIXME: color support
+	for(int y = 0; y < m_height; y++) {
+		for(int x = 0; x < m_width; x++) {
+			addch(m_screenData[x][y]);
+		}
+	}
+}
+
+void View::SetCharAt(int x, int y, char value, int flags) {
+	m_screenData[x][y] = value | flags;
+}
+
+void View::SetStringAt(int x, int y, string& value, int flags) {
+	for(int i = 0; i < value.length(); i++) {
+		char c = value[i];
+		m_screenData[x][y] = c | flags;
+	}
+}
+
+void View::Clear() {
+	for(int x = 0; x < m_width; x++) {
+		memset(m_screenData[x], ' ', m_height);
+	}
+}
+
