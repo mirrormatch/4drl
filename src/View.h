@@ -25,6 +25,7 @@ class View {
 		int m_width;
 		int m_height;
 		char** m_screenData;
+		unsigned int** m_screenAttrs;
 		char start;
 };
 
