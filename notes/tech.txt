@@ -1,0 +1,22 @@
+
+Based on the basic requirements, the following classes pop out:
+	* LevelGenerator
+	* Grid
+	* Square - Types empty, solid -- should entrance & exit be items or square types?
+	* Item - highlevel abstract class
+		* Weapon
+		* Consumable
+			* Stim
+			* Nutrient
+		* Entrance/Exit?
+	* Actor - abstract class for moving entities
+		* Monster
+		* Player
+	* GameState
+	* View - abstract
+		* TitleView
+		* NameView
+		* MainView
+		* InventoryView
+		* DeathView
+		* OptionsView
