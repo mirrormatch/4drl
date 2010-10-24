@@ -1,6 +1,9 @@
 
 // Using this for actual strings
 #include <string>
+// stl containers
+#include <vector>
+#include <list>
 using namespace std;
 
 // Because I wanted memset

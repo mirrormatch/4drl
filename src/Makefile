@@ -10,7 +10,9 @@ FILES=\
 	View.o \
 	ColorPairs.o \
 	Level.o \
-	MainView.o
+	MainView.o \
+	Room.o \
+	CompoundRoom.o
 
 EXECUTABLE=4drl
 
