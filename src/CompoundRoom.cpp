@@ -25,17 +25,37 @@ void CompoundRoom::Initialize(Room* firstRoom) {
 }
 
 bool CompoundRoom::Overlaps(Room* r) {
-	// Make a tmp simple room for bounds checking
-	Room tmp = Room(m_x, m_y, m_width, m_height);
-	if(!tmp.Overlaps(r)) {
-		return false;
-	}
-	// bounds returned true, need to do the piece by piece check
+	// need to do the piece by piece check
 	for(int x = m_x; x < m_x + m_width; x++) {
 		for(int y = m_y; y < m_y + m_height; y++) {
 			if(m_data[x - m_x][y - m_y] && r->ContainsPoint(x, y)) {
 				return true;
 			}
+		}
+	}
+
+	return false;
+}
+
+bool CompoundRoom::OverlapsOrAdjacent(Room* r) {
+	// piece by piece check
+	for(int x = m_x; x < m_x + m_width; x++) {
+		for(int y = m_y; y < m_y + m_height; y++) {
+			if(m_data[x - m_x][y - m_y] && r->ContainsPoint(x, y)) {
+				return true;
+			}
+		}
+	}
+
+	// If we still haven't found something, check to see if we're adjacent
+	for(int y = m_y; y < m_y + m_height; y++) {
+		if(r->ContainsPoint(m_x - 1, y) || r->ContainsPoint(m_x + m_width + 1, y)) {
+			return true;
+		}
+	}
+	for(int x = m_x; x < m_x + m_width; x++) {
+		if(r->ContainsPoint(x, m_y - 1) || r->ContainsPoint(x, m_y + m_height + 1)) {
+			return true;
 		}
 	}
 
@@ -119,4 +139,13 @@ int CompoundRoom::GetWidth() {
 
 int CompoundRoom::GetHeight() {
 	return m_height;
+}
+
+void CompoundRoom::ClosestPointToMiddle(int* x, int* y) {
+	int testX = m_x + m_width / 2;
+	int testY = m_y + m_height / 2;
+	*x = testX;
+	*y = testY;
+	// FIXME: test to make sure point is valid, and circle around until you find
+	// valid one
 }

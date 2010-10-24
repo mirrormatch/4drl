@@ -9,7 +9,9 @@
 // Will add more types as necessary
 enum SquareType {
 	ST_VOID,
-	ST_EMPTY
+	ST_EMPTY,
+	ST_WALL,
+	ST_TEST_COORIDOR
 };
 
 struct GridSquare {
@@ -30,12 +32,18 @@ public:
 	virtual int GetWidth();
 	virtual int GetHeight();
 
+	virtual int GetNumRooms();
+
 protected:
 	virtual Room** GenerateInitialRooms(int numRooms);
 	virtual CompoundRoomVector* MergeBasicRooms(int numRooms, Room** rooms);
+	virtual void CreateCooridor(CompoundRoom* first, CompoundRoom* second);
+	virtual void CreateWalls();
+	virtual bool AnyAdjacentAreFloors(int x, int y);
 	GridSquare*** m_grid;
 	int m_width;
 	int m_height;
+	int m_numRooms;
 };
 
 #endif

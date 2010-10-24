@@ -18,6 +18,7 @@ public:
 	void Initialize(Room* firstRoom);
 
 	bool Overlaps(Room* r);
+	bool OverlapsOrAdjacent(Room* r);
 	void Merge(Room* r);
 	bool IsFilled(int x, int y);
 
@@ -25,6 +26,8 @@ public:
 	int GetY();
 	int GetWidth();
 	int GetHeight();
+
+	void ClosestPointToMiddle(int* x, int* y);
 
 protected:
 	int m_x;

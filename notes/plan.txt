@@ -8,7 +8,7 @@ Done - 0. Get curses working with c#, ruby, or c++
 		Done - * Generate room count
 		Done - * Generate rooms
 		Done - * Merge rooms that are overlapping/adjacent
-		* Connect remaining rooms with non-overlapping cooridors
+		* Connect remaining rooms with cooridors
 	Done - * Scrolling
 		* Make test sizes all > 80,24 so we can ensure map scrolling works
 

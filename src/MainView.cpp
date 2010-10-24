@@ -1,5 +1,6 @@
 
 #include <ncurses.h>
+#include <sstream>
 #include "MainView.h"
 #include "GameState.h"
 #include "Level.h"
@@ -15,6 +16,7 @@ void MainView::Initialize() {
 	View::Initialize();
 	m_level = new Level();
 	m_level->Generate(160, 48, 40);
+	//m_level->Generate(80, 24, 5);
 }
 
 void MainView::RequestInput() {
@@ -39,17 +41,19 @@ void MainView::RequestInput() {
 			delete m_level;
 			m_level = new Level();
 			m_level->Generate(160, 48, 40);
+			//m_level->Generate(80, 24, 5);
 	}
 }
 
 void MainView::Update() {
+	Clear();
 	int lvlWidth = m_level->GetWidth();
 	int lvlHeight = m_level->GetHeight();
 
 	for(int x = m_scrollX; x < m_scrollX + 80; x++) {
 		for(int y = m_scrollY; y <= m_scrollY + 20; y++) {
 			if(x < 0 || y < 0 || x >= lvlWidth || y >= lvlHeight) {
-				SetCharAt(x - m_scrollX, y - m_scrollY, '#');
+				SetCharAt(x - m_scrollX, y - m_scrollY, '#', WHITE);
 				continue;
 			}
 			switch(m_level->SquareAt(x, y)->type) {
@@ -57,11 +61,21 @@ void MainView::Update() {
 					SetCharAt(x - m_scrollX, y - m_scrollY, ' ');
 					break;
 				case ST_EMPTY:
-					SetCharAt(x - m_scrollX, y - m_scrollY, '.', GREEN);
+					SetCharAt(x - m_scrollX, y - m_scrollY, '.', WHITE);
+					break;
+				case ST_TEST_COORIDOR:
+					SetCharAt(x - m_scrollX, y - m_scrollY, '@', YELLOW_BOLD);
+					break;
+				case ST_WALL:
+					SetCharAt(x - m_scrollX, y - m_scrollY, '#', WHITE);
 					break;
 			}
 		}
 		SetCharAt(x - m_scrollX, 21, '-');
+		stringstream s;
+		s << "Num Rooms: " << m_level->GetNumRooms();
+		string str = s.str();
+		SetStringAt(0, 22, str);
 	}
 }
 

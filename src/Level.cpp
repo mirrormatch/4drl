@@ -37,6 +37,84 @@ void Level::Generate(int w, int h, int numRooms) {
 			}
 		}
 	}
+
+	// If we've got more than one room, make cooridors
+	m_numRooms = crs->size();
+	if(crs->size() > 1) {
+		for(unsigned int i = 0; i < crs->size() - 1; i++) {
+			CompoundRoom* first = (*crs)[i];
+			CompoundRoom* second = (*crs)[i+1];
+			CreateCooridor(first, second);
+		}
+	}
+
+	CreateWalls();
+}
+
+void Level::CreateWalls() {
+	for(int x = 0; x < m_width; x++) {
+		for(int y = 0; y < m_height; y++) {
+			GridSquare* gs = m_grid[x][y];
+			if(gs->type == ST_VOID) {
+				if(AnyAdjacentAreFloors(x,y)) {
+					gs->type= ST_WALL;
+				}
+			}
+		}
+	}
+}
+
+bool Level::AnyAdjacentAreFloors(int x, int y) {
+	for(int tx = x - 1; tx <= x + 1; tx++) {
+		for(int ty = y - 1; ty <= y + 1; ty++) {
+			if(tx == x && ty == y) {
+				continue;
+			}
+			if(IsSquareOpen(tx, ty)) {
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+void Level::CreateCooridor(CompoundRoom* first, CompoundRoom* second) {
+	int x1, y1;
+	int x2, y2;
+	first->ClosestPointToMiddle(&x1, &y1);
+	second->ClosestPointToMiddle(&x2, &y2);
+	if(x1 >= x2 && y1 >= y2) {
+		for(int x = x2; x <= x1; x++) {
+			m_grid[x][y2]->type = ST_EMPTY;
+		}
+		for(int y = y2; y <= y1; y++) {
+			m_grid[x1][y]->type = ST_EMPTY;
+		}
+	}
+	else if(x1 >= x2 && y1 < y2) {
+		for(int x = x2; x <= x1; x++) {
+			m_grid[x][y2]->type = ST_EMPTY;
+		}
+		for(int y = y1; y <= y2; y++) {
+			m_grid[x1][y]->type = ST_EMPTY;
+		}
+	}
+	else if(x1 < x2 && y1 >= y2) {
+		for(int x = x1; x <= x2; x++) {
+			m_grid[x][y1]->type = ST_EMPTY;
+		}
+		for(int y = y2; y <= y1; y++) {
+			m_grid[x2][y]->type = ST_EMPTY;
+		}
+	}
+	else if(x1 < x2 && y1 < y2) {
+		for(int x = x1; x <= x2; x++) {
+			m_grid[x][y1]->type = ST_EMPTY;
+		}
+		for(int y = y1; y <= y2; y++) {
+			m_grid[x2][y]->type = ST_EMPTY;
+		}
+	}
 }
 
 Room** Level::GenerateInitialRooms(int numRooms) {
@@ -69,13 +147,16 @@ CompoundRoomVector* Level::MergeBasicRooms(int numRooms, Room** rooms) {
 		bool didAdd = true;
 		while(didAdd) {
 			didAdd = false;
-			for(list<Room*>::iterator i = roomList.begin();  i != roomList.end(); i++) {
+			list<Room*>::iterator i = roomList.begin();
+			while(i != roomList.end()) {
 				Room* toCheck = *i;
 				if(cr->Overlaps(toCheck)) {
 					cr->Merge(toCheck);
 					didAdd = true;
-					roomList.erase(i);
-					break;
+					i = roomList.erase(i);
+				}
+				else {
+					i++;
 				}
 			}
 		}
@@ -91,7 +172,11 @@ GridSquare* Level::SquareAt(int x, int y) {
 
 bool Level::IsSquareOpen(int x, int y) {
 	// FIXME: Eventually needs to take other things into account
-	return m_grid[x][y]->type != ST_VOID;
+	if(x < 0 || x >= m_width || y < 0 || y >= m_height) {
+		return false;
+	}
+	SquareType st = m_grid[x][y]->type;
+	return st != ST_VOID && st != ST_WALL;
 }
 
 int Level::GetWidth() {
@@ -100,4 +185,8 @@ int Level::GetWidth() {
 
 int Level::GetHeight() {
 	return m_height;
+}
+
+int Level::GetNumRooms() {
+	return m_numRooms;
 }

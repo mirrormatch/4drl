@@ -44,5 +44,5 @@ bool Room::Overlaps(Room* r1) {
 }
 
 bool Room::ContainsPoint(int ax, int ay) {
-	return (ax >= x && ax <= x + width && ay >= y && ay <= y);
+	return (ax >= x && ax <= x + width && ay >= y && ay <= y + height);
 }
