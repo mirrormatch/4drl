@@ -2,6 +2,8 @@
 #ifndef _COLOR_PAIRS_H_
 #define _COLOR_PAIRS_H_
 
+#include <ncurses.h>
+
 enum PairNames {
 	WHITE_ON_BLACK = 1,
 	RED_ON_BLACK = 2,

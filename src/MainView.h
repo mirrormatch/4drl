@@ -16,7 +16,6 @@ class MainView : public View {
 		virtual void Update();
 
 	protected:
-		Level* m_level;
 		int m_scrollX;
 		int m_scrollY;
 };

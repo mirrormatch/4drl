@@ -2,6 +2,7 @@
 #include <time.h>
 #include "GameState.h"
 #include "MainView.h"
+#include "DataManager.h"
 
 GameState::GameState(unsigned long seed) : 
 	m_seed(seed), m_isRunning(true), m_currentView(NULL) {
@@ -19,6 +20,7 @@ void GameState::Initialize() {
 		m_seed = time(NULL);
 	}
 	srand(m_seed);
+	DataManager::Instance()->CreateNewGame();
 	m_currentView = new MainView(this, 80, 24);
 	m_currentView->Initialize();
 }

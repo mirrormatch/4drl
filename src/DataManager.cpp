@@ -1,0 +1,49 @@
+
+#include "DataManager.h"
+#include "Level.h"
+#include "Player.h"
+
+DataManager* DataManager::sm_instance = NULL;
+
+DataManager* DataManager::Instance() {
+	if(DataManager::sm_instance == NULL) {
+		DataManager::sm_instance = new DataManager();
+	}
+
+	return DataManager::sm_instance;
+}
+
+DataManager::DataManager() {
+}
+
+DataManager::~DataManager() {
+}
+
+void DataManager::CreateNewGame() {
+	m_player = new Player();
+	Level* l = new Level(1);
+	l->Generate(160, 48, 40);
+	m_levels.push_back(l);
+	m_currentLevel = 0;
+}
+
+Level* DataManager::GetCurrentLevel() {
+	return m_levels[m_currentLevel];
+}
+
+void DataManager::GoToNextLevel() {
+	if(m_currentLevel == (int)m_levels.size() - 1) {
+		// generate a new level and move there
+			Level* l = new Level(GetCurrentLevel()->GetLevelNumber() + 1);
+			l->Generate(160, 48, 40);
+			m_levels.push_back(l);
+	}
+	m_currentLevel++;
+	// move player
+}
+
+Player* DataManager::GetPlayer() {
+	return m_player;
+}
+
+

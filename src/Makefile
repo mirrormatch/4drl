@@ -12,7 +12,10 @@ FILES=\
 	Level.o \
 	MainView.o \
 	Room.o \
-	CompoundRoom.o
+	CompoundRoom.o \
+	Entity.o \
+	DataManager.o \
+	Player.o
 
 EXECUTABLE=4drl
 

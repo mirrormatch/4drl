@@ -14,15 +14,18 @@ enum SquareType {
 	ST_TEST_COORIDOR
 };
 
+class Entity;
+
 struct GridSquare {
 	SquareType type;
+	Entity* entity;
 };
 
 class Room;
 
 class Level {
 public:
-	Level();
+	Level(int num);
 	virtual ~Level();
 
 	virtual void Generate(int w, int h, int numRooms);
@@ -33,6 +36,8 @@ public:
 	virtual int GetHeight();
 
 	virtual int GetNumRooms();
+	virtual int GetLevelNumber();
+	virtual Entity* EntityAt(int x, int y);
 
 protected:
 	virtual Room** GenerateInitialRooms(int numRooms);
@@ -44,6 +49,7 @@ protected:
 	int m_width;
 	int m_height;
 	int m_numRooms;
+	int m_levelNumber;
 };
 
 #endif

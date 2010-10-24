@@ -4,6 +4,8 @@
 #include "MainView.h"
 #include "GameState.h"
 #include "Level.h"
+#include "Entity.h"
+#include "DataManager.h"
 
 MainView::MainView(GameState* gs, int w, int h) : 
 	View(gs, w, h), m_scrollX(0), m_scrollY(0) {
@@ -14,9 +16,6 @@ MainView::~MainView() {
 
 void MainView::Initialize() {
 	View::Initialize();
-	m_level = new Level();
-	m_level->Generate(160, 48, 40);
-	//m_level->Generate(80, 24, 5);
 }
 
 void MainView::RequestInput() {
@@ -38,17 +37,15 @@ void MainView::RequestInput() {
 			m_scrollY += 1;
 			break;
 		case 'n':
-			delete m_level;
-			m_level = new Level();
-			m_level->Generate(160, 48, 40);
-			//m_level->Generate(80, 24, 5);
+			DataManager::Instance()->GoToNextLevel();
 	}
 }
 
 void MainView::Update() {
 	Clear();
-	int lvlWidth = m_level->GetWidth();
-	int lvlHeight = m_level->GetHeight();
+	Level* level = DataManager::Instance()->GetCurrentLevel();
+	int lvlWidth = level->GetWidth();
+	int lvlHeight = level->GetHeight();
 
 	for(int x = m_scrollX; x < m_scrollX + 80; x++) {
 		for(int y = m_scrollY; y <= m_scrollY + 20; y++) {
@@ -56,7 +53,7 @@ void MainView::Update() {
 				SetCharAt(x - m_scrollX, y - m_scrollY, '#', WHITE);
 				continue;
 			}
-			switch(m_level->SquareAt(x, y)->type) {
+			switch(level->SquareAt(x, y)->type) {
 				case ST_VOID:
 					SetCharAt(x - m_scrollX, y - m_scrollY, ' ');
 					break;
@@ -70,12 +67,16 @@ void MainView::Update() {
 					SetCharAt(x - m_scrollX, y - m_scrollY, '#', WHITE);
 					break;
 			}
+
+			if(level->EntityAt(x, y)) {
+				SetCharAt(x - m_scrollX, y - m_scrollY, 
+						level->EntityAt(x, y)->GetDisplayChar(), WHITE);
+			}
 		}
-		SetCharAt(x - m_scrollX, 21, '-');
-		stringstream s;
-		s << "Num Rooms: " << m_level->GetNumRooms();
-		string str = s.str();
-		SetStringAt(0, 22, str);
+	}
+
+	for(int x = 0; x < 80; x++) {
+		SetCharAt(x, 21, '-', WHITE_BOLD);
 	}
 }
 

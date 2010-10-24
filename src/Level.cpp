@@ -2,7 +2,7 @@
 #include "Level.h"
 #include "Room.h"
 
-Level::Level() {
+Level::Level(int num) : m_levelNumber(num) {
 }
 
 Level::~Level() {
@@ -17,6 +17,7 @@ void Level::Generate(int w, int h, int numRooms) {
 		for(int y = 0; y < m_height; y++) {
 			m_grid[x][y] = new GridSquare();
 			m_grid[x][y]->type = ST_VOID;
+			m_grid[x][y]->entity = NULL;
 		}
 	}
 
@@ -189,4 +190,12 @@ int Level::GetHeight() {
 
 int Level::GetNumRooms() {
 	return m_numRooms;
+}
+
+Entity* Level::EntityAt(int x, int y) {
+	return m_grid[x][y]->entity;
+}
+
+int Level::GetLevelNumber() {
+	return m_levelNumber;
 }
