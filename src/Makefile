@@ -8,7 +8,9 @@ FILES=\
 	Main.o \
 	GameState.o \
 	View.o \
-	ColorPairs.o
+	ColorPairs.o \
+	Level.o \
+	MainView.o
 
 EXECUTABLE=4drl
 

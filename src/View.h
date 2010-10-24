@@ -14,8 +14,8 @@ class View {
 
 		virtual void RequestInput();
 		virtual void Draw();
-		virtual void SetCharAt(int x, int y, char value, int flags);
-		virtual void SetStringAt(int x, int y, string& value, int flags);
+		virtual void SetCharAt(int x, int y, char value, int flags = 0);
+		virtual void SetStringAt(int x, int y, string& value, int flags = 0);
 		virtual void Clear();
 		virtual void ClearWith(char ch, int flags = 0);
 		virtual void Update();

@@ -6,7 +6,7 @@ class View;
 
 class GameState {
 	public:
-		GameState();
+		GameState(unsigned long seed = 0);
 		virtual ~GameState();
 
 		void Initialize();
@@ -15,6 +15,7 @@ class GameState {
 		void RequestQuit();
 
 	private:
+		unsigned long m_seed;
 		bool m_isRunning;
 		View* m_currentView;
 };

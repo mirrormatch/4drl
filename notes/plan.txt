@@ -1,7 +1,16 @@
-0. Get curses working with c#, ruby, or c++
+Done - 0. Get curses working with c#, ruby, or c++
 	* #@$% .net and ruby for not having better console support out of the box
 	* C++ it is, will need to read up on ncurses since it's been a decade
+
 1. Level generation and display
+	* Outline
+		* Generate total w/h
+		* Generate room count
+		* Generate non overlapping rooms (and at least <n> spaces for cooridors)
+		* Connect rooms with non-overlapping cooridors
+	* Scrolling
+		* Make test sizes all > 80,24 so we can ensure map scrolling works
+
 2. Moving player
 3. Stats display
 4. Level transitions

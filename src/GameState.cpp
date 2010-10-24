@@ -1,8 +1,10 @@
 
+#include <time.h>
 #include "GameState.h"
-#include "View.h"
+#include "MainView.h"
 
-GameState::GameState() : m_isRunning(true), m_currentView(NULL) {
+GameState::GameState(unsigned long seed) : 
+	m_seed(seed), m_isRunning(true), m_currentView(NULL) {
 }
 
 GameState::~GameState() {
@@ -13,7 +15,11 @@ GameState::~GameState() {
 
 void GameState::Initialize() {
 	// use this for any init that isn't simple variable defaults
-	m_currentView = new View(this, 80, 24);
+	if(m_seed == 0) {
+		m_seed = time(NULL);
+	}
+	srand(m_seed);
+	m_currentView = new MainView(this, 80, 24);
 	m_currentView->Initialize();
 }
 

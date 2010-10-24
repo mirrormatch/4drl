@@ -1,6 +1,6 @@
 #include <ncurses.h>
 #include "GameState.h"
-#include "ColorPairs.h"
+#include "GeneralIncludes.h"
 
 void InitCurses() {
 	initscr();
@@ -16,10 +16,14 @@ void EndCurses() {
 }
 
 int main(int argc, char** argv) {
-
 	InitCurses();
 
-	GameState* gs = new GameState();
+	//FIXME: for now assume it's a seed, need to go back and make flags
+	int seed = 0;
+	if(argc == 2) {
+		seed = atoi(argv[1]);
+	}
+	GameState* gs = new GameState(seed);
 	gs->Initialize();
 	while(gs->IsRunning()) {
 		gs->Update();
