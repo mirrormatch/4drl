@@ -12,6 +12,7 @@ public:
 
 	virtual bool Advance(int xinc, int yinc);
 	virtual void Update();
+	virtual void Activate();
 
 	virtual void CreateDefaults();
 	virtual string& GetName();

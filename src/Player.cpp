@@ -3,7 +3,7 @@
 #include "DataManager.h"
 #include "Level.h"
 
-Player::Player() : Entity('@', YELLOW_BOLD) {
+Player::Player() : Entity('@', YELLOW_BOLD, E_PLAYER) {
 }
 
 Player::~Player() {
@@ -12,11 +12,18 @@ Player::~Player() {
 void Player::Update() {
 }
 
+void Player::Activate() {
+}
+
 bool Player::Advance(int xinc, int yinc) {
 	Level* l = DataManager::Instance()->GetCurrentLevel();
 	if(l->IsSquareOpen(m_x + xinc, m_y + yinc)) {
 		SetPosition(m_x + xinc, m_y + yinc);
 		//FIXME: interact with items on the board
+		Entity* e = l->EntityAt(m_x, m_y);
+		if(e) {
+			e->Activate();
+		}
 		return true;
 	}
 

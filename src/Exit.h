@@ -10,6 +10,7 @@ class Exit : public Entity {
 		virtual ~Exit();
 
 		void Update();
+		virtual void Activate();
 };
 
 #endif

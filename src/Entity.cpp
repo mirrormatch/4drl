@@ -1,7 +1,8 @@
 
 #include "Entity.h"
 
-Entity::Entity(char c, int df) : m_dispChar(c), m_dispFlags(df) {
+Entity::Entity(char c, int df, EntityClass cls) : 
+	m_dispChar(c), m_dispFlags(df), m_class(cls) {
 }
 
 Entity::~Entity() {
@@ -26,4 +27,8 @@ int Entity::GetX() {
 
 int Entity::GetY() {
 	return m_y;
+}
+
+EntityClass Entity::GetClass() {
+	return m_class;
 }

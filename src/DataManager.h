@@ -16,6 +16,7 @@ public:
 	void CreateNewGame();
 	Level* GetCurrentLevel();
 	void GoToNextLevel();
+	void GoToPrevLevel();
 	Player* GetPlayer();
 
 	//FIXME: Implement these

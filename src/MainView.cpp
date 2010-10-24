@@ -31,22 +31,26 @@ void MainView::RequestInput() {
 			break;
 		case KEY_LEFT:
 			if(p->Advance(-1, 0)) {
-				m_scrollX -= 1;
+				m_scrollX = p->GetX() - 40;
+				m_scrollY = p->GetY() - 10;
 			}
 			break;
 		case KEY_RIGHT:
 			if(p->Advance(1, 0)) {
-				m_scrollX += 1;
+				m_scrollX = p->GetX() - 40;
+				m_scrollY = p->GetY() - 10;
 			}
 			break;
 		case KEY_UP:
 			if(p->Advance(0, -1)) {
-				m_scrollY -= 1;
+				m_scrollX = p->GetX() - 40;
+				m_scrollY = p->GetY() - 10;
 			}
 			break;
 		case KEY_DOWN:
 			if(p->Advance(0, 1)) {
-				m_scrollY += 1;
+				m_scrollX = p->GetX() - 40;
+				m_scrollY = p->GetY() - 10;
 			}
 			break;
 		case 'n':

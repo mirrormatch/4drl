@@ -2,6 +2,7 @@
 #include "DataManager.h"
 #include "Level.h"
 #include "Player.h"
+#include "Exit.h"
 #include "Entrance.h"
 
 DataManager* DataManager::sm_instance = NULL;
@@ -47,6 +48,15 @@ void DataManager::GoToNextLevel() {
 	Level* l = m_levels[m_currentLevel];
 	Entrance* e = l->GetEntrance();
 	m_player->SetPosition(e->GetX(), e->GetY());
+}
+
+void DataManager::GoToPrevLevel() {
+	if(m_currentLevel > 0) {
+		m_currentLevel--;
+		Level* l = m_levels[m_currentLevel];
+		Exit* e = l->GetExit();
+		m_player->SetPosition(e->GetX(), e->GetY());
+	}
 }
 
 Player* DataManager::GetPlayer() {

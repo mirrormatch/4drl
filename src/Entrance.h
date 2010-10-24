@@ -10,6 +10,7 @@ class Entrance : public Entity {
 		virtual ~Entrance();
 
 		void Update();
+		virtual void Activate();
 };
 
 #endif
