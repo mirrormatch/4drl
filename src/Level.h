@@ -74,6 +74,9 @@ public:
 	virtual GridSquare* SquareAt(int x, int y);
 	virtual bool IsSquareOpen(int x, int y);
 
+	virtual int GetWidth();
+	virtual int GetHeight();
+
 protected:
 	virtual Room** GenerateNonOverlappingRooms(int numRooms);
 	GridSquare*** m_grid;

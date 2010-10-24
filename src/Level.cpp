@@ -27,7 +27,10 @@ void Level::Generate(int w, int h, int numRooms) {
 				m_grid[x][y]->type = ST_EMPTY;
 			}
 		}
+		delete rooms[i];
 	}
+	delete [] rooms;
+
 }
 
 Room** Level::GenerateNonOverlappingRooms(int numRooms) {
@@ -53,3 +56,10 @@ bool Level::IsSquareOpen(int x, int y) {
 	return m_grid[x][y]->type != ST_VOID;
 }
 
+int Level::GetWidth() {
+	return m_width;
+}
+
+int Level::GetHeight() {
+	return m_height;
+}

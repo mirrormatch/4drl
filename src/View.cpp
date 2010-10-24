@@ -4,7 +4,7 @@
 #include "GameState.h"
 
 View::View(GameState* parent, int w, int h) : 
-	m_parent(parent), m_width(w), m_height(h), m_screenData(NULL), m_screenAttrs(NULL), start(33) {
+	m_parent(parent), m_width(w), m_height(h), m_screenData(NULL), m_screenAttrs(NULL), start(' ') {
 }
 
 void View::Initialize() {
@@ -13,7 +13,7 @@ void View::Initialize() {
 	for(int x = 0; x < m_width; x++) {
 		m_screenData[x] = new char[m_height];
 		m_screenAttrs[x] = new unsigned int[m_height];
-		memset(m_screenData[x], 33, m_height);
+		memset(m_screenData[x], ' ', m_height);
 		memset(m_screenAttrs[x], 0, m_height * sizeof(unsigned int));
 	}
 }

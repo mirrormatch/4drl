@@ -17,6 +17,8 @@ class MainView : public View {
 
 	protected:
 		Level* m_level;
+		int m_scrollX;
+		int m_scrollY;
 };
 
 #endif
