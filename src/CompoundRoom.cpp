@@ -149,3 +149,14 @@ void CompoundRoom::ClosestPointToMiddle(int* x, int* y) {
 	// FIXME: test to make sure point is valid, and circle around until you find
 	// valid one
 }
+
+void CompoundRoom::GetRandomValidPoint(int* x, int* y) {
+	int tx = (rand() % m_width) + m_x;
+	int ty = (rand() % m_height) + m_y;
+	while(!IsFilled(tx, ty)) {
+		tx = (rand() % m_width) + m_x;
+		ty = (rand() % m_height) + m_y;
+	}
+	*x = tx;
+	*y = ty;
+}

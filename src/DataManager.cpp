@@ -2,6 +2,7 @@
 #include "DataManager.h"
 #include "Level.h"
 #include "Player.h"
+#include "Entrance.h"
 
 DataManager* DataManager::sm_instance = NULL;
 
@@ -25,6 +26,8 @@ void DataManager::CreateNewGame() {
 	l->Generate(160, 48, 40);
 	m_levels.push_back(l);
 	m_currentLevel = 0;
+	Entrance* e = l->GetEntrance();
+	m_player->SetPosition(e->GetX(), e->GetY());
 }
 
 Level* DataManager::GetCurrentLevel() {
@@ -40,6 +43,9 @@ void DataManager::GoToNextLevel() {
 	}
 	m_currentLevel++;
 	// move player
+	Level* l = m_levels[m_currentLevel];
+	Entrance* e = l->GetEntrance();
+	m_player->SetPosition(e->GetX(), e->GetY());
 }
 
 Player* DataManager::GetPlayer() {

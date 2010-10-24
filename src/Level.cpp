@@ -1,6 +1,8 @@
 
 #include "Level.h"
 #include "Room.h"
+#include "Entrance.h"
+#include "Exit.h"
 
 Level::Level(int num) : m_levelNumber(num) {
 }
@@ -50,6 +52,17 @@ void Level::Generate(int w, int h, int numRooms) {
 	}
 
 	CreateWalls();
+	int x, y;
+	CompoundRoom* first = crs->front();
+	CompoundRoom* last = crs->back();
+	first->GetRandomValidPoint(&x, &y);
+	m_entrance = new Entrance();
+	m_entrance->SetPosition(x, y);
+	m_grid[x][y]->entity = m_entrance;
+	last->GetRandomValidPoint(&x, &y);
+	m_exit = new Exit();
+	m_exit->SetPosition(x, y);
+	m_grid[x][y]->entity = m_exit;
 }
 
 void Level::CreateWalls() {
@@ -198,4 +211,12 @@ Entity* Level::EntityAt(int x, int y) {
 
 int Level::GetLevelNumber() {
 	return m_levelNumber;
+}
+
+Entrance* Level::GetEntrance() {
+	return m_entrance;
+}
+
+Exit* Level::GetExit() {
+	return m_exit;
 }

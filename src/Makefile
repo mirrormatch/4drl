@@ -15,7 +15,9 @@ FILES=\
 	CompoundRoom.o \
 	Entity.o \
 	DataManager.o \
-	Player.o
+	Player.o \
+	Entrance.o \
+	Exit.o
 
 EXECUTABLE=4drl
 

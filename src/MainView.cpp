@@ -6,6 +6,7 @@
 #include "Level.h"
 #include "Entity.h"
 #include "DataManager.h"
+#include "Player.h"
 
 MainView::MainView(GameState* gs, int w, int h) : 
 	View(gs, w, h), m_scrollX(0), m_scrollY(0) {
@@ -16,28 +17,44 @@ MainView::~MainView() {
 
 void MainView::Initialize() {
 	View::Initialize();
+	Player* p = DataManager::Instance()->GetPlayer();
+	m_scrollX = p->GetX() - 40;
+	m_scrollY = p->GetY() - 10;
 }
 
 void MainView::RequestInput() {
 	int ch = getch();
+	Player* p = DataManager::Instance()->GetPlayer();
 	switch(ch) {
 		case 'q':
 			m_parent->RequestQuit();
 			break;
 		case KEY_LEFT:
-			m_scrollX -= 1;
+			if(p->Advance(-1, 0)) {
+				m_scrollX -= 1;
+			}
 			break;
 		case KEY_RIGHT:
-			m_scrollX += 1;
+			if(p->Advance(1, 0)) {
+				m_scrollX += 1;
+			}
 			break;
 		case KEY_UP:
-			m_scrollY -= 1;
+			if(p->Advance(0, -1)) {
+				m_scrollY -= 1;
+			}
 			break;
 		case KEY_DOWN:
-			m_scrollY += 1;
+			if(p->Advance(0, 1)) {
+				m_scrollY += 1;
+			}
 			break;
 		case 'n':
 			DataManager::Instance()->GoToNextLevel();
+			Player* p = DataManager::Instance()->GetPlayer();
+			m_scrollX = p->GetX() - 40;
+			m_scrollY = p->GetY() - 10;
+			break;
 	}
 }
 
@@ -68,15 +85,25 @@ void MainView::Update() {
 					break;
 			}
 
-			if(level->EntityAt(x, y)) {
+			Entity* e = level->EntityAt(x, y);
+			if(e) {
 				SetCharAt(x - m_scrollX, y - m_scrollY, 
-						level->EntityAt(x, y)->GetDisplayChar(), WHITE);
+						e->GetDisplayChar(), e->GetDisplayFlags());
 			}
 		}
 	}
 
+	Player* p = DataManager::Instance()->GetPlayer();
+	SetCharAt(p->GetX() - m_scrollX, p->GetY() - m_scrollY, p->GetDisplayChar(),
+		p->GetDisplayFlags());
+
 	for(int x = 0; x < 80; x++) {
 		SetCharAt(x, 21, '-', WHITE_BOLD);
 	}
+
+	stringstream s;
+	s << "Level : " << level->GetLevelNumber();
+	string str = s.str();
+	SetStringAt(0, 22, str, WHITE_BOLD);
 }
 

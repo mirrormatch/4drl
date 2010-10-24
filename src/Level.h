@@ -15,6 +15,8 @@ enum SquareType {
 };
 
 class Entity;
+class Entrance;
+class Exit;
 
 struct GridSquare {
 	SquareType type;
@@ -39,6 +41,9 @@ public:
 	virtual int GetLevelNumber();
 	virtual Entity* EntityAt(int x, int y);
 
+	virtual Entrance* GetEntrance();
+	virtual Exit* GetExit();
+
 protected:
 	virtual Room** GenerateInitialRooms(int numRooms);
 	virtual CompoundRoomVector* MergeBasicRooms(int numRooms, Room** rooms);
@@ -50,6 +55,8 @@ protected:
 	int m_height;
 	int m_numRooms;
 	int m_levelNumber;
+	Entrance* m_entrance;
+	Exit* m_exit;
 };
 
 #endif

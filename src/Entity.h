@@ -14,9 +14,15 @@ class Entity {
 
 		virtual void Update() = 0;
 
+		virtual void SetPosition(int x, int y);
+		virtual int GetX();
+		virtual int GetY();
+
 	protected:
 		char m_dispChar;
 		int m_dispFlags;
+		int m_x;
+		int m_y;
 };
 
 #endif

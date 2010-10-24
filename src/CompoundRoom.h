@@ -28,6 +28,7 @@ public:
 	int GetHeight();
 
 	void ClosestPointToMiddle(int* x, int* y);
+	void GetRandomValidPoint(int* x, int* y);
 
 protected:
 	int m_x;

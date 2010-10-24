@@ -10,6 +10,7 @@ public:
 	Player();
 	virtual ~Player();
 
+	virtual bool Advance(int xinc, int yinc);
 	virtual void Update();
 };
 
