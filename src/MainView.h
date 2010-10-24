@@ -5,6 +5,7 @@
 #include "View.h"
 
 class Level;
+class Player;
 
 class MainView : public View {
 	public:
@@ -16,6 +17,7 @@ class MainView : public View {
 		virtual void Update();
 
 	protected:
+		virtual void DrawStats(Player* p);
 		int m_scrollX;
 		int m_scrollY;
 };

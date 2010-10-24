@@ -97,13 +97,31 @@ void MainView::Update() {
 	SetCharAt(p->GetX() - m_scrollX, p->GetY() - m_scrollY, p->GetDisplayChar(),
 		p->GetDisplayFlags());
 
+	DrawStats(p);
+}
+
+void MainView::DrawStats(Player* p) {
+
 	for(int x = 0; x < 80; x++) {
 		SetCharAt(x, 21, '-', WHITE_BOLD);
 	}
 
+	Level* level = DataManager::Instance()->GetCurrentLevel();
 	stringstream s;
-	s << "Level : " << level->GetLevelNumber();
+	s << "Zone: " << level->GetLevelNumber();
+	s << "  STR: " << p->GetSTR();
+	s << "  DEX: " << p->GetDEX();
+	s << "  ACC: " << p->GetACC();
+	s << "  AC: " << p->GetAC();
 	string str = s.str();
+	SetStringAt(0, 23, str, WHITE_BOLD);
+
+	s.str("");
+	s << p->GetFullName();
+	s << "  Level: " << p->GetLevel();
+	s << "  XP: " << p->GetXP();
+	s << "  HP: " << p->GetCurrentHP() << "/" << p->GetHP();
+	str = s.str();
 	SetStringAt(0, 22, str, WHITE_BOLD);
 }
 

@@ -22,6 +22,7 @@ DataManager::~DataManager() {
 
 void DataManager::CreateNewGame() {
 	m_player = new Player();
+	m_player->CreateDefaults();
 	Level* l = new Level(1);
 	l->Generate(160, 48, 40);
 	m_levels.push_back(l);

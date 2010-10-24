@@ -13,6 +13,7 @@ Done - 1. Basic level generation and display
 		* Make test sizes all > 80,24 so we can ensure map scrolling works
 
 Done - 2. Moving player
+
 3. Stats display
 4. Level transitions
 5. Intro game flow (title, player name entry)
