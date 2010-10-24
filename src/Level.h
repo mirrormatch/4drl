@@ -4,6 +4,7 @@
 #define _LEVEL_H_
 
 #include "GeneralIncludes.h"
+#include "CompoundRoom.h"
 
 // Will add more types as necessary
 enum SquareType {
@@ -16,7 +17,6 @@ struct GridSquare {
 };
 
 class Room;
-class CompoundRoom;
 
 class Level {
 public:
@@ -32,7 +32,7 @@ public:
 
 protected:
 	virtual Room** GenerateInitialRooms(int numRooms);
-	virtual vector<CompoundRoom*>* MergeBasicRooms(int numRooms, Room** rooms);
+	virtual CompoundRoomVector* MergeBasicRooms(int numRooms, Room** rooms);
 	GridSquare*** m_grid;
 	int m_width;
 	int m_height;

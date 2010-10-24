@@ -1,6 +1,5 @@
 
 #include "Level.h"
-#include "CompoundRoom.h"
 #include "Room.h"
 
 Level::Level() {
@@ -22,7 +21,7 @@ void Level::Generate(int w, int h, int numRooms) {
 	}
 
 	Room** rooms = GenerateInitialRooms(numRooms);
-	vector<CompoundRoom*>* crs = MergeBasicRooms(numRooms, rooms);
+	CompoundRoomVector* crs = MergeBasicRooms(numRooms, rooms);
 	for(int i = 0; i < numRooms; i++) {
 		delete rooms[i];
 	}
@@ -53,8 +52,8 @@ Room** Level::GenerateInitialRooms(int numRooms) {
 	return toReturn;
 }
 
-vector<CompoundRoom*>* Level::MergeBasicRooms(int numRooms, Room** rooms) {
-	vector<CompoundRoom*>* newRooms = new vector<CompoundRoom*>();
+CompoundRoomVector* Level::MergeBasicRooms(int numRooms, Room** rooms) {
+	CompoundRoomVector* newRooms = new CompoundRoomVector();
 
 	// load up a vector with the passed in rooms
 	list<Room*> roomList;

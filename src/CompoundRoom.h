@@ -6,6 +6,10 @@
 
 class Room;
 
+class CompoundRoom;
+
+typedef vector<CompoundRoom*> CompoundRoomVector;
+
 class CompoundRoom {
 public:
 	CompoundRoom();

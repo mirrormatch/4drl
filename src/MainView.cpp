@@ -57,7 +57,7 @@ void MainView::Update() {
 					SetCharAt(x - m_scrollX, y - m_scrollY, ' ');
 					break;
 				case ST_EMPTY:
-					SetCharAt(x - m_scrollX, y - m_scrollY, '.');
+					SetCharAt(x - m_scrollX, y - m_scrollY, '.', GREEN);
 					break;
 			}
 		}
