@@ -98,3 +98,6 @@ void View::ClearWith(char ch, int flags) {
 		}
 	}
 }
+
+void View::ResetState() {
+}

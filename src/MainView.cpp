@@ -53,12 +53,15 @@ void MainView::RequestInput() {
 				m_scrollY = p->GetY() - 10;
 			}
 			break;
-		case 'n':
-			DataManager::Instance()->GoToNextLevel();
-			Player* p = DataManager::Instance()->GetPlayer();
-			m_scrollX = p->GetX() - 40;
-			m_scrollY = p->GetY() - 10;
+		case 'i':
+			m_parent->ChangeState(GAME_STATE_INVENTORY);
 			break;
+		//case 'n':
+		//	DataManager::Instance()->GoToNextLevel();
+		//	Player* p = DataManager::Instance()->GetPlayer();
+		//	m_scrollX = p->GetX() - 40;
+		//	m_scrollY = p->GetY() - 10;
+		//	break;
 	}
 }
 
@@ -71,7 +74,7 @@ void MainView::Update() {
 	for(int x = m_scrollX; x < m_scrollX + 80; x++) {
 		for(int y = m_scrollY; y <= m_scrollY + 20; y++) {
 			if(x < 0 || y < 0 || x >= lvlWidth || y >= lvlHeight) {
-				SetCharAt(x - m_scrollX, y - m_scrollY, '#', WHITE);
+				SetCharAt(x - m_scrollX, y - m_scrollY, ' ', WHITE);
 				continue;
 			}
 			switch(level->SquareAt(x, y)->type) {

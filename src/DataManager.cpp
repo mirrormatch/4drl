@@ -4,6 +4,9 @@
 #include "Player.h"
 #include "Exit.h"
 #include "Entrance.h"
+#include "Helm.h"
+#include "BodyArmor.h"
+#include "Pants.h"
 
 DataManager* DataManager::sm_instance = NULL;
 
@@ -75,4 +78,17 @@ Player* DataManager::GetPlayer() {
 
 const StringVector& DataManager::GetClassNames() {
 	return m_classNames;
+}
+
+Item* DataManager::GenerateRandomItem() {
+	switch(rand() % 3) {
+		case 0: // helm
+			return new Helm();
+		case 1: // body
+			return new BodyArmor();
+		case 2: // pants
+			return new Pants();
+		default:
+			return NULL;
+	}
 }

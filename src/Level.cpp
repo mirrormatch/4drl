@@ -23,19 +23,29 @@ void Level::Generate(int w, int h, int numRooms) {
 		}
 	}
 
+	// Create the initial boxes
 	Room** rooms = GenerateInitialRooms(numRooms);
+
+	// Merge the boxes into compound rooms
 	CompoundRoomVector* crs = MergeBasicRooms(numRooms, rooms);
+
+	// clean up the inital boxes
 	for(int i = 0; i < numRooms; i++) {
 		delete rooms[i];
 	}
 	delete [] rooms;
 
+	// Plot the compound rooms
 	for(unsigned int i = 0; i < crs->size(); i++) {
 		CompoundRoom* cr = (*crs)[i];
+		cr->GenerateItems();
 		for(int x = cr->GetX(); x < cr->GetX() + cr->GetWidth(); x++) {
 			for(int y = cr->GetY(); y < cr->GetY() + cr->GetHeight(); y++) {
 				if(cr->IsFilled(x, y)) {
 					m_grid[x][y]->type = ST_EMPTY;
+					if(cr->EntityAt(x, y)) {
+						m_grid[x][y]->entity = cr->EntityAt(x, y);
+					}
 				}
 			}
 		}
@@ -51,10 +61,17 @@ void Level::Generate(int w, int h, int numRooms) {
 		}
 	}
 
+	// Plot the walls around the rooms and cooridors
 	CreateWalls();
-	int x, y;
+
+	// Create the basic openings in the level
 	CompoundRoom* first = crs->front();
 	CompoundRoom* last = crs->back();
+	CreateExits(first, last);
+}
+
+void Level::CreateExits(CompoundRoom* first, CompoundRoom* last) {
+	int x, y;
 	first->GetRandomValidPoint(&x, &y);
 	m_entrance = new Entrance();
 	m_entrance->SetPosition(x, y);

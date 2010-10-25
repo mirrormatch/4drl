@@ -4,6 +4,7 @@
 #include "MainView.h"
 #include "IntroView.h"
 #include "PlayerCreateView.h"
+#include "InventoryView.h"
 #include "DataManager.h"
 
 GameState::GameState(unsigned long seed) : 
@@ -65,6 +66,17 @@ void GameState::ChangeState(StateType newState) {
 			}
 			else {
 				m_currentView = m_views["main"];
+			}
+			break;
+		case GAME_STATE_INVENTORY:
+			if(m_views.find("inventory") == m_views.end()) {
+				m_currentView = new InventoryView(this, 80, 24);
+				m_currentView->Initialize();
+				m_views["inventory"] = m_currentView;
+			}
+			else {
+				m_currentView = m_views["inventory"];
+				m_currentView->ResetState();
 			}
 			break;
 		default:

@@ -32,3 +32,11 @@ int Entity::GetY() {
 EntityClass Entity::GetClass() {
 	return m_class;
 }
+
+string& Entity::GetDisplayName() {
+	return m_displayName;
+}
+
+void Entity::SetDisplayName(string name) {
+	m_displayName = name;
+}

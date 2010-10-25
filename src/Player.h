@@ -4,6 +4,10 @@
 
 #include "GeneralIncludes.h"
 #include "Entity.h"
+#include "Inventory.h"
+
+class ArmorItem;
+class Item;
 
 class Player : public Entity {
 public:
@@ -41,6 +45,23 @@ public:
 	virtual int GetAC();
 	virtual void SetAC(int ac);
 
+	Inventory& GetInventory();
+	Item* GetHeadItem();
+	Item* GetBodyItem();
+	Item* GetLegsItem();
+	Item* GetLeftHandItem();
+	Item* GetRightHandItem();
+	void SetHeadItem(ArmorItem* newItem);
+	void SetBodyItem(ArmorItem* newItem);
+	void SetLegsItem(ArmorItem* newItem);
+	void SetLeftHandItem(Item* newItem);
+	void SetRightHandItem(Item* newItem);
+	void ReturnHeadItemToInventory();
+	void ReturnBodyItemToInventory();
+	void ReturnLegsItemToInventory();
+	void ReturnLeftHandItemToInventory();
+	void ReturnRightHandItemToInventory();
+
 protected:
 	string m_name;
 	string m_title;
@@ -53,6 +74,12 @@ protected:
 	int m_ac;
 	int m_acc;
 	int m_level;
+	Inventory m_inventory;
+	ArmorItem* m_headSlot;
+	ArmorItem* m_bodySlot;
+	ArmorItem* m_legsSlot;
+	Item* m_leftHandSlot;
+	Item* m_rightHandSlot;
 };
 
 #endif

@@ -5,7 +5,7 @@
 #include "GeneralIncludes.h"
 
 class Room;
-
+class Entity;
 class CompoundRoom;
 
 typedef vector<CompoundRoom*> CompoundRoomVector;
@@ -30,11 +30,16 @@ public:
 	void ClosestPointToMiddle(int* x, int* y);
 	void GetRandomValidPoint(int* x, int* y);
 
+	Entity* EntityAt(int x, int y);
+
+	void GenerateItems();
+
 protected:
 	int m_x;
 	int m_y;
 	int m_width;
 	int m_height;
+	Entity*** m_entities;
 	bool** m_data;
 };
 

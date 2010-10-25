@@ -14,9 +14,11 @@ Done - 2. Moving player
 Done - 3. Stats display
 Done - 4. Level transitions
 Done - 5. Intro game flow (title, player name entry)
+Done - 6. Pickup items and inventory
+	Done - * Let players walk over item, move item to inventory
+	Done - * Let players view inventory
+Done - 7. Equip/unequip items
 
-6. Pickup items and inventory
-7. Equip/unequip items
 8. Monsters!
 9. Death flow
 10. Save/load

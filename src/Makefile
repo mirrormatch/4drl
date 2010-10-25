@@ -5,6 +5,8 @@ IFLAGS=
 LFLAGS=-lncurses
 
 FILES=\
+	ArmorItem.o \
+	BodyArmor.o \
 	ColorPairs.o \
 	CompoundRoom.o \
 	DataManager.o \
@@ -12,10 +14,15 @@ FILES=\
 	Entrance.o \
 	Exit.o \
 	GameState.o \
+	Helm.o \
 	IntroView.o \
+	Inventory.o \
+	InventoryView.o \
+	Item.o \
 	Level.o \
 	Main.o \
 	MainView.o \
+	Pants.o \
 	Player.o \
 	PlayerCreateView.o \
 	Room.o \

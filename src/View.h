@@ -23,6 +23,7 @@ class View {
 		virtual void Clear();
 		virtual void ClearWith(char ch, int flags = 0);
 		virtual void Update();
+		virtual void ResetState();
 
 	protected:
 		GameState* m_parent;

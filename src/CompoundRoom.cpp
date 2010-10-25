@@ -1,6 +1,9 @@
 
 #include "CompoundRoom.h"
 #include "Room.h"
+#include "Entity.h"
+#include "DataManager.h"
+#include "Item.h"
 
 CompoundRoom::CompoundRoom() : 
 	m_x(0), m_y(0), m_width(0), m_height(0), m_data(NULL){
@@ -22,6 +25,15 @@ void CompoundRoom::Initialize(Room* firstRoom) {
 			m_data[x][y] = true;
 		}
 	}
+
+	m_entities = new Entity**[m_width];
+	for(int x = 0; x < m_width; x++) {
+		m_entities[x] = new Entity*[m_height];
+		for(int y = 0; y < m_height; y++) {
+			m_entities[x][y] = NULL;
+		}
+	}
+
 }
 
 bool CompoundRoom::Overlaps(Room* r) {
@@ -77,12 +89,20 @@ void CompoundRoom::Merge(Room* r) {
 	int width = ex - lx;
 	int height = ey - ly;
 
-	// prep the new data array
+	// prep the new data arrays
 	bool** newData = new bool*[width];
 	for(int x = 0; x < width; x++) {
 		newData[x] = new bool[height];
 		for(int y = 0; y < height; y++) {
 			newData[x][y] = false;
+		}
+	}
+
+	Entity*** newEntities = new Entity**[width];
+	for(int x = 0; x < width; x++) {
+		newEntities[x] = new Entity*[height];
+		for(int y = 0; y < height; y++) {
+			newEntities[x][y] = NULL;
 		}
 	}
 
@@ -92,6 +112,7 @@ void CompoundRoom::Merge(Room* r) {
 	for(int x = oldStartX; x < oldStartX + m_width; x++) {
 		for(int y = oldStartY; y < oldStartY + m_height; y++) {
 			newData[x][y] = m_data[x - oldStartX][y - oldStartY];
+			newEntities[x][y] = m_entities[x - oldStartX][y - oldStartY];
 		}
 	}
 
@@ -107,8 +128,10 @@ void CompoundRoom::Merge(Room* r) {
 	// delete the old room
 	for(int x = 0; x < m_width; x++) {
 		delete [] m_data[x];
+		delete [] m_entities[x];
 	}
 	delete [] m_data;
+	delete [] m_entities;
 
 	// copy over the new values
 	m_x = lx;
@@ -116,6 +139,7 @@ void CompoundRoom::Merge(Room* r) {
 	m_width = width;
 	m_height = height;
 	m_data = newData;
+	m_entities = newEntities;
 }
 
 bool CompoundRoom::IsFilled(int x, int y) {
@@ -153,10 +177,29 @@ void CompoundRoom::ClosestPointToMiddle(int* x, int* y) {
 void CompoundRoom::GetRandomValidPoint(int* x, int* y) {
 	int tx = (rand() % m_width) + m_x;
 	int ty = (rand() % m_height) + m_y;
-	while(!IsFilled(tx, ty)) {
+	while(!IsFilled(tx, ty) && !EntityAt(tx, ty)) {
 		tx = (rand() % m_width) + m_x;
 		ty = (rand() % m_height) + m_y;
 	}
 	*x = tx;
 	*y = ty;
+}
+
+Entity* CompoundRoom::EntityAt(int x, int y) {
+	if(x >= m_x && x < m_x + m_width && y >= m_y && y < m_y + m_height) {
+		return m_entities[x - m_x][y - m_y];
+	}
+	return NULL;
+}
+
+void CompoundRoom::GenerateItems() {
+	// FIXME: make this based on room area, not on a simple rand
+	int count = rand() % 2;
+	for(int i = 0; i < count; i++) {
+		Item* toAdd = DataManager::Instance()->GenerateRandomItem();
+		int x, y;
+		GetRandomValidPoint(&x, &y);
+		toAdd->SetPosition(x, y);
+		m_entities[x - m_x][y - m_y] = toAdd;
+	}
 }

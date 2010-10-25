@@ -8,7 +8,12 @@ enum EntityClass {
 	E_GENERIC,
 	E_ENTRANCE,
 	E_EXIT,
-	E_PLAYER
+	E_PLAYER,
+	E_CONSUMABLE,
+	E_WEAPON,
+	E_HELM,
+	E_BODY,
+	E_LEGS
 };
 
 class Entity {
@@ -27,6 +32,8 @@ class Entity {
 		virtual int GetY();
 
 		virtual EntityClass GetClass();
+		virtual string& GetDisplayName();
+		virtual void SetDisplayName(string name);
 
 	protected:
 		char m_dispChar;
@@ -34,6 +41,7 @@ class Entity {
 		int m_x;
 		int m_y;
 		EntityClass m_class;
+		string m_displayName;
 };
 
 #endif

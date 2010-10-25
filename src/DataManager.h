@@ -4,6 +4,7 @@
 
 #include "GeneralIncludes.h"
 
+class Item;
 class Level;
 class Player;
 
@@ -21,6 +22,8 @@ public:
 	void LoadInfo();
 
 	const StringVector& GetClassNames();
+
+	Item* GenerateRandomItem();
 
 	//FIXME: Implement these
 	//void LoadGame(string& path);

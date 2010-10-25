@@ -2,8 +2,13 @@
 #include "Player.h"
 #include "DataManager.h"
 #include "Level.h"
+#include "Item.h"
+#include "Helm.h"
+#include "BodyArmor.h"
+#include "Pants.h"
 
-Player::Player() : Entity('@', YELLOW_BOLD, E_PLAYER) {
+Player::Player() : 
+	Entity('@', YELLOW_BOLD, E_PLAYER), m_headSlot(NULL), m_bodySlot(NULL), m_legsSlot(NULL), m_leftHandSlot(NULL), m_rightHandSlot(NULL) {
 }
 
 Player::~Player() {
@@ -19,7 +24,6 @@ bool Player::Advance(int xinc, int yinc) {
 	Level* l = DataManager::Instance()->GetCurrentLevel();
 	if(l->IsSquareOpen(m_x + xinc, m_y + yinc)) {
 		SetPosition(m_x + xinc, m_y + yinc);
-		//FIXME: interact with items on the board
 		Entity* e = l->EntityAt(m_x, m_y);
 		if(e) {
 			e->Activate();
@@ -143,5 +147,97 @@ int Player::GetAC() {
 
 void Player::SetAC(int ac) {
 	m_ac = ac;
+}
+
+Inventory& Player::GetInventory() {
+	return m_inventory;
+}
+
+Item* Player::GetHeadItem() {
+	return m_headSlot;
+}
+
+Item* Player::GetBodyItem() {
+	return m_bodySlot;
+}
+
+Item* Player::GetLegsItem() {
+	return m_legsSlot;
+}
+
+Item* Player::GetLeftHandItem() {
+	return m_leftHandSlot;
+}
+
+Item* Player::GetRightHandItem() {
+	return m_rightHandSlot;
+}
+
+void Player::SetHeadItem(ArmorItem* newItem) {
+	if(m_headSlot) {
+		m_ac -= m_headSlot->GetAC();
+	}
+	m_headSlot = newItem;
+	m_ac += newItem->GetAC();
+}
+
+void Player::SetBodyItem(ArmorItem* newItem) {
+	if(m_bodySlot) {
+		m_ac -= m_bodySlot->GetAC();
+	}
+	m_bodySlot = newItem;
+	m_ac += newItem->GetAC();
+}
+
+void Player::SetLegsItem(ArmorItem* newItem) {
+	if(m_legsSlot) {
+		m_ac -= m_legsSlot->GetAC();
+	}
+	m_legsSlot = newItem;
+	m_ac += newItem->GetAC();
+}
+
+void Player::SetLeftHandItem(Item* newItem) {
+}
+
+void Player::SetRightHandItem(Item* newItem) {
+}
+
+void Player::ReturnHeadItemToInventory() {
+	if(m_headSlot) {
+		m_inventory.AddItem(m_headSlot);
+		m_ac -= m_headSlot->GetAC();
+		m_headSlot = NULL;
+	}
+}
+
+void Player::ReturnBodyItemToInventory() {
+	if(m_bodySlot) {
+		m_inventory.AddItem(m_bodySlot);
+		m_ac -= m_bodySlot->GetAC();
+		m_bodySlot = NULL;
+	}
+}
+
+void Player::ReturnLegsItemToInventory() {
+	if(m_legsSlot) {
+		m_inventory.AddItem(m_legsSlot);
+		m_ac -= m_legsSlot->GetAC();
+		m_legsSlot = NULL;
+	}
+}
+
+void Player::ReturnLeftHandItemToInventory() {
+	if(m_leftHandSlot) {
+		m_inventory.AddItem(m_leftHandSlot);
+		m_leftHandSlot = NULL;
+	}
+}
+
+void Player::ReturnRightHandItemToInventory() {
+	if(m_rightHandSlot) {
+		m_inventory.AddItem(m_rightHandSlot);
+		m_rightHandSlot = NULL;
+	}
 }
 

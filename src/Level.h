@@ -50,6 +50,7 @@ protected:
 	virtual void CreateCooridor(CompoundRoom* first, CompoundRoom* second);
 	virtual void CreateWalls();
 	virtual bool AnyAdjacentAreFloors(int x, int y);
+	virtual void CreateExits(CompoundRoom* first, CompoundRoom* last);
 	GridSquare*** m_grid;
 	int m_width;
 	int m_height;
