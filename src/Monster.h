@@ -22,8 +22,11 @@ public:
 	virtual bool ShouldRemove();
 	virtual void Kill();
 
+	virtual int GetXPValue();
+
 protected:
 	int m_hp;
+	int m_xpValue;
 	bool m_isTarget;
 };
 

@@ -266,3 +266,8 @@ void Level::Update() {
 		}
 	}
 }
+
+void Level::AddEntity(Entity* toAdd) {
+	m_grid[toAdd->GetX()][toAdd->GetY()]->entity = toAdd;
+	m_entities.push_back(toAdd);
+}

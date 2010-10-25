@@ -45,6 +45,7 @@ public:
 	virtual Entrance* GetEntrance();
 	virtual Exit* GetExit();
 	virtual void RemoveEntity(Entity* toRemove);
+	virtual void AddEntity(Entity* toAdd);
 
 	virtual void Update();
 

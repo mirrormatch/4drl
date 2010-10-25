@@ -7,7 +7,8 @@
 Monster::Monster() : Entity('M', RED_BOLD, E_MONSTER) {
 	m_isPassable = false;
 	m_hp = 10;
-	SetDisplayName("Tyrranasarus Test");
+	m_xpValue = 5;
+	SetDisplayName("Tyrranosarus Test");
 }
 
 Monster::~Monster() {
@@ -16,6 +17,13 @@ Monster::~Monster() {
 void Monster::Kill() {
 	Player* p = DataManager::Instance()->GetPlayer();
 	p->SetTarget(NULL);
+	p->IncrementXP(GetXPValue());
+	if(rand() % 2) {
+		Item* loot = DataManager::Instance()->GenerateRandomItem();
+		loot->SetPosition(m_x, m_y);
+		Level* l = DataManager::Instance()->GetCurrentLevel();
+		l->AddEntity(loot);
+	}
 }
 
 void Monster::Update() {
@@ -78,4 +86,8 @@ void Monster::SetIsTarget(bool isTarget) {
 
 bool Monster::ShouldRemove() {
 	return IsDead();
+}
+
+int Monster::GetXPValue() {
+	return m_xpValue;
 }
