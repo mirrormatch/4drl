@@ -16,7 +16,7 @@ class View {
 		virtual ~View();
 		virtual void Initialize();
 
-		virtual void RequestInput();
+		virtual bool RequestInput();
 		virtual void Draw();
 		virtual void SetCharAt(int x, int y, char value, int flags = 0);
 		virtual void SetStringAt(int x, int y, string& value, int flags = 0);
@@ -25,6 +25,9 @@ class View {
 		virtual void Update();
 		virtual void ResetState();
 
+		virtual void SetCursorVisible(bool isVisible);
+		virtual void SetCursorPosition(int x, int y);
+
 	protected:
 		GameState* m_parent;
 		int m_width;
@@ -32,6 +35,10 @@ class View {
 		char** m_screenData;
 		unsigned int** m_screenAttrs;
 		char start;
+
+		int m_cursorX;
+		int m_cursorY;
+		bool m_visibleCursor;
 };
 
 #endif

@@ -4,7 +4,8 @@
 #include "GameState.h"
 
 View::View(GameState* parent, int w, int h) : 
-	m_parent(parent), m_width(w), m_height(h), m_screenData(NULL), m_screenAttrs(NULL), start(' ') {
+	m_parent(parent), m_width(w), m_height(h), m_screenData(NULL), m_screenAttrs(NULL), start(' '), m_cursorX(w-1), m_cursorY(h-1), m_visibleCursor(false) {
+	curs_set(0);
 }
 
 void View::Initialize() {
@@ -35,8 +36,7 @@ View::~View() {
 		m_screenAttrs = NULL;
 	}
 }
-
-void View::RequestInput() {
+bool View::RequestInput() {
 	char ch = getch();
 	//TODO: remove this once we have real game screens, for now just so we reset
 	// term
@@ -57,6 +57,8 @@ void View::RequestInput() {
 			ClearWith(start);
 			break;
 	}
+
+	return false;
 }
 
 void View::Update() {
@@ -71,6 +73,7 @@ void View::Draw() {
 			addch(m_screenData[x][y] | m_screenAttrs[x][y]);
 		}
 	}
+	move(m_cursorY, m_cursorX);
 }
 
 void View::SetCharAt(int x, int y, char value, int flags) {
@@ -100,4 +103,19 @@ void View::ClearWith(char ch, int flags) {
 }
 
 void View::ResetState() {
+}
+
+void View::SetCursorPosition(int x, int y) {
+	m_cursorX = x;
+	m_cursorY = y;
+}
+
+void View::SetCursorVisible(bool isVisible) {
+	m_visibleCursor = isVisible;
+	if(isVisible) {
+		curs_set(1);
+	}
+	else {
+		curs_set(0);
+	}
 }

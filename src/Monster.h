@@ -13,6 +13,18 @@ public:
 	virtual void Activate();
 
 	virtual void Advance(int x, int y);
+
+	virtual void SetIsTarget(bool isTarget);
+	virtual int GetHP();
+	virtual void SetHP(int hp);
+	virtual void IncrementHP(int inc);
+	virtual bool IsDead();
+	virtual bool ShouldRemove();
+	virtual void Kill();
+
+protected:
+	int m_hp;
+	bool m_isTarget;
 };
 
 #endif

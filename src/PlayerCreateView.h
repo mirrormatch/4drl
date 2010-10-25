@@ -16,7 +16,7 @@ class PlayerCreateView : public View {
 		virtual ~PlayerCreateView();
 		virtual void Initialize();
 
-		virtual void RequestInput();
+		virtual bool RequestInput();
 		virtual void Update();
 
 	protected:

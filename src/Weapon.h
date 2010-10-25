@@ -9,6 +9,13 @@ class Weapon: public Item {
 public:
 	Weapon();
 	virtual ~Weapon();
+
+	virtual int GetRange();
+	virtual int GetBaseDamage();
+
+protected:
+	int m_range;
+	int m_baseDamage;
 };
 
 #endif

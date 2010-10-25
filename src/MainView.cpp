@@ -9,7 +9,7 @@
 #include "Player.h"
 
 MainView::MainView(GameState* gs, int w, int h) : 
-	View(gs, w, h), m_scrollX(0), m_scrollY(0) {
+	View(gs, w, h), m_scrollX(0), m_scrollY(0), m_state(MVIS_MAIN) {
 }
 
 MainView::~MainView() {
@@ -22,13 +22,23 @@ void MainView::Initialize() {
 	m_scrollY = p->GetY() - 10;
 }
 
-void MainView::RequestInput() {
+bool MainView::RequestInput() {
 	int ch = getch();
+	switch(m_state) {
+		case MVIS_TARGET_SELECT:
+			return HandleTargetSelectInput(ch);
+		case MVIS_MAIN:
+		default:
+			return HandleMainInput(ch);
+	}
+}
+
+bool MainView::HandleMainInput(int ch) {
 	Player* p = DataManager::Instance()->GetPlayer();
 	switch(ch) {
 		case 'q':
 			m_parent->RequestQuit();
-			break;
+			return false;
 		case KEY_LEFT:
 			if(p->Advance(-1, 0)) {
 				m_scrollX = p->GetX() - 40;
@@ -53,12 +63,20 @@ void MainView::RequestInput() {
 				m_scrollY = p->GetY() - 10;
 			}
 			break;
+		case 'a':
+			p->AttackTarget();
+			break;
 		case ' ':
 			// Do nothing, just skipping a turn
 			break;
+		case 't':
+			// Change to targeting mode
+			m_state = MVIS_TARGET_SELECT;
+			SetCursorVisible(true);
+			return false;
 		case 'i':
 			m_parent->ChangeState(GAME_STATE_INVENTORY);
-			break;
+			return false;
 		//case 'n':
 		//	DataManager::Instance()->GoToNextLevel();
 		//	Player* p = DataManager::Instance()->GetPlayer();
@@ -66,17 +84,55 @@ void MainView::RequestInput() {
 		//	m_scrollY = p->GetY() - 10;
 		//	break;
 	}
+	return true;
+}
+
+bool MainView::HandleTargetSelectInput(int ch) {
+	Player* p = DataManager::Instance()->GetPlayer();
+	Level* l = DataManager::Instance()->GetCurrentLevel();
+	int tx, ty;
+	switch(ch) {
+		case 27:
+			m_state = MVIS_MAIN;
+			SetCursorVisible(false);
+			break;
+		case KEY_LEFT:
+			SetCursorPosition(m_cursorX - 1, m_cursorY);
+			break;
+		case KEY_RIGHT:
+			SetCursorPosition(m_cursorX + 1, m_cursorY);
+			break;
+		case KEY_UP:
+			SetCursorPosition(m_cursorX, m_cursorY - 1);
+			break;
+		case KEY_DOWN:
+			SetCursorPosition(m_cursorX, m_cursorY + 1);
+			break;
+		case KEY_ENTER:
+		case '\n':
+			tx = m_scrollX + m_cursorX;
+			ty = m_scrollY + m_cursorY;
+			if(l->EntityAt(tx, ty) && l->EntityAt(tx, ty)->GetClass() == E_MONSTER) {
+				p->SetTarget((Monster*)l->EntityAt(tx, ty));
+				m_state = MVIS_MAIN;
+				SetCursorVisible(false);
+			}
+			break;
+		case 'q':
+			m_parent->RequestQuit();
+			break;
+	}
+	return false;
 }
 
 void MainView::Update() {
 	Clear();
 	Level* level = DataManager::Instance()->GetCurrentLevel();
-	level->Update();
 	int lvlWidth = level->GetWidth();
 	int lvlHeight = level->GetHeight();
 
 	for(int x = m_scrollX; x < m_scrollX + 80; x++) {
-		for(int y = m_scrollY; y <= m_scrollY + 20; y++) {
+		for(int y = m_scrollY; y <= m_scrollY + 19; y++) {
 			if(x < 0 || y < 0 || x >= lvlWidth || y >= lvlHeight) {
 				SetCharAt(x - m_scrollX, y - m_scrollY, ' ', WHITE);
 				continue;
@@ -109,12 +165,15 @@ void MainView::Update() {
 		p->GetDisplayFlags());
 
 	DrawStats(p);
+	if(m_state == MVIS_MAIN) {
+		SetCursorPosition(p->GetX() - m_scrollX, p->GetY() - m_scrollY);
+	}
 }
 
 void MainView::DrawStats(Player* p) {
 
 	for(int x = 0; x < 80; x++) {
-		SetCharAt(x, 21, '-', WHITE_BOLD);
+		SetCharAt(x, 20, '-', WHITE_BOLD);
 	}
 
 	Level* level = DataManager::Instance()->GetCurrentLevel();
@@ -134,5 +193,11 @@ void MainView::DrawStats(Player* p) {
 	s << "  HP: " << p->GetCurrentHP() << "/" << p->GetHP();
 	str = s.str();
 	SetStringAt(0, 22, str, WHITE_BOLD);
+
+	if(m_state == MVIS_TARGET_SELECT) {
+		str = "(Place the cursor over your desired target and hit Enter)";
+		int wd2 = str.length() / 2;
+		SetStringAt(40 - wd2, 21, str, YELLOW_BOLD);
+	}
 }
 

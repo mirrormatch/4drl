@@ -17,7 +17,7 @@ void PlayerCreateView::Initialize() {
 	m_selectIdx = 0;
 }
 
-void PlayerCreateView::RequestInput() {
+bool PlayerCreateView::RequestInput() {
 	int ch = getch();
 	switch(m_state) {
 		case PC_NAME:
@@ -27,6 +27,8 @@ void PlayerCreateView::RequestInput() {
 			HandleClassInput(ch);
 		break;
 	}
+
+	return false;
 }
 
 void PlayerCreateView::HandleNameInput(int ch) {

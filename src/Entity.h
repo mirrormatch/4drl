@@ -43,6 +43,10 @@ class Entity {
 		virtual bool IsPassable();
 		virtual void SetIsPassable(bool val);
 
+		virtual int DistanceTo(Entity* e);
+		virtual bool ShouldRemove();
+		virtual void Kill();
+
 	protected:
 		char m_dispChar;
 		int m_dispFlags;

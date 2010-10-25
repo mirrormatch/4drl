@@ -1,5 +1,6 @@
 
 #include "Entity.h"
+#include <math.h>
 
 Entity::Entity(char c, int df, EntityClass cls) : 
 	m_dispChar(c), m_dispFlags(df), m_class(cls), m_isPassable(true) {
@@ -47,4 +48,18 @@ bool Entity::IsPassable() {
 
 void Entity::SetIsPassable(bool val) {
 	m_isPassable = val;
+}
+
+int Entity::DistanceTo(Entity* e) {
+	int x = m_x - e->m_x;
+	int y = m_y - e->m_y;
+	return sqrt(x * x + y * y);
+}
+
+bool Entity::ShouldRemove() {
+	return false;
+}
+
+void Entity::Kill() {
+	// do nothing by default
 }

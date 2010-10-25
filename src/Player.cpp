@@ -8,9 +8,10 @@
 #include "Pants.h"
 #include "Weapon.h"
 #include "Implant.h"
+#include "Monster.h"
 
 Player::Player() : 
-	Entity('@', YELLOW_BOLD, E_PLAYER), m_headSlot(NULL), m_bodySlot(NULL), m_legsSlot(NULL), m_weaponSlot(NULL), m_implantSlot(NULL) {
+	Entity('@', YELLOW_BOLD, E_PLAYER), m_headSlot(NULL), m_bodySlot(NULL), m_legsSlot(NULL), m_weaponSlot(NULL), m_implantSlot(NULL), m_target(NULL) {
 }
 
 Player::~Player() {
@@ -47,6 +48,7 @@ void Player::CreateDefaults() {
 	SetDEX(10);
 	SetACC(10);
 	SetAC(10);
+	m_weaponSlot = new Weapon();
 }
 
 string& Player::GetName() {
@@ -245,3 +247,28 @@ void Player::ReturnImplantItemToInventory() {
 	}
 }
 
+void Player::SetTarget(Monster* target) {
+	if(m_target) {
+		m_target->SetIsTarget(false);
+	}
+	m_target = target;
+	if(m_target) {
+		m_target->SetIsTarget(true);
+	}
+}
+
+void Player::AttackTarget() {
+	// if no target or no weapon, we can't do anything
+	if(!m_target || !m_weaponSlot) {
+		return;
+	}
+
+	// if we're out of range, do nothing
+	if(DistanceTo(m_target) > m_weaponSlot->GetRange()) {
+		return;
+	}
+
+	// FIXME: put better calculations in, for now just sub the base
+	// damage
+	m_target->IncrementHP(-m_weaponSlot->GetBaseDamage());
+}

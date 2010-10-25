@@ -13,7 +13,7 @@ void IntroView::Initialize() {
 	View::Initialize();
 }
 
-void IntroView::RequestInput() {
+bool IntroView::RequestInput() {
 	int ch = getch();
 	switch(ch) {
 		case 'q':
@@ -21,7 +21,10 @@ void IntroView::RequestInput() {
 			break;
 		default:
 			m_parent->ChangeState(GAME_STATE_PLAYER_CREATE);
+			break;
 	}
+
+	return false;
 }
 
 void IntroView::Update() {

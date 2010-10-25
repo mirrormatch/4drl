@@ -10,7 +10,7 @@ class IntroView : public View {
 		virtual ~IntroView();
 		virtual void Initialize();
 
-		virtual void RequestInput();
+		virtual bool RequestInput();
 		virtual void Update();
 };
 

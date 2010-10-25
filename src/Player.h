@@ -10,6 +10,7 @@ class ArmorItem;
 class Item;
 class Weapon;
 class Implant;
+class Monster;
 
 class Player : public Entity {
 public:
@@ -63,6 +64,9 @@ public:
 	void ReturnLegsItemToInventory();
 	void ReturnWeaponItemToInventory();
 	void ReturnImplantItemToInventory();
+	void SetTarget(Monster* target);
+
+	virtual void AttackTarget();
 
 protected:
 	string m_name;
@@ -82,6 +86,7 @@ protected:
 	ArmorItem* m_legsSlot;
 	Weapon* m_weaponSlot;
 	Implant* m_implantSlot;
+	Monster* m_target;
 };
 
 #endif

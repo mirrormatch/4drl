@@ -6,6 +6,7 @@
 #include "PlayerCreateView.h"
 #include "InventoryView.h"
 #include "DataManager.h"
+#include "Level.h"
 
 GameState::GameState(unsigned long seed) : 
 	m_seed(seed), m_isRunning(true), m_currentView(NULL), 
@@ -27,14 +28,20 @@ void GameState::Initialize() {
 	DataManager::Instance()->CreateNewGame();
 	m_currentView = new IntroView(this, 80, 24);
 	m_currentView->Initialize();
+	m_currentView->Update();
+	m_currentView->Draw();
 	m_views["intro"] = m_currentView;
 }
 
 void GameState::Update() {
 	if(m_isRunning) {
+		if(m_currentView->RequestInput()) {
+			// only update the world if the view says an action was taken
+			Level* level = DataManager::Instance()->GetCurrentLevel();
+			level->Update();
+		}
 		m_currentView->Update();
 		m_currentView->Draw();
-		m_currentView->RequestInput();
 	}
 }
 

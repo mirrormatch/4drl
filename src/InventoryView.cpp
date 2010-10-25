@@ -17,7 +17,7 @@ InventoryView::InventoryView(GameState* gs, int w, int h) :
 InventoryView::~InventoryView() {
 }
 
-void InventoryView::RequestInput() {
+bool InventoryView::RequestInput() {
 	int ch = getch();
 	Player* p = DataManager::Instance()->GetPlayer();
 	Inventory& inv = p->GetInventory();
@@ -57,6 +57,7 @@ void InventoryView::RequestInput() {
 			m_parent->ChangeState(GAME_STATE_MAIN);
 			break;
 	}
+	return false;
 }
 
 void InventoryView::HandleItemSelection() {

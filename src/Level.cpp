@@ -252,8 +252,17 @@ void Level::RemoveEntity(Entity* toRemove) {
 }
 
 void Level::Update() {
-	for(EntityList::iterator i = m_entities.begin(); i != m_entities.end(); i++) {
+	EntityList::iterator i = m_entities.begin();
+	while(i != m_entities.end()) {
 		Entity* e = *i;
-		e->Update();
+		if(e->ShouldRemove()) {
+			m_grid[e->GetX()][e->GetY()]->entity = NULL;
+			e->Kill();
+			i = m_entities.erase(i);
+		}
+		else {
+			e->Update();
+			i++;
+		}
 	}
 }

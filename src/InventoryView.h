@@ -12,7 +12,7 @@ public:
 	InventoryView(GameState* gs, int w, int h);
 	virtual ~InventoryView();
 
-	virtual void RequestInput();
+	virtual bool RequestInput();
 	virtual void Inititalize();
 	virtual void Update();
 	virtual void ResetState();
