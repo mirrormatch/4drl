@@ -6,9 +6,11 @@
 #include "Helm.h"
 #include "BodyArmor.h"
 #include "Pants.h"
+#include "Weapon.h"
+#include "Implant.h"
 
 Player::Player() : 
-	Entity('@', YELLOW_BOLD, E_PLAYER), m_headSlot(NULL), m_bodySlot(NULL), m_legsSlot(NULL), m_leftHandSlot(NULL), m_rightHandSlot(NULL) {
+	Entity('@', YELLOW_BOLD, E_PLAYER), m_headSlot(NULL), m_bodySlot(NULL), m_legsSlot(NULL), m_weaponSlot(NULL), m_implantSlot(NULL) {
 }
 
 Player::~Player() {
@@ -153,24 +155,24 @@ Inventory& Player::GetInventory() {
 	return m_inventory;
 }
 
-Item* Player::GetHeadItem() {
+ArmorItem* Player::GetHeadItem() {
 	return m_headSlot;
 }
 
-Item* Player::GetBodyItem() {
+ArmorItem* Player::GetBodyItem() {
 	return m_bodySlot;
 }
 
-Item* Player::GetLegsItem() {
+ArmorItem* Player::GetLegsItem() {
 	return m_legsSlot;
 }
 
-Item* Player::GetLeftHandItem() {
-	return m_leftHandSlot;
+Weapon* Player::GetWeaponItem() {
+	return m_weaponSlot;
 }
 
-Item* Player::GetRightHandItem() {
-	return m_rightHandSlot;
+Implant* Player::GetImplantItem() {
+	return m_implantSlot;
 }
 
 void Player::SetHeadItem(ArmorItem* newItem) {
@@ -197,10 +199,12 @@ void Player::SetLegsItem(ArmorItem* newItem) {
 	m_ac += newItem->GetAC();
 }
 
-void Player::SetLeftHandItem(Item* newItem) {
+void Player::SetWeaponItem(Weapon* newItem) {
+	m_weaponSlot = newItem;
 }
 
-void Player::SetRightHandItem(Item* newItem) {
+void Player::SetImplantItem(Implant* newItem) {
+	m_implantSlot = newItem;
 }
 
 void Player::ReturnHeadItemToInventory() {
@@ -227,17 +231,17 @@ void Player::ReturnLegsItemToInventory() {
 	}
 }
 
-void Player::ReturnLeftHandItemToInventory() {
-	if(m_leftHandSlot) {
-		m_inventory.AddItem(m_leftHandSlot);
-		m_leftHandSlot = NULL;
+void Player::ReturnWeaponItemToInventory() {
+	if(m_weaponSlot) {
+		m_inventory.AddItem(m_weaponSlot);
+		m_weaponSlot = NULL;
 	}
 }
 
-void Player::ReturnRightHandItemToInventory() {
-	if(m_rightHandSlot) {
-		m_inventory.AddItem(m_rightHandSlot);
-		m_rightHandSlot = NULL;
+void Player::ReturnImplantItemToInventory() {
+	if(m_implantSlot) {
+		m_inventory.AddItem(m_implantSlot);
+		m_implantSlot = NULL;
 	}
 }
 

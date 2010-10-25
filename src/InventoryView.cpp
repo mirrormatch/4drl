@@ -4,6 +4,10 @@
 #include "Player.h"
 #include "Inventory.h"
 #include "DataManager.h"
+#include "Item.h"
+#include "ArmorItem.h"
+#include "Weapon.h"
+#include "Implant.h"
 #include <sstream>
 
 InventoryView::InventoryView(GameState* gs, int w, int h) :
@@ -87,6 +91,22 @@ void InventoryView::HandleItemSelection() {
 						inv.AddItem(oldItem);
 					}
 					break;
+				case E_WEAPON:
+					inv.RemoveItem(toUse);
+					oldItem = p->GetWeaponItem();
+					p->SetWeaponItem((Weapon*)toUse);
+					if(oldItem) {
+						inv.AddItem(oldItem);
+					}
+					break;
+				case E_IMPLANT:
+					inv.RemoveItem(toUse);
+					oldItem = p->GetImplantItem();
+					p->SetImplantItem((Implant*)toUse);
+					if(oldItem) {
+						inv.AddItem(oldItem);
+					}
+					break;
 				default:
 					break;
 			}
@@ -104,10 +124,10 @@ void InventoryView::HandleItemSelection() {
 				p->ReturnLegsItemToInventory();
 				break;
 			case 3:
-				p->ReturnLeftHandItemToInventory();
+				p->ReturnWeaponItemToInventory();
 				break;
 			case 4:
-				p->ReturnRightHandItemToInventory();
+				p->ReturnImplantItemToInventory();
 				break;
 		}
 	}
@@ -141,10 +161,10 @@ void InventoryView::Update() {
 	SetStringAt(10, 8, toDraw, WHITE);
 	toDraw = "Legs: ";
 	SetStringAt(10, 10, toDraw, WHITE);
-	toDraw = "Left Hand: ";
-	SetStringAt(5, 12, toDraw, WHITE);
-	toDraw = "Right Hand: ";
-	SetStringAt(4, 14, toDraw, WHITE);
+	toDraw = "Weapon: ";
+	SetStringAt(8, 12, toDraw, WHITE);
+	toDraw = "Implant: ";
+	SetStringAt(7, 14, toDraw, WHITE);
 
 	// Show inventory items
 	Player* p = DataManager::Instance()->GetPlayer();
@@ -176,8 +196,8 @@ void InventoryView::Update() {
 	DrawPaperDollItem(p->GetHeadItem(), 6, 0);
 	DrawPaperDollItem(p->GetBodyItem(), 8, 1);
 	DrawPaperDollItem(p->GetLegsItem(), 10, 2);
-	DrawPaperDollItem(p->GetLeftHandItem(), 12, 3);
-	DrawPaperDollItem(p->GetRightHandItem(), 14, 4);
+	DrawPaperDollItem(p->GetWeaponItem(), 12, 3);
+	DrawPaperDollItem(p->GetImplantItem(), 14, 4);
 
 	//stringstream s;
 	//s << "num items " << inv.NumItems();

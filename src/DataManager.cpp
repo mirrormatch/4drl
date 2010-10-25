@@ -7,6 +7,8 @@
 #include "Helm.h"
 #include "BodyArmor.h"
 #include "Pants.h"
+#include "Weapon.h"
+#include "Implant.h"
 
 DataManager* DataManager::sm_instance = NULL;
 
@@ -81,13 +83,17 @@ const StringVector& DataManager::GetClassNames() {
 }
 
 Item* DataManager::GenerateRandomItem() {
-	switch(rand() % 3) {
-		case 0: // helm
+	switch(rand() % 5) {
+		case 0:
 			return new Helm();
-		case 1: // body
+		case 1:
 			return new BodyArmor();
-		case 2: // pants
+		case 2:
 			return new Pants();
+		case 3:
+			return new Weapon();
+		case 4:
+			return new Implant();
 		default:
 			return NULL;
 	}

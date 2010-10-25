@@ -8,6 +8,8 @@
 
 class ArmorItem;
 class Item;
+class Weapon;
+class Implant;
 
 class Player : public Entity {
 public:
@@ -46,21 +48,21 @@ public:
 	virtual void SetAC(int ac);
 
 	Inventory& GetInventory();
-	Item* GetHeadItem();
-	Item* GetBodyItem();
-	Item* GetLegsItem();
-	Item* GetLeftHandItem();
-	Item* GetRightHandItem();
+	ArmorItem* GetHeadItem();
+	ArmorItem* GetBodyItem();
+	ArmorItem* GetLegsItem();
+	Weapon* GetWeaponItem();
+	Implant* GetImplantItem();
 	void SetHeadItem(ArmorItem* newItem);
 	void SetBodyItem(ArmorItem* newItem);
 	void SetLegsItem(ArmorItem* newItem);
-	void SetLeftHandItem(Item* newItem);
-	void SetRightHandItem(Item* newItem);
+	void SetWeaponItem(Weapon* newItem);
+	void SetImplantItem(Implant* newItem);
 	void ReturnHeadItemToInventory();
 	void ReturnBodyItemToInventory();
 	void ReturnLegsItemToInventory();
-	void ReturnLeftHandItemToInventory();
-	void ReturnRightHandItemToInventory();
+	void ReturnWeaponItemToInventory();
+	void ReturnImplantItemToInventory();
 
 protected:
 	string m_name;
@@ -78,8 +80,8 @@ protected:
 	ArmorItem* m_headSlot;
 	ArmorItem* m_bodySlot;
 	ArmorItem* m_legsSlot;
-	Item* m_leftHandSlot;
-	Item* m_rightHandSlot;
+	Weapon* m_weaponSlot;
+	Implant* m_implantSlot;
 };
 
 #endif

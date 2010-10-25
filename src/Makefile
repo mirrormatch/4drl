@@ -15,6 +15,7 @@ FILES=\
 	Exit.o \
 	GameState.o \
 	Helm.o \
+	Implant.o \
 	IntroView.o \
 	Inventory.o \
 	InventoryView.o \
@@ -26,7 +27,8 @@ FILES=\
 	Player.o \
 	PlayerCreateView.o \
 	Room.o \
-	View.o
+	View.o \
+	Weapon.o
 
 EXECUTABLE=4drl
 

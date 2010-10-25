@@ -11,6 +11,7 @@ enum EntityClass {
 	E_PLAYER,
 	E_CONSUMABLE,
 	E_WEAPON,
+	E_IMPLANT,
 	E_HELM,
 	E_BODY,
 	E_LEGS
