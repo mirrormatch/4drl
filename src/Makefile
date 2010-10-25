@@ -5,19 +5,21 @@ IFLAGS=
 LFLAGS=-lncurses
 
 FILES=\
-	Main.o \
-	GameState.o \
-	View.o \
 	ColorPairs.o \
-	Level.o \
-	MainView.o \
-	Room.o \
 	CompoundRoom.o \
-	Entity.o \
 	DataManager.o \
-	Player.o \
+	Entity.o \
 	Entrance.o \
-	Exit.o
+	Exit.o \
+	GameState.o \
+	IntroView.o \
+	Level.o \
+	Main.o \
+	MainView.o \
+	Player.o \
+	PlayerCreateView.o \
+	Room.o \
+	View.o
 
 EXECUTABLE=4drl
 

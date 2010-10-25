@@ -13,8 +13,8 @@ Done - 1. Basic level generation and display
 Done - 2. Moving player
 Done - 3. Stats display
 Done - 4. Level transitions
+Done - 5. Intro game flow (title, player name entry)
 
-5. Intro game flow (title, player name entry)
 6. Pickup items and inventory
 7. Equip/unequip items
 8. Monsters!

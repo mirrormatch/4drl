@@ -10,6 +10,7 @@ DataManager* DataManager::sm_instance = NULL;
 DataManager* DataManager::Instance() {
 	if(DataManager::sm_instance == NULL) {
 		DataManager::sm_instance = new DataManager();
+		DataManager::sm_instance->LoadInfo();
 	}
 
 	return DataManager::sm_instance;
@@ -19,6 +20,15 @@ DataManager::DataManager() {
 }
 
 DataManager::~DataManager() {
+}
+
+void DataManager::LoadInfo() {
+	//FIXME: This needs to come from files
+	m_classNames.push_back("Marine");
+	m_classNames.push_back("Hacker");
+	m_classNames.push_back("Librarian");
+	m_classNames.push_back("Sniper");
+	m_classNames.push_back("Engineer");
 }
 
 void DataManager::CreateNewGame() {
@@ -63,4 +73,6 @@ Player* DataManager::GetPlayer() {
 	return m_player;
 }
 
-
+const StringVector& DataManager::GetClassNames() {
+	return m_classNames;
+}

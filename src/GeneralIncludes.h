@@ -4,7 +4,9 @@
 // stl containers
 #include <vector>
 #include <list>
+#include <map>
 using namespace std;
+typedef vector<string> StringVector;
 
 // Because I wanted memset
 #include "string.h"

@@ -6,6 +6,10 @@
 
 class GameState;
 
+class View;
+typedef map<string, View*> ViewMap;
+typedef ViewMap::iterator ViewMapIter;
+
 class View {
 	public:
 		View(GameState* parent, int w, int h);

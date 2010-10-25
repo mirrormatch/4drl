@@ -18,6 +18,9 @@ public:
 	void GoToNextLevel();
 	void GoToPrevLevel();
 	Player* GetPlayer();
+	void LoadInfo();
+
+	const StringVector& GetClassNames();
 
 	//FIXME: Implement these
 	//void LoadGame(string& path);
@@ -30,6 +33,7 @@ private:
 	LevelVector m_levels;
 	Player* m_player;
 	int m_currentLevel;
+	StringVector m_classNames;
 
 	static DataManager* sm_instance;
 };
