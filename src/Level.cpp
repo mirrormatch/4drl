@@ -39,12 +39,14 @@ void Level::Generate(int w, int h, int numRooms) {
 	for(unsigned int i = 0; i < crs->size(); i++) {
 		CompoundRoom* cr = (*crs)[i];
 		cr->GenerateItems();
+		cr->GenerateMonsters();
 		for(int x = cr->GetX(); x < cr->GetX() + cr->GetWidth(); x++) {
 			for(int y = cr->GetY(); y < cr->GetY() + cr->GetHeight(); y++) {
 				if(cr->IsFilled(x, y)) {
 					m_grid[x][y]->type = ST_EMPTY;
 					if(cr->EntityAt(x, y)) {
 						m_grid[x][y]->entity = cr->EntityAt(x, y);
+						m_entities.push_back(cr->EntityAt(x, y));
 					}
 				}
 			}
@@ -201,12 +203,18 @@ GridSquare* Level::SquareAt(int x, int y) {
 	return m_grid[x][y];
 }
 
-bool Level::IsSquareOpen(int x, int y) {
+bool Level::IsSquareOpen(int x, int y, bool avoidItems) {
 	// FIXME: Eventually needs to take other things into account
 	if(x < 0 || x >= m_width || y < 0 || y >= m_height) {
 		return false;
 	}
 	SquareType st = m_grid[x][y]->type;
+	if(avoidItems && m_grid[x][y]->entity) {
+		return false;
+	}
+	if(m_grid[x][y]->entity && !m_grid[x][y]->entity->IsPassable()) {
+		return false;
+	}
 	return st != ST_VOID && st != ST_WALL;
 }
 
@@ -236,4 +244,16 @@ Entrance* Level::GetEntrance() {
 
 Exit* Level::GetExit() {
 	return m_exit;
+}
+
+void Level::RemoveEntity(Entity* toRemove) {
+	m_entities.remove(toRemove);
+	m_grid[toRemove->GetX()][toRemove->GetY()]->entity = NULL;
+}
+
+void Level::Update() {
+	for(EntityList::iterator i = m_entities.begin(); i != m_entities.end(); i++) {
+		Entity* e = *i;
+		e->Update();
+	}
 }

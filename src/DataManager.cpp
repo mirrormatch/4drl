@@ -9,6 +9,7 @@
 #include "Pants.h"
 #include "Weapon.h"
 #include "Implant.h"
+#include "Monster.h"
 
 DataManager* DataManager::sm_instance = NULL;
 
@@ -97,4 +98,8 @@ Item* DataManager::GenerateRandomItem() {
 		default:
 			return NULL;
 	}
+}
+
+Monster* DataManager::GenerateRandomMonster() {
+	return new Monster();
 }

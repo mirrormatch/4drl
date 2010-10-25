@@ -2,7 +2,7 @@
 #include "Entity.h"
 
 Entity::Entity(char c, int df, EntityClass cls) : 
-	m_dispChar(c), m_dispFlags(df), m_class(cls) {
+	m_dispChar(c), m_dispFlags(df), m_class(cls), m_isPassable(true) {
 }
 
 Entity::~Entity() {
@@ -39,4 +39,12 @@ string& Entity::GetDisplayName() {
 
 void Entity::SetDisplayName(string name) {
 	m_displayName = name;
+}
+
+bool Entity::IsPassable() {
+	return m_isPassable;
+}
+
+void Entity::SetIsPassable(bool val) {
+	m_isPassable = val;
 }

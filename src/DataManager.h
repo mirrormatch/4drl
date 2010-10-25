@@ -7,6 +7,7 @@
 class Item;
 class Level;
 class Player;
+class Monster;
 
 typedef vector<Level*> LevelVector;
 
@@ -24,6 +25,7 @@ public:
 	const StringVector& GetClassNames();
 
 	Item* GenerateRandomItem();
+	Monster* GenerateRandomMonster();
 
 	//FIXME: Implement these
 	//void LoadGame(string& path);

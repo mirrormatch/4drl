@@ -14,8 +14,12 @@ enum EntityClass {
 	E_IMPLANT,
 	E_HELM,
 	E_BODY,
-	E_LEGS
+	E_LEGS,
+	E_MONSTER
 };
+
+class Entity;
+typedef list<Entity*> EntityList;
 
 class Entity {
 	public:
@@ -36,6 +40,9 @@ class Entity {
 		virtual string& GetDisplayName();
 		virtual void SetDisplayName(string name);
 
+		virtual bool IsPassable();
+		virtual void SetIsPassable(bool val);
+
 	protected:
 		char m_dispChar;
 		int m_dispFlags;
@@ -43,6 +50,7 @@ class Entity {
 		int m_y;
 		EntityClass m_class;
 		string m_displayName;
+		bool m_isPassable;
 };
 
 #endif

@@ -53,6 +53,9 @@ void MainView::RequestInput() {
 				m_scrollY = p->GetY() - 10;
 			}
 			break;
+		case ' ':
+			// Do nothing, just skipping a turn
+			break;
 		case 'i':
 			m_parent->ChangeState(GAME_STATE_INVENTORY);
 			break;
@@ -68,6 +71,7 @@ void MainView::RequestInput() {
 void MainView::Update() {
 	Clear();
 	Level* level = DataManager::Instance()->GetCurrentLevel();
+	level->Update();
 	int lvlWidth = level->GetWidth();
 	int lvlHeight = level->GetHeight();
 

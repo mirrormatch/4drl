@@ -5,6 +5,7 @@
 
 #include "GeneralIncludes.h"
 #include "CompoundRoom.h"
+#include "Entity.h"
 
 // Will add more types as necessary
 enum SquareType {
@@ -32,7 +33,7 @@ public:
 
 	virtual void Generate(int w, int h, int numRooms);
 	virtual GridSquare* SquareAt(int x, int y);
-	virtual bool IsSquareOpen(int x, int y);
+	virtual bool IsSquareOpen(int x, int y, bool avoidItems = false);
 
 	virtual int GetWidth();
 	virtual int GetHeight();
@@ -43,6 +44,9 @@ public:
 
 	virtual Entrance* GetEntrance();
 	virtual Exit* GetExit();
+	virtual void RemoveEntity(Entity* toRemove);
+
+	virtual void Update();
 
 protected:
 	virtual Room** GenerateInitialRooms(int numRooms);
@@ -58,6 +62,7 @@ protected:
 	int m_levelNumber;
 	Entrance* m_entrance;
 	Exit* m_exit;
+	EntityList m_entities;
 };
 
 #endif

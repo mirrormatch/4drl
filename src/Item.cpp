@@ -18,6 +18,6 @@ void Item::Update() {
 void Item::Activate() {
 	Inventory& inv = DataManager::Instance()->GetPlayer()->GetInventory();
 	inv.AddItem(this);
-	DataManager::Instance()->GetCurrentLevel()->SquareAt(m_x, m_y)->entity = NULL;
+	DataManager::Instance()->GetCurrentLevel()->RemoveEntity(this);
 }
 

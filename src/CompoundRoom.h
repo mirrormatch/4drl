@@ -33,6 +33,7 @@ public:
 	Entity* EntityAt(int x, int y);
 
 	void GenerateItems();
+	void GenerateMonsters();
 
 protected:
 	int m_x;

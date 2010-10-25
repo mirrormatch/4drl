@@ -23,6 +23,7 @@ FILES=\
 	Level.o \
 	Main.o \
 	MainView.o \
+	Monster.o \
 	Pants.o \
 	Player.o \
 	PlayerCreateView.o \

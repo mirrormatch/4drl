@@ -4,6 +4,7 @@
 #include "Entity.h"
 #include "DataManager.h"
 #include "Item.h"
+#include "Monster.h"
 
 CompoundRoom::CompoundRoom() : 
 	m_x(0), m_y(0), m_width(0), m_height(0), m_data(NULL){
@@ -197,6 +198,18 @@ void CompoundRoom::GenerateItems() {
 	int count = rand() % 2;
 	for(int i = 0; i < count; i++) {
 		Item* toAdd = DataManager::Instance()->GenerateRandomItem();
+		int x, y;
+		GetRandomValidPoint(&x, &y);
+		toAdd->SetPosition(x, y);
+		m_entities[x - m_x][y - m_y] = toAdd;
+	}
+}
+
+void CompoundRoom::GenerateMonsters() {
+	// FIXME: make this based on room area, not on a simple rand
+	int count = rand() % 4;
+	for(int i = 0; i < count; i++) {
+		Monster* toAdd = DataManager::Instance()->GenerateRandomMonster();
 		int x, y;
 		GetRandomValidPoint(&x, &y);
 		toAdd->SetPosition(x, y);
