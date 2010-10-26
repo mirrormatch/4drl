@@ -9,6 +9,7 @@
 #include "Weapon.h"
 #include "Implant.h"
 #include "Monster.h"
+#include "Sight.h"
 #include <sstream>
 
 Player::Player() : 
@@ -276,6 +277,13 @@ void Player::AttackTarget() {
 	// if we're out of range, do nothing
 	if(DistanceTo(m_target) > m_weaponSlot->GetRange()) {
 		string status = "Target is out of range.";
+		DataManager::Instance()->AppendStatusString(status);
+		return;
+	}
+
+	// if we don't have LOS, do nothing
+	if(!Sight::Instance()->CanSee(this, m_target)) {
+		string status = "Do not have line of sight to target.";
 		DataManager::Instance()->AppendStatusString(status);
 		return;
 	}

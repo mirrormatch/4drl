@@ -11,6 +11,7 @@
 #include "Implant.h"
 #include "Monster.h"
 #include "Pathfinder.h"
+#include "Sight.h"
 
 DataManager* DataManager::sm_instance = NULL;
 
@@ -52,6 +53,7 @@ void DataManager::ResetAllData() {
 	m_levels.push_back(l);
 	m_currentLevel = 0;
 	Pathfinder::Instance()->PopulateWithLevel(l);
+	Sight::Instance()->SetCurrentLevel(l);
 	Entrance* e = l->GetEntrance();
 	m_player->SetPosition(e->GetX(), e->GetY());
 }
@@ -85,6 +87,7 @@ void DataManager::GoToNextLevel() {
 	// move player
 	Level* l = m_levels[m_currentLevel];
 	Pathfinder::Instance()->PopulateWithLevel(l);
+	Sight::Instance()->SetCurrentLevel(l);
 	Entrance* e = l->GetEntrance();
 	m_player->SetPosition(e->GetX(), e->GetY());
 }
@@ -94,6 +97,7 @@ void DataManager::GoToPrevLevel() {
 		m_currentLevel--;
 		Level* l = m_levels[m_currentLevel];
 		Pathfinder::Instance()->PopulateWithLevel(l);
+	Sight::Instance()->SetCurrentLevel(l);
 		Exit* e = l->GetExit();
 		m_player->SetPosition(e->GetX(), e->GetY());
 	}

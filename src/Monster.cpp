@@ -4,6 +4,7 @@
 #include "Level.h"
 #include "Player.h"
 #include "Pathfinder.h"
+#include "Sight.h"
 #include <sstream>
 
 Monster::Monster() : Entity('M', RED_BOLD, E_MONSTER), m_target(NULL) {
@@ -59,7 +60,7 @@ void Monster::Update() {
 		}
 	}
 	if(GetTarget()) {
-		if(dist <= GetAttackRange()) {
+		if(dist <= GetAttackRange() && Sight::Instance()->CanSee(this, m_target)) {
 			AttackTarget();
 		}
 		else {

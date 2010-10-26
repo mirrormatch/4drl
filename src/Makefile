@@ -31,6 +31,7 @@ FILES=\
 	Player.o \
 	PlayerCreateView.o \
 	Room.o \
+	Sight.o \
 	View.o \
 	Weapon.o
 
