@@ -3,13 +3,14 @@
 #include "DataManager.h"
 #include "Level.h"
 #include "Player.h"
+#include "Pathfinder.h"
 #include <sstream>
 
 Monster::Monster() : Entity('M', RED_BOLD, E_MONSTER), m_target(NULL) {
 	m_isPassable = false;
 	m_hp = 10;
 	m_xpValue = 5;
-	m_eyeRange = 10;
+	m_eyeRange = 7;
 	m_attackRange = 4;
 	m_baseDamage = 1;
 	SetDisplayName("Xoich");
@@ -57,7 +58,7 @@ void Monster::Update() {
 			}
 		}
 	}
-	else {
+	if(GetTarget()) {
 		if(dist <= GetAttackRange()) {
 			AttackTarget();
 		}
@@ -80,6 +81,15 @@ void Monster::AttackTarget() {
 }
 
 void Monster::MoveTowardsTarget() {
+	Player* p = DataManager::Instance()->GetPlayer();
+	Level* l = DataManager::Instance()->GetCurrentLevel();
+	NodeList* path = Pathfinder::Instance()->PathBetweenPoints(m_x, m_y, p->GetX(), p->GetY());
+	Node* next = path->back();
+	if(next) {
+		l->SquareAt(m_x, m_y)->entity = NULL;
+		SetPosition(next->GetX(), next->GetY());
+		l->SquareAt(m_x, m_y)->entity = this;
+	}
 }
 
 Player* Monster::GetTarget() {

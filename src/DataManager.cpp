@@ -10,6 +10,7 @@
 #include "Weapon.h"
 #include "Implant.h"
 #include "Monster.h"
+#include "Pathfinder.h"
 
 DataManager* DataManager::sm_instance = NULL;
 
@@ -44,6 +45,7 @@ void DataManager::CreateNewGame() {
 	l->Generate(160, 48, 40);
 	m_levels.push_back(l);
 	m_currentLevel = 0;
+	Pathfinder::Instance()->PopulateWithLevel(l);
 	Entrance* e = l->GetEntrance();
 	m_player->SetPosition(e->GetX(), e->GetY());
 }
@@ -62,6 +64,7 @@ void DataManager::GoToNextLevel() {
 	m_currentLevel++;
 	// move player
 	Level* l = m_levels[m_currentLevel];
+	Pathfinder::Instance()->PopulateWithLevel(l);
 	Entrance* e = l->GetEntrance();
 	m_player->SetPosition(e->GetX(), e->GetY());
 }
@@ -70,6 +73,7 @@ void DataManager::GoToPrevLevel() {
 	if(m_currentLevel > 0) {
 		m_currentLevel--;
 		Level* l = m_levels[m_currentLevel];
+		Pathfinder::Instance()->PopulateWithLevel(l);
 		Exit* e = l->GetExit();
 		m_player->SetPosition(e->GetX(), e->GetY());
 	}

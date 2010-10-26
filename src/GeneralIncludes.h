@@ -5,7 +5,9 @@
 #include <vector>
 #include <list>
 #include <map>
+#include <tr1/unordered_map>
 using namespace std;
+using namespace tr1;
 typedef vector<string> StringVector;
 
 // Because I wanted memset

@@ -30,6 +30,7 @@ Done - 8. Monsters!
 			Done - * Display results
 	Done - * Make Monsters attack player
 	Done - * Make Monsters die
+	Done - * Make monsters follow player
 
 9. Death flow
 10. Save/load

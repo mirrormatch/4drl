@@ -24,7 +24,9 @@ FILES=\
 	Main.o \
 	MainView.o \
 	Monster.o \
+	Node.o \
 	Pants.o \
+	Pathfinder.o \
 	Player.o \
 	PlayerCreateView.o \
 	Room.o \
