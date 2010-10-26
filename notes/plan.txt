@@ -18,19 +18,19 @@ Done - 6. Pickup items and inventory
 	Done - * Let players walk over item, move item to inventory
 	Done - * Let players view inventory
 Done - 7. Equip/unequip items
-
-8. Monsters!
+Done - 8. Monsters!
 	Done - * Create Monsters
 	Done - * Display Monsters on map
 	Done - * Make Monsters wander
-	* Make Monsters attackable
+	Done - * Make Monsters attackable
 		Done - * Select target
-		* Attack
+		Done - * Attack
 			Done - * Range check
 			Done - * Dice roll
-			* Display results
-	* Make Monsters attack player
-	* Make Monsters die
+			Done - * Display results
+	Done - * Make Monsters attack player
+	Done - * Make Monsters die
+
 9. Death flow
 10. Save/load
 11. Fun
