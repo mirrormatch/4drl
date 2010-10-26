@@ -12,6 +12,7 @@ struct GridSquare;
 typedef list<Node*> NodeList;
 typedef unordered_map<Node*, Node*> PreviousNodeMap;
 bool NodesByDistance(Node* a, Node* b);
+bool NodesByScore(Node* a, Node* b);
 
 class Node {
 public:
@@ -23,6 +24,9 @@ public:
 	bool IsOpen();
 	int GetDistance();
 	void SetDistance(int newDist);
+	void CalculateHeuristic(int dx, int dy);
+	int GetScore();
+	int GetHeuristic();
 
 	int GetX();
 	int GetY();
@@ -32,6 +36,7 @@ protected:
 	int m_y;
 	GridSquare* m_square;
 	int m_distance;
+	int m_heuristic;
 };
 
 #endif

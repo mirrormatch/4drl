@@ -7,8 +7,12 @@ bool NodesByDistance(Node* a, Node* b) {
 	return a->GetDistance() < b->GetDistance();
 }
 
+bool NodesByScore(Node* a, Node* b) {
+	return a->GetScore() < b->GetScore();
+}
+
 Node::Node(int x, int y) : 
-	m_x(x), m_y(y), m_square(NULL), m_distance(NODE_INFINITY) {
+	m_x(x), m_y(y), m_square(NULL), m_distance(NODE_INFINITY), m_heuristic(0) {
 }
 
 Node::~Node() {
@@ -43,4 +47,16 @@ int Node::GetX() {
 
 int Node::GetY() {
 	return m_y;
+}
+
+void Node::CalculateHeuristic(int dx, int dy) {
+	m_heuristic = dx + dy;
+}
+
+int Node::GetHeuristic() {
+	return m_heuristic;
+}
+
+int Node::GetScore() {
+	return m_heuristic + m_distance;
 }

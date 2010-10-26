@@ -63,7 +63,7 @@ NodeList* Pathfinder::PathBetweenPoints(int x1, int y1, int x2, int y2) {
 	Node* dest = m_nodeMap[x2][y2];
 
 	while(Q.size() > 0) {
-		Q.sort(NodesByDistance);
+		Q.sort(NodesByScore);
 		Node* u = Q.front();
 		if(u == dest) {
 			// found our node, break!
@@ -127,6 +127,7 @@ void Pathfinder::ResetNodes(NodeList& toReset, int dx, int dy) {
 	for(NodeList::iterator i = toReset.begin(); i != toReset.end(); i++) {
 		Node* n = *i;
 		n->SetDistance(NODE_INFINITY);
+		n->CalculateHeuristic(dx, dy);
 	}
 }
 

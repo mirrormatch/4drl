@@ -118,7 +118,7 @@ void DataManager::AppendStatusString(string& toAppend) {
 	// chop the string down if we have to
 	// ideally we'd have 2 lines or paging, but hey, 4drl
 	if(m_statusLine.length() >= 78) {
-		m_statusLine.erase(76, m_statusLine.length() - 1);
+		m_statusLine.erase(75);
 		m_statusLine += "...";
 	}
 }
