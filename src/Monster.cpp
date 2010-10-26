@@ -39,7 +39,7 @@ void Monster::Update() {
 	Player* p = DataManager::Instance()->GetPlayer();
 	int dist = DistanceTo(p);
 	if(!GetTarget()) {
-		if(dist <= GetEyeRange()) {
+		if(dist <= GetEyeRange() && Sight::Instance()->CanSee(this, p)) {
 			SetTarget(p);
 		}
 		else {

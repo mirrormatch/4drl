@@ -22,6 +22,9 @@ class Exit;
 struct GridSquare {
 	SquareType type;
 	Entity* entity;
+	bool debugFlag;
+	bool hasBeenSeen;
+	bool inView;
 };
 
 class Room;
@@ -46,6 +49,8 @@ public:
 	virtual Exit* GetExit();
 	virtual void RemoveEntity(Entity* toRemove);
 	virtual void AddEntity(Entity* toAdd);
+	virtual void ResetDebugFlags();
+	virtual bool AnyAdjacentAreFloors(int x, int y);
 
 	virtual void Update();
 
@@ -54,7 +59,6 @@ protected:
 	virtual CompoundRoomVector* MergeBasicRooms(int numRooms, Room** rooms);
 	virtual void CreateCooridor(CompoundRoom* first, CompoundRoom* second);
 	virtual void CreateWalls();
-	virtual bool AnyAdjacentAreFloors(int x, int y);
 	virtual void CreateExits(CompoundRoom* first, CompoundRoom* last);
 	GridSquare*** m_grid;
 	int m_width;

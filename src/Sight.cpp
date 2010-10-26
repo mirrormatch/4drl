@@ -23,52 +23,58 @@ void Sight::SetCurrentLevel(Level* l) {
 	m_level = l;
 }
 
-bool Sight::CanSee(Entity* e1, Entity* e2) {
+bool Sight::CanSee(Entity* e1, Entity* e2, bool debug) {
 	if(e1 == e2) {
 		return true; // you can see yourself, I guess?
 	}
 
-	int x1 = e1->GetX(); int y1 = e1->GetY();
-	int x2 = e2->GetX(); int y2 = e2->GetY();
-	if(x1 == x2 && y1 == y2) {
+	int x0 = e1->GetX(); int y0 = e1->GetY();
+	int x1 = e2->GetX(); int y1 = e2->GetY();
+	if(x0 == x1 && y0 == y1) {
 		return true; // if you're stacked somehow, you can see
 	}
 
-	bool isSteep = abs(y2 - y1) > abs(x2 - x1);
+	bool isSteep = abs(y1 - y0) > abs(x1 - x0);
 	if(isSteep) {
-		int tmp = x1;
+		int tmp = x0;
+		x0 = y0;
+		y0 = tmp;
+
+		tmp = x1;
 		x1 = y1;
 		y1 = tmp;
-
-		tmp = x2;
-		x2 = y2;
-		y2 = tmp;
 	}
-	if(x1 > x2) {
-		int tmp = x1;
-		x1 = x2;
-		x2 = tmp;
+	if(x0 > x1) {
+		int tmp = x0;
+		x0 = x1;
+		x1 = tmp;
 
-		tmp = y1;
-		y1 = y2;
-		y2 = y1;
+		tmp = y0;
+		y0 = y1;
+		y1 = tmp;
 	}
-	int deltax = x2 - x1;
-	int deltay = abs(y2 - y1);
-	int error = (int)(deltax / 2.0);
-	int y = y1;
-	int ystep = (y1 < y2) ? 1 : -1;
-	for(int x = x1; x < x2; x++) {
+	int deltax = x1 - x0;
+	int deltay = abs(y1 - y0);
+	int error = deltax / 2;
+	int y = y0;
+	int ystep = (y0 < y1) ? 1 : -1;
+	for(int x = x0; x <= x1; x++) {
 		if(isSteep) {
 			// check y,x
 			if(m_level->SquareAt(y, x)->type != ST_EMPTY) {
 				return false;
+			}
+			else if(debug) {
+				m_level->SquareAt(y, x)->debugFlag = true;
 			}
 		}
 		else {
 			// check x, y
 			if(m_level->SquareAt(x, y)->type != ST_EMPTY) {
 				return false;
+			}
+			else if(debug) {
+				m_level->SquareAt(x, y)->debugFlag = true;
 			}
 		}
 		error -= deltay;

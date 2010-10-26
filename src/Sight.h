@@ -10,7 +10,7 @@ public:
 	static Sight* Instance();
 
 	void SetCurrentLevel(Level* l);
-	bool CanSee(Entity* e1, Entity* e2);
+	bool CanSee(Entity* e1, Entity* e2, bool debug = false);
 protected:
 	static Sight* sm_instance;
 

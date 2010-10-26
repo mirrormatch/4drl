@@ -282,7 +282,7 @@ void Player::AttackTarget() {
 	}
 
 	// if we don't have LOS, do nothing
-	if(!Sight::Instance()->CanSee(this, m_target)) {
+	if(!Sight::Instance()->CanSee(this, m_target, true)) {
 		string status = "Do not have line of sight to target.";
 		DataManager::Instance()->AppendStatusString(status);
 		return;

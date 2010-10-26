@@ -20,6 +20,9 @@ void Level::Generate(int w, int h, int numRooms) {
 			m_grid[x][y] = new GridSquare();
 			m_grid[x][y]->type = ST_VOID;
 			m_grid[x][y]->entity = NULL;
+			m_grid[x][y]->debugFlag = false;
+			m_grid[x][y]->hasBeenSeen = false;
+			m_grid[x][y]->inView = false;
 		}
 	}
 
@@ -270,4 +273,12 @@ void Level::Update() {
 void Level::AddEntity(Entity* toAdd) {
 	m_grid[toAdd->GetX()][toAdd->GetY()]->entity = toAdd;
 	m_entities.push_back(toAdd);
+}
+
+void Level::ResetDebugFlags() {
+	for(int x = 0; x < m_width; x++) {
+		for(int y = 0; y < m_height; y++) {
+			m_grid[x][y]->debugFlag = false;
+		}
+	}
 }

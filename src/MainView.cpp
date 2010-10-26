@@ -82,6 +82,10 @@ bool MainView::HandleMainInput(int ch) {
 			m_state = MVIS_TARGET_SELECT;
 			SetCursorVisible(true);
 			return false;
+		case 'c':
+			DataManager::Instance()->GetCurrentLevel()->ResetDebugFlags();
+			return false;
+
 		case 'i':
 			m_parent->ChangeState(GAME_STATE_INVENTORY);
 			return false;
@@ -145,21 +149,41 @@ void MainView::Update() {
 	for(int x = m_scrollX; x < m_scrollX + 80; x++) {
 		for(int y = m_scrollY; y <= m_scrollY + 19; y++) {
 			if(x < 0 || y < 0 || x >= lvlWidth || y >= lvlHeight) {
-				SetCharAt(x - m_scrollX, y - m_scrollY, ' ', WHITE);
+				if(level->AnyAdjacentAreFloors(x, y)) {
+					SetCharAt(x - m_scrollX, y - m_scrollY, '#', WHITE);
+				}
+				else {
+					SetCharAt(x - m_scrollX, y - m_scrollY, ' ', WHITE);
+				}
 				continue;
 			}
 			switch(level->SquareAt(x, y)->type) {
 				case ST_VOID:
-					SetCharAt(x - m_scrollX, y - m_scrollY, ' ');
+					if(level->SquareAt(x, y)->debugFlag) {
+						SetCharAt(x - m_scrollX, y - m_scrollY, '?', RED_BOLD);
+					}
+					else {
+						SetCharAt(x - m_scrollX, y - m_scrollY, ' ');
+					}
 					break;
 				case ST_EMPTY:
-					SetCharAt(x - m_scrollX, y - m_scrollY, '.', WHITE);
+					if(level->SquareAt(x, y)->debugFlag) {
+						SetCharAt(x - m_scrollX, y - m_scrollY, '?', RED_BOLD);
+					}
+					else {
+						SetCharAt(x - m_scrollX, y - m_scrollY, '.', WHITE);
+					}
 					break;
 				case ST_TEST_COORIDOR:
 					SetCharAt(x - m_scrollX, y - m_scrollY, '@', YELLOW_BOLD);
 					break;
 				case ST_WALL:
-					SetCharAt(x - m_scrollX, y - m_scrollY, '#', WHITE);
+					if(level->SquareAt(x, y)->debugFlag) {
+						SetCharAt(x - m_scrollX, y - m_scrollY, '?', RED_BOLD);
+					}
+					else {
+						SetCharAt(x - m_scrollX, y - m_scrollY, '#', WHITE);
+					}
 					break;
 			}
 
