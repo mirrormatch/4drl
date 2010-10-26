@@ -3,6 +3,7 @@
 #include "Room.h"
 #include "Entrance.h"
 #include "Exit.h"
+#include "Sight.h"
 
 Level::Level(int num) : m_levelNumber(num) {
 }
@@ -107,6 +108,23 @@ bool Level::AnyAdjacentAreFloors(int x, int y) {
 				continue;
 			}
 			if(IsSquareOpen(tx, ty)) {
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+bool Level::AnyAdjacentAreVisible(int x, int y) {
+	for(int tx = x - 1; tx <= x + 1; tx++) {
+		for(int ty = y - 1; ty <= y + 1; ty++) {
+			if(tx < 0 || tx >= m_width || ty < 0 || ty >= m_height) {
+				continue;
+			}
+			if(tx == x && ty == y) {
+				continue;
+			}
+			if(SquareAt(tx, ty)->hasBeenSeen) {
 				return true;
 			}
 		}
@@ -279,6 +297,27 @@ void Level::ResetDebugFlags() {
 	for(int x = 0; x < m_width; x++) {
 		for(int y = 0; y < m_height; y++) {
 			m_grid[x][y]->debugFlag = false;
+		}
+	}
+}
+
+void Level::ResetVisibility() {
+	for(int x = 0; x < m_width; x++) {
+		for(int y = 0; y < m_height; y++) {
+			m_grid[x][y]->inView = false;
+		}
+	}
+}
+
+void Level::LightArea(int tx, int ty, int xrange, int yrange) {
+	for(int x = tx - xrange; x < tx + xrange; x++) {
+		for(int y = ty - yrange; y < ty + yrange; y++) {
+			if(x >= 0 && x < m_width && y >= 0 && y < m_height) {
+				if(Sight::Instance()->CanSee(tx, ty, x, y)) {
+					m_grid[x][y]->inView = true;
+					m_grid[x][y]->hasBeenSeen = true;
+				}
+			}
 		}
 	}
 }

@@ -149,12 +149,16 @@ void MainView::Update() {
 	for(int x = m_scrollX; x < m_scrollX + 80; x++) {
 		for(int y = m_scrollY; y <= m_scrollY + 19; y++) {
 			if(x < 0 || y < 0 || x >= lvlWidth || y >= lvlHeight) {
-				if(level->AnyAdjacentAreFloors(x, y)) {
+				if(level->AnyAdjacentAreFloors(x, y) && level->AnyAdjacentAreVisible(x, y)) {
 					SetCharAt(x - m_scrollX, y - m_scrollY, '#', WHITE);
 				}
 				else {
 					SetCharAt(x - m_scrollX, y - m_scrollY, ' ', WHITE);
 				}
+				continue;
+			}
+			if(level->SquareAt(x, y)->hasBeenSeen == false) {
+				SetCharAt(x - m_scrollX, y - m_scrollY, ' ');
 				continue;
 			}
 			switch(level->SquareAt(x, y)->type) {
@@ -171,7 +175,11 @@ void MainView::Update() {
 						SetCharAt(x - m_scrollX, y - m_scrollY, '?', RED_BOLD);
 					}
 					else {
-						SetCharAt(x - m_scrollX, y - m_scrollY, '.', WHITE);
+						int attr = WHITE;
+						if(level->SquareAt(x, y)->inView) {
+							attr = YELLOW;
+						}
+						SetCharAt(x - m_scrollX, y - m_scrollY, '.', attr);
 					}
 					break;
 				case ST_TEST_COORIDOR:
@@ -189,8 +197,14 @@ void MainView::Update() {
 
 			Entity* e = level->EntityAt(x, y);
 			if(e) {
-				SetCharAt(x - m_scrollX, y - m_scrollY, 
-						e->GetDisplayChar(), e->GetDisplayFlags());
+				if(level->SquareAt(x, y)->inView) {
+					SetCharAt(x - m_scrollX, y - m_scrollY, 
+							e->GetDisplayChar(), e->GetDisplayFlags());
+				}
+				else if(level->SquareAt(x, y)->hasBeenSeen && e->GetClass() != E_MONSTER) {
+					SetCharAt(x - m_scrollX, y - m_scrollY, 
+							e->GetDisplayChar(), e->GetDisplayFlags());
+				}
 			}
 		}
 	}

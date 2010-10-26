@@ -48,7 +48,6 @@ void DataManager::ResetAllData() {
 	m_player = new Player();
 	m_player->CreateDefaults();
 	Level* l = new Level(1);
-	//l->Generate(160, 48, 40);
 	l->Generate(100, 30, 20);
 	m_levels.push_back(l);
 	m_currentLevel = 0;
@@ -56,6 +55,8 @@ void DataManager::ResetAllData() {
 	Sight::Instance()->SetCurrentLevel(l);
 	Entrance* e = l->GetEntrance();
 	m_player->SetPosition(e->GetX(), e->GetY());
+	l->ResetVisibility();
+	l->LightArea(e->GetX(), e->GetY(), 10, 5);
 }
 
 void DataManager::DeleteAllData() {
@@ -79,7 +80,6 @@ void DataManager::GoToNextLevel() {
 	if(m_currentLevel == (int)m_levels.size() - 1) {
 		// generate a new level and move there
 			Level* l = new Level(GetCurrentLevel()->GetLevelNumber() + 1);
-			//l->Generate(160, 48, 40);
 			l->Generate(100, 30, 20);
 			m_levels.push_back(l);
 	}
@@ -90,6 +90,8 @@ void DataManager::GoToNextLevel() {
 	Sight::Instance()->SetCurrentLevel(l);
 	Entrance* e = l->GetEntrance();
 	m_player->SetPosition(e->GetX(), e->GetY());
+	l->ResetVisibility();
+	l->LightArea(e->GetX(), e->GetY(), 10, 5);
 }
 
 void DataManager::GoToPrevLevel() {
@@ -97,9 +99,11 @@ void DataManager::GoToPrevLevel() {
 		m_currentLevel--;
 		Level* l = m_levels[m_currentLevel];
 		Pathfinder::Instance()->PopulateWithLevel(l);
-	Sight::Instance()->SetCurrentLevel(l);
+		Sight::Instance()->SetCurrentLevel(l);
 		Exit* e = l->GetExit();
 		m_player->SetPosition(e->GetX(), e->GetY());
+		l->ResetVisibility();
+		l->LightArea(e->GetX(), e->GetY(), 10, 5);
 	}
 }
 

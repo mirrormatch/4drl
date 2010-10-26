@@ -30,6 +30,10 @@ bool Sight::CanSee(Entity* e1, Entity* e2, bool debug) {
 
 	int x0 = e1->GetX(); int y0 = e1->GetY();
 	int x1 = e2->GetX(); int y1 = e2->GetY();
+	return CanSee(x0, y0, x1, y1, debug);
+}
+
+bool Sight::CanSee(int x0, int y0, int x1, int y1, bool debug) {
 	if(x0 == x1 && y0 == y1) {
 		return true; // if you're stacked somehow, you can see
 	}
@@ -58,23 +62,19 @@ bool Sight::CanSee(Entity* e1, Entity* e2, bool debug) {
 	int error = deltax / 2;
 	int y = y0;
 	int ystep = (y0 < y1) ? 1 : -1;
-	for(int x = x0; x <= x1; x++) {
+	// Not <= because I don't need to check the dest
+	bool first = true;
+	for(int x = x0; x < x1; x++) {
 		if(isSteep) {
-			// check y,x
-			if(m_level->SquareAt(y, x)->type != ST_EMPTY) {
+			// check y, x
+			if(!first && m_level->SquareAt(y, x)->type != ST_EMPTY) {
 				return false;
-			}
-			else if(debug) {
-				m_level->SquareAt(y, x)->debugFlag = true;
 			}
 		}
 		else {
 			// check x, y
-			if(m_level->SquareAt(x, y)->type != ST_EMPTY) {
+			if(!first && m_level->SquareAt(x, y)->type != ST_EMPTY) {
 				return false;
-			}
-			else if(debug) {
-				m_level->SquareAt(x, y)->debugFlag = true;
 			}
 		}
 		error -= deltay;
@@ -82,8 +82,8 @@ bool Sight::CanSee(Entity* e1, Entity* e2, bool debug) {
 			y += ystep;
 			error += deltax;
 		}
+		first = false;
 	}
 
 	return true;
 }
-

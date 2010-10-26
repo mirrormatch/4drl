@@ -33,6 +33,8 @@ bool Player::Advance(int xinc, int yinc) {
 		if(e) {
 			e->Activate();
 		}
+		l->ResetVisibility();
+		l->LightArea(m_x, m_y, 10, 5);
 		return true;
 	}
 

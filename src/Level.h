@@ -51,8 +51,12 @@ public:
 	virtual void AddEntity(Entity* toAdd);
 	virtual void ResetDebugFlags();
 	virtual bool AnyAdjacentAreFloors(int x, int y);
+	virtual bool AnyAdjacentAreVisible(int x, int y);
 
 	virtual void Update();
+
+	virtual void ResetVisibility();
+	virtual void LightArea(int x, int y, int xrange, int yrange);
 
 protected:
 	virtual Room** GenerateInitialRooms(int numRooms);
