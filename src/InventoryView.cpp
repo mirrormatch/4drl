@@ -23,12 +23,18 @@ bool InventoryView::RequestInput() {
 	Inventory& inv = p->GetInventory();
 	switch(ch) {
 		case KEY_UP:
+			if(m_inInventoryArea && inv.NumItems() == 0) {
+				break;
+			}
 			m_selectIdx--;
 			if(m_selectIdx < 0) {
 				m_selectIdx = 0;
 			}
 		break;
 		case KEY_DOWN:
+			if(m_inInventoryArea && inv.NumItems() == 0) {
+				break;
+			}
 			m_selectIdx++;
 			if(m_inInventoryArea) {
 				if(m_selectIdx >= inv.NumItems()) {
@@ -41,6 +47,13 @@ bool InventoryView::RequestInput() {
 				}
 			}
 		break;
+		case 'd':
+			if(m_inInventoryArea && m_selectIdx < inv.NumItems()) {
+				inv.RemoveItemAtIndex(m_selectIdx);
+				m_selectIdx = 0;
+				m_scrollY = 0;
+			}
+			break;
 		case KEY_LEFT:
 			m_inInventoryArea = !m_inInventoryArea;
 			m_selectIdx = 0;
@@ -166,7 +179,7 @@ void InventoryView::Update() {
 	wd2 = toDraw.length() / 2;
 	SetStringAt(65 - wd2, 1, toDraw, WHITE);
 
-	toDraw = "(Arrow Keys to navigate, Enter to select, Esc to Exit)";
+	toDraw = "(Arrows navigate, Enter selects, 'd' discards, Esc exits. List scrolls)";
 	wd2 = toDraw.length() / 2;
 	SetStringAt(40 - wd2, 23, toDraw, WHITE);
 
@@ -223,10 +236,10 @@ void InventoryView::Update() {
 	DrawPaperDollItem(p->GetWeaponItem(), 12, 3);
 	DrawPaperDollItem(p->GetImplantItem(), 14, 4);
 
-	stringstream s;
-	s << "scrolly: " << m_scrollY << " selectidx: " << m_selectIdx;
-	toDraw = s.str();
-	SetStringAt(1, 22, toDraw, WHITE);
+	//stringstream s;
+	//s << "scrolly: " << m_scrollY << " selectidx: " << m_selectIdx;
+	//toDraw = s.str();
+	//SetStringAt(1, 22, toDraw, WHITE);
 }
 
 void InventoryView::DrawPaperDollItem(Item* i, int y, int idx) {

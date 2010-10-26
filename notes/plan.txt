@@ -38,8 +38,8 @@ Done - 9. Death flow
 
 11. Fun
 	Things to fix/add
-		1. Scrollable inventory list
-		2. Inventory discard/destroy
+		Done - 1. Scrollable inventory list
+		Done - 2. Inventory discard/destroy
 		3. Line of sight between entities
 			* Only chase player if you have los
 			* Attacks require los
@@ -62,4 +62,7 @@ Done - 9. Death flow
 			* Attack range
 			* View range
 			* Resistances
+		10. View range
+			* Only 'view' items within a certain area
+			* Fog of war the rest
 
