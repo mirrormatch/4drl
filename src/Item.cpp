@@ -19,5 +19,7 @@ void Item::Activate() {
 	Inventory& inv = DataManager::Instance()->GetPlayer()->GetInventory();
 	inv.AddItem(this);
 	DataManager::Instance()->GetCurrentLevel()->RemoveEntity(this);
+	string status = "Picked up " + this->GetDisplayName();
+	DataManager::Instance()->AppendStatusString(status);
 }
 

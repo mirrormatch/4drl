@@ -9,6 +9,7 @@
 #include "Weapon.h"
 #include "Implant.h"
 #include "Monster.h"
+#include <sstream>
 
 Player::Player() : 
 	Entity('@', YELLOW_BOLD, E_PLAYER), m_headSlot(NULL), m_bodySlot(NULL), m_legsSlot(NULL), m_weaponSlot(NULL), m_implantSlot(NULL), m_target(NULL) {
@@ -258,17 +259,37 @@ void Player::SetTarget(Monster* target) {
 }
 
 void Player::AttackTarget() {
-	// if no target or no weapon, we can't do anything
-	if(!m_target || !m_weaponSlot) {
+	// if no target, we can't do anything
+	if(!m_target) {
+		string status = "No target, press 't' to enter targeting mode.";
+		DataManager::Instance()->AppendStatusString(status);
+		return;
+	}
+
+	// if no weapon, do nothing
+	if(!m_weaponSlot) {
+		string status = "Cannot attack without weapon equipped, press 'i' to enter inventory.";
+		DataManager::Instance()->AppendStatusString(status);
 		return;
 	}
 
 	// if we're out of range, do nothing
 	if(DistanceTo(m_target) > m_weaponSlot->GetRange()) {
+		string status = "Target is out of range.";
+		DataManager::Instance()->AppendStatusString(status);
 		return;
 	}
 
 	// FIXME: put better calculations in, for now just sub the base
 	// damage
-	m_target->IncrementHP(-m_weaponSlot->GetBaseDamage());
+	int damage = m_weaponSlot->GetBaseDamage();
+	m_target->IncrementHP(-damage);
+	stringstream s;
+	s << "Hit " << m_target->GetDisplayName() << " for " << damage << ".";
+	string status = s.str();
+	DataManager::Instance()->AppendStatusString(status);
+	if(m_target->IsDead()) {
+		status = "You killed " + m_target->GetDisplayName() + "!";
+		DataManager::Instance()->AppendStatusString(status);
+	}
 }
