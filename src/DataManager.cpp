@@ -22,7 +22,7 @@ DataManager* DataManager::Instance() {
 	return DataManager::sm_instance;
 }
 
-DataManager::DataManager() {
+DataManager::DataManager() : m_statusLine("") {
 }
 
 DataManager::~DataManager() {
@@ -103,3 +103,21 @@ Item* DataManager::GenerateRandomItem() {
 Monster* DataManager::GenerateRandomMonster() {
 	return new Monster();
 }
+
+void DataManager::AppendStatusString(string& toAppend) {
+	if(m_statusLine == "") {
+		m_statusLine = toAppend;
+	}
+	else {
+		m_statusLine += " " + toAppend;
+	}
+}
+
+string DataManager::GetStatusString() {
+	return "(" + m_statusLine + ")";
+}
+
+void DataManager::ClearStatusString() {
+	m_statusLine = "";
+}
+

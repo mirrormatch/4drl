@@ -7,6 +7,7 @@
 #include "Entity.h"
 #include "DataManager.h"
 #include "Player.h"
+#include "Monster.h"
 
 MainView::MainView(GameState* gs, int w, int h) : 
 	View(gs, w, h), m_scrollX(0), m_scrollY(0), m_state(MVIS_MAIN) {
@@ -113,7 +114,10 @@ bool MainView::HandleTargetSelectInput(int ch) {
 			tx = m_scrollX + m_cursorX;
 			ty = m_scrollY + m_cursorY;
 			if(l->EntityAt(tx, ty) && l->EntityAt(tx, ty)->GetClass() == E_MONSTER) {
-				p->SetTarget((Monster*)l->EntityAt(tx, ty));
+				Monster* m = (Monster*)l->EntityAt(tx, ty);
+				p->SetTarget(m);
+				string statusline = m->GetDisplayName() + " targetted.";
+				DataManager::Instance()->AppendStatusString(statusline);
 				m_state = MVIS_MAIN;
 				SetCursorVisible(false);
 			}
@@ -194,7 +198,13 @@ void MainView::DrawStats(Player* p) {
 	str = s.str();
 	SetStringAt(0, 22, str, WHITE_BOLD);
 
-	if(m_state == MVIS_TARGET_SELECT) {
+	string statusLine = DataManager::Instance()->GetStatusString();
+	if(statusLine != "()") {
+		int wd2 = statusLine.length() / 2;
+		SetStringAt(40 - wd2, 21, statusLine, YELLOW_BOLD);
+		DataManager::Instance()->ClearStatusString();
+	}
+	else if(m_state == MVIS_TARGET_SELECT) {
 		str = "(Place the cursor over your desired target and hit Enter)";
 		int wd2 = str.length() / 2;
 		SetStringAt(40 - wd2, 21, str, YELLOW_BOLD);

@@ -27,6 +27,10 @@ public:
 	Item* GenerateRandomItem();
 	Monster* GenerateRandomMonster();
 
+	void AppendStatusString(string& toAppend);
+	string GetStatusString();
+	void ClearStatusString();
+
 	//FIXME: Implement these
 	//void LoadGame(string& path);
 	//void SaveGame(string& path);
@@ -39,6 +43,7 @@ private:
 	Player* m_player;
 	int m_currentLevel;
 	StringVector m_classNames;
+	string m_statusLine;
 
 	static DataManager* sm_instance;
 };
