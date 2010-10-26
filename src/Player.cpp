@@ -284,6 +284,7 @@ void Player::AttackTarget() {
 	// damage
 	int damage = m_weaponSlot->GetBaseDamage();
 	m_target->IncrementHP(-damage);
+	m_target->SetTarget(this);
 	stringstream s;
 	s << "Hit " << m_target->GetDisplayName() << " for " << damage << ".";
 	string status = s.str();

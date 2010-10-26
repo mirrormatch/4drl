@@ -4,6 +4,8 @@
 
 #include "Entity.h"
 
+class Player;
+
 class Monster : public Entity {
 public:
 	Monster();
@@ -23,11 +25,22 @@ public:
 	virtual void Kill();
 
 	virtual int GetXPValue();
+	virtual int GetEyeRange();
+	virtual int GetAttackRange();
+	virtual void AttackTarget();
+	virtual void MoveTowardsTarget();
+	virtual Player* GetTarget();
+	virtual void SetTarget(Player* p);
+	virtual int GetBaseDamage();
 
 protected:
 	int m_hp;
 	int m_xpValue;
 	bool m_isTarget;
+	int m_eyeRange;
+	int m_attackRange;
+	int m_baseDamage;
+	Player* m_target;
 };
 
 #endif

@@ -3,12 +3,16 @@
 #include "DataManager.h"
 #include "Level.h"
 #include "Player.h"
+#include <sstream>
 
-Monster::Monster() : Entity('M', RED_BOLD, E_MONSTER) {
+Monster::Monster() : Entity('M', RED_BOLD, E_MONSTER), m_target(NULL) {
 	m_isPassable = false;
 	m_hp = 10;
 	m_xpValue = 5;
-	SetDisplayName("Tyrranosarus Test");
+	m_eyeRange = 10;
+	m_attackRange = 4;
+	m_baseDamage = 1;
+	SetDisplayName("Xoich");
 }
 
 Monster::~Monster() {
@@ -30,20 +34,60 @@ void Monster::Update() {
 	if(IsDead()) {
 		return;
 	}
-	switch(rand() % 4) {
-		case 0:
-			Advance(1, 0);
-			break;
-		case 1:
-			Advance(-1, 0);
-			break;
-		case 2:
-			Advance(0, 1);
-			break;
-		case 4:
-			Advance(0, -1);
-			break;
+	Player* p = DataManager::Instance()->GetPlayer();
+	int dist = DistanceTo(p);
+	if(!GetTarget()) {
+		if(dist <= GetEyeRange()) {
+			SetTarget(p);
+		}
+		else {
+			switch(rand() % 4) {
+				case 0:
+					Advance(1, 0);
+					break;
+				case 1:
+					Advance(-1, 0);
+					break;
+				case 2:
+					Advance(0, 1);
+					break;
+				case 4:
+					Advance(0, -1);
+					break;
+			}
+		}
 	}
+	else {
+		if(dist <= GetAttackRange()) {
+			AttackTarget();
+		}
+		else {
+			MoveTowardsTarget();
+		}
+	}
+}
+
+void Monster::AttackTarget() {
+	int dist = DistanceTo(m_target);
+	if(dist <= GetAttackRange()) {
+		int damage = GetBaseDamage();
+		m_target->IncrementCurrentHP(-damage);
+		stringstream s;
+		s << GetDisplayName() << " hits for " << damage << ".";
+		string status = s.str();
+		DataManager::Instance()->AppendStatusString(status);
+	}
+}
+
+void Monster::MoveTowardsTarget() {
+}
+
+Player* Monster::GetTarget() {
+	return m_target;
+}
+
+void Monster::SetTarget(Player* p) {
+	m_target = p;
 }
 
 void Monster::Activate() {
@@ -90,4 +134,16 @@ bool Monster::ShouldRemove() {
 
 int Monster::GetXPValue() {
 	return m_xpValue;
+}
+
+int Monster::GetEyeRange() {
+	return m_eyeRange;
+}
+
+int Monster::GetAttackRange() {
+	return m_attackRange;
+}
+
+int Monster::GetBaseDamage() {
+	return m_baseDamage;
 }
