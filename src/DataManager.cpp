@@ -42,7 +42,8 @@ void DataManager::CreateNewGame() {
 	m_player = new Player();
 	m_player->CreateDefaults();
 	Level* l = new Level(1);
-	l->Generate(160, 48, 40);
+	//l->Generate(160, 48, 40);
+	l->Generate(100, 30, 20);
 	m_levels.push_back(l);
 	m_currentLevel = 0;
 	Pathfinder::Instance()->PopulateWithLevel(l);
@@ -58,7 +59,8 @@ void DataManager::GoToNextLevel() {
 	if(m_currentLevel == (int)m_levels.size() - 1) {
 		// generate a new level and move there
 			Level* l = new Level(GetCurrentLevel()->GetLevelNumber() + 1);
-			l->Generate(160, 48, 40);
+			//l->Generate(160, 48, 40);
+			l->Generate(100, 30, 20);
 			m_levels.push_back(l);
 	}
 	m_currentLevel++;
