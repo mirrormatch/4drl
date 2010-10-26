@@ -35,6 +35,9 @@ public:
 	//void LoadGame(string& path);
 	//void SaveGame(string& path);
 
+	void ResetAllData();
+	void DeleteAllData();
+
 private:
 	DataManager();
 	~DataManager();

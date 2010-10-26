@@ -18,6 +18,10 @@ Pathfinder::~Pathfinder() {
 	DeleteExistingData();
 }
 
+void Pathfinder::Reset() {
+	DeleteExistingData();
+}
+
 void Pathfinder::PopulateWithLevel(Level* level) {
 	DeleteExistingData();
 	m_currentLevel = level;

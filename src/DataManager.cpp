@@ -39,6 +39,11 @@ void DataManager::LoadInfo() {
 }
 
 void DataManager::CreateNewGame() {
+	ResetAllData();
+}
+
+void DataManager::ResetAllData() {
+	DeleteAllData();
 	m_player = new Player();
 	m_player->CreateDefaults();
 	Level* l = new Level(1);
@@ -49,6 +54,19 @@ void DataManager::CreateNewGame() {
 	Pathfinder::Instance()->PopulateWithLevel(l);
 	Entrance* e = l->GetEntrance();
 	m_player->SetPosition(e->GetX(), e->GetY());
+}
+
+void DataManager::DeleteAllData() {
+	Pathfinder::Instance()->Reset();
+	if(m_player) {
+		delete m_player;
+		m_player = NULL;
+	}
+	for(unsigned int i = 0; i < m_levels.size(); i++) {
+		delete m_levels[i];
+	}
+	m_levels.clear();
+	m_statusLine = "";
 }
 
 Level* DataManager::GetCurrentLevel() {

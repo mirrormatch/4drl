@@ -31,7 +31,7 @@ Done - 8. Monsters!
 	Done - * Make Monsters attack player
 	Done - * Make Monsters die
 	Done - * Make monsters follow player
+Done - 9. Death flow
 
-9. Death flow
 10. Save/load
 11. Fun

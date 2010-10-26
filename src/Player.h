@@ -65,6 +65,8 @@ public:
 	void ReturnWeaponItemToInventory();
 	void ReturnImplantItemToInventory();
 	void SetTarget(Monster* target);
+	
+	bool IsDead();
 
 	virtual void AttackTarget();
 

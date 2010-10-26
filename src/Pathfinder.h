@@ -11,6 +11,7 @@ public:
 	static Pathfinder* Instance();
 	void PopulateWithLevel(Level* level);
 	NodeList* PathBetweenPoints(int x1, int y1, int x2, int y2);
+	void Reset();
 protected:
 	Pathfinder();
 	virtual ~Pathfinder();

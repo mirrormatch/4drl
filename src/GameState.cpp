@@ -6,6 +6,8 @@
 #include "PlayerCreateView.h"
 #include "InventoryView.h"
 #include "DataManager.h"
+#include "Player.h"
+#include "DeathView.h"
 #include "Level.h"
 
 GameState::GameState(unsigned long seed) : 
@@ -40,6 +42,11 @@ void GameState::Update() {
 			Level* level = DataManager::Instance()->GetCurrentLevel();
 			level->Update();
 		}
+		if(m_state == GAME_STATE_MAIN) {
+			if(DataManager::Instance()->GetPlayer()->IsDead()) {
+				ChangeState(GAME_STATE_DEAD);
+			}
+		}
 		m_currentView->Update();
 		m_currentView->Draw();
 	}
@@ -55,6 +62,17 @@ void GameState::RequestQuit() {
 
 void GameState::ChangeState(StateType newState) {
 	switch(newState) {
+		case GAME_STATE_INTRO:
+			if(m_views.find("intro") == m_views.end()) {
+				m_currentView = new IntroView(this, 80, 24);
+				m_currentView->Initialize();
+				m_views["intro"] = m_currentView;
+			}
+			else {
+				m_currentView = m_views["intro"];
+				m_currentView->ResetState();
+			}
+			break;
 		case GAME_STATE_PLAYER_CREATE:
 			if(m_views.find("player_create") == m_views.end()) {
 				m_currentView = new PlayerCreateView(this, 80, 24);
@@ -63,6 +81,7 @@ void GameState::ChangeState(StateType newState) {
 			}
 			else {
 				m_currentView = m_views["player_create"];
+				m_currentView->ResetState();
 			}
 			break;
 		case GAME_STATE_MAIN:
@@ -73,6 +92,7 @@ void GameState::ChangeState(StateType newState) {
 			}
 			else {
 				m_currentView = m_views["main"];
+				m_currentView->ResetState();
 			}
 			break;
 		case GAME_STATE_INVENTORY:
@@ -83,6 +103,17 @@ void GameState::ChangeState(StateType newState) {
 			}
 			else {
 				m_currentView = m_views["inventory"];
+				m_currentView->ResetState();
+			}
+			break;
+		case GAME_STATE_DEAD:
+			if(m_views.find("death") == m_views.end()) {
+				m_currentView = new DeathView(this, 80, 24);
+				m_currentView->Initialize();
+				m_views["death"] = m_currentView;
+			}
+			else {
+				m_currentView = m_views["death"];
 				m_currentView->ResetState();
 			}
 			break;

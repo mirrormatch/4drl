@@ -17,6 +17,12 @@ void PlayerCreateView::Initialize() {
 	m_selectIdx = 0;
 }
 
+void PlayerCreateView::ResetState() {
+	m_name = "";
+	m_selectIdx = 0;
+	m_state = PC_NAME;
+}
+
 bool PlayerCreateView::RequestInput() {
 	int ch = getch();
 	switch(m_state) {

@@ -23,6 +23,13 @@ void MainView::Initialize() {
 	m_scrollY = p->GetY() - 10;
 }
 
+void MainView::ResetState() {
+	Player* p = DataManager::Instance()->GetPlayer();
+	m_scrollX = p->GetX() - 40;
+	m_scrollY = p->GetY() - 10;
+	m_state = MVIS_MAIN;
+}
+
 bool MainView::RequestInput() {
 	int ch = getch();
 	switch(m_state) {

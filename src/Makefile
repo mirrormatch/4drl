@@ -10,6 +10,7 @@ FILES=\
 	ColorPairs.o \
 	CompoundRoom.o \
 	DataManager.o \
+	DeathView.o \
 	Entity.o \
 	Entrance.o \
 	Exit.o \

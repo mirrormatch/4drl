@@ -18,6 +18,7 @@ class PlayerCreateView : public View {
 
 		virtual bool RequestInput();
 		virtual void Update();
+		virtual void ResetState();
 
 	protected:
 		virtual void HandleNameInput(int ch);

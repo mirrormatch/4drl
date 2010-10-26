@@ -294,3 +294,7 @@ void Player::AttackTarget() {
 		DataManager::Instance()->AppendStatusString(status);
 	}
 }
+
+bool Player::IsDead() {
+	return m_currentHP <= 0;
+}
