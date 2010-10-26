@@ -34,4 +34,32 @@ Done - 8. Monsters!
 Done - 9. Death flow
 
 10. Save/load
+	* Might save for after the deadline
+
 11. Fun
+	Things to fix/add
+		1. Scrollable inventory list
+		2. Inventory discard/destroy
+		3. Line of sight between entities
+			* Only chase player if you have los
+			* Attacks require los
+		4. Consumables
+			* Required level to use
+			* Stackable?
+		5. Rest->Health?
+		6. Armor pieces
+			* Required level to use
+			* AC
+			* Stat/HP bonuses
+		7. Weapons
+			* Required level to use
+			* Base Damage/Range
+			* Damage type
+		8. Implant
+			* Required level to use
+			* Stat bonuses
+		9. Monsters
+			* Attack range
+			* View range
+			* Resistances
+

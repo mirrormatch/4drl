@@ -11,7 +11,7 @@
 #include <sstream>
 
 InventoryView::InventoryView(GameState* gs, int w, int h) :
-	View(gs, w, h), m_inInventoryArea(true), m_selectIdx(0) {
+	View(gs, w, h), m_inInventoryArea(true), m_selectIdx(0), m_scrollY(0) {
 }
 
 InventoryView::~InventoryView() {
@@ -47,8 +47,7 @@ bool InventoryView::RequestInput() {
 		break;
 		case KEY_RIGHT:
 			m_inInventoryArea = !m_inInventoryArea;
-			m_selectIdx = 0;
-		break;
+			m_selectIdx = 0; break;
 		case '\n':
 		case KEY_ENTER:
 			HandleItemSelection();
@@ -57,7 +56,22 @@ bool InventoryView::RequestInput() {
 			m_parent->ChangeState(GAME_STATE_MAIN);
 			break;
 	}
+	if(m_inInventoryArea && !IsIndexOnScreen(m_selectIdx)) {
+		if(m_selectIdx < m_scrollY) {
+			m_scrollY = m_selectIdx;
+		}
+		else {
+			m_scrollY = m_selectIdx - 18;
+			if(m_scrollY < 0) {
+				m_scrollY = 0;
+			}
+		}
+	}
 	return false;
+}
+
+bool InventoryView::IsIndexOnScreen(int idx) {
+	return idx >= m_scrollY && idx < m_scrollY + 18;
 }
 
 void InventoryView::HandleItemSelection() {
@@ -180,15 +194,24 @@ void InventoryView::Update() {
 	}
 	else {
 		ItemList items = inv.GetItems();
-		int counter = 0;
+		int counter = m_scrollY;
+		stringstream s;
 		for(ItemList::iterator i = items.begin(); i != items.end(); i++) {
+			if(counter < m_scrollY) {
+				continue;
+			}
+			if(counter >= m_scrollY + 19) {
+				break;
+			}
 			int attr = WHITE;
 			if(m_inInventoryArea && counter == m_selectIdx) {
 				attr = YELLOW_BOLD;
 			}
 			Item* toShow = *i;
-			toDraw = toShow->GetDisplayName();
-			SetStringAt(51, 3 + counter, toDraw, attr);
+			s.str("");
+			s << (counter + 1) << ". " << toShow->GetDisplayName();
+			toDraw = s.str();
+			SetStringAt(51, 3 + counter - m_scrollY, toDraw, attr);
 			counter++;
 		}
 	}
@@ -200,10 +223,10 @@ void InventoryView::Update() {
 	DrawPaperDollItem(p->GetWeaponItem(), 12, 3);
 	DrawPaperDollItem(p->GetImplantItem(), 14, 4);
 
-	//stringstream s;
-	//s << "num items " << inv.NumItems();
-	//toDraw = s.str();
-	//SetStringAt(1, 22, toDraw, WHITE);
+	stringstream s;
+	s << "scrolly: " << m_scrollY << " selectidx: " << m_selectIdx;
+	toDraw = s.str();
+	SetStringAt(1, 22, toDraw, WHITE);
 }
 
 void InventoryView::DrawPaperDollItem(Item* i, int y, int idx) {
@@ -224,4 +247,5 @@ void InventoryView::DrawPaperDollItem(Item* i, int y, int idx) {
 void InventoryView::ResetState() {
 	m_inInventoryArea = true;
 	m_selectIdx = 0;
+	m_scrollY = 0;
 }
