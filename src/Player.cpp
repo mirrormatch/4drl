@@ -123,6 +123,9 @@ void Player::SetCurrentHP(int chp) {
 
 void Player::IncrementCurrentHP(int inc) {
 	m_currentHP += inc;
+	if(m_currentHP > m_hp) {
+		m_currentHP = m_hp;
+	}
 }
 
 int Player::GetSTR() {

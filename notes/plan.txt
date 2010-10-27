@@ -43,10 +43,11 @@ Done - 9. Death flow
 		Done - 3. Line of sight between entities
 			Done - * Only chase player if you have los
 			Done - * Attacks require los
-		4. Consumables
-			* Required level to use
-			* Stackable?
-		5. Rest->Health?
+		Done - 4. Consumables
+			Done - * Required level to use
+			Done - * Stackable?
+		Done - 5. Rest->Health?
+			Done - * Not for 4drl
 		6. Armor pieces
 			* Required level to use
 			* AC
@@ -65,4 +66,8 @@ Done - 9. Death flow
 		Done - 10. View range
 			Done - * Only 'view' items within a certain area
 			Done - * Fog of war the rest
+		11. - Create loot/monster tables based on player level
+		12. - Level up
+			* Stat increases
+			* Reset HP
 

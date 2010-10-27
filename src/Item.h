@@ -15,6 +15,18 @@ class Item : public Entity {
 
 		virtual void Update();
 		virtual void Activate();
+		virtual bool CanStack();
+		virtual int GetStackSize();
+		virtual void IncrementStack(int inc);
+		virtual int GetRequiredLevel();
+		virtual bool CanUse();
+		virtual int GetItemID();
+	
+	protected:
+		bool m_canStack;
+		int m_stackSize;
+		int m_requiredLevel;
+		int m_itemID;
 };
 
 #endif

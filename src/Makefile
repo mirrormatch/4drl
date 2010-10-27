@@ -9,6 +9,7 @@ FILES=\
 	BodyArmor.o \
 	ColorPairs.o \
 	CompoundRoom.o \
+	Consumable.o \
 	DataManager.o \
 	DeathView.o \
 	Entity.o \

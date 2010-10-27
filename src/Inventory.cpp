@@ -16,6 +16,17 @@ void Inventory::AddItem(Item* toAdd) {
 		}
 	}
 
+	if(toAdd->CanStack()) {
+		// See if we've already got one of these so we can add to the stack
+		for(ItemList::iterator i = m_items.begin(); i != m_items.end(); i++) {
+			Item* toCheck = *i;
+			if(toAdd->GetItemID() == toCheck->GetItemID()) {
+				toCheck->IncrementStack(1);
+				return;
+			}
+		}
+	}
+
 	m_items.push_back(toAdd);
 }
 

@@ -8,6 +8,7 @@
 #include "ArmorItem.h"
 #include "Weapon.h"
 #include "Implant.h"
+#include "Consumable.h"
 #include <sstream>
 
 InventoryView::InventoryView(GameState* gs, int w, int h) :
@@ -135,6 +136,15 @@ void InventoryView::HandleItemSelection() {
 						inv.AddItem(oldItem);
 					}
 					break;
+				case E_CONSUMABLE:
+					if(toUse->CanStack()) {
+						Consumable* c = (Consumable*)toUse;
+						c->ApplyEffect();
+						if(toUse->GetStackSize() < 1) {
+							inv.RemoveItem(toUse);
+						}
+					}
+					break;
 				default:
 					break;
 			}
@@ -223,7 +233,13 @@ void InventoryView::Update() {
 			Item* toShow = *i;
 			s.str("");
 			s << (counter + 1) << ". " << toShow->GetDisplayName();
+			if(toShow->CanStack()) {
+				s << " (" << toShow->GetStackSize() << ")";
+			}
 			toDraw = s.str();
+			if(toDraw.length() > 28) {
+				toDraw.erase(28);
+			}
 			SetStringAt(51, 3 + counter - m_scrollY, toDraw, attr);
 			counter++;
 		}

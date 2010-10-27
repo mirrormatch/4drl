@@ -5,7 +5,7 @@
 #include "Inventory.h"
 #include "Level.h"
 
-Item::Item() : Entity('i', CYAN_BOLD, E_GENERIC) {
+Item::Item() : Entity('i', CYAN_BOLD, E_GENERIC), m_canStack(false), m_stackSize(0), m_requiredLevel(1), m_itemID(0) {
 	SetDisplayName("Temp Item of Boldness");
 }
 
@@ -23,3 +23,30 @@ void Item::Activate() {
 	DataManager::Instance()->AppendStatusString(status);
 }
 
+bool Item::CanStack() {
+	return m_canStack;
+}
+
+int Item::GetStackSize() {
+	return m_stackSize;
+}
+
+void Item::IncrementStack(int inc) {
+	m_stackSize += inc;
+	if(m_stackSize < 0) {
+		m_stackSize = 0;
+	}
+}
+
+int Item::GetRequiredLevel() {
+	return m_requiredLevel;
+}
+
+bool Item::CanUse() {
+	Player* p = DataManager::Instance()->GetPlayer();
+	return p->GetLevel() >= m_requiredLevel;
+}
+
+int Item::GetItemID() {
+	return m_itemID;
+}

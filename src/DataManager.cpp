@@ -9,6 +9,7 @@
 #include "Pants.h"
 #include "Weapon.h"
 #include "Implant.h"
+#include "Consumable.h"
 #include "Monster.h"
 #include "Pathfinder.h"
 #include "Sight.h"
@@ -116,7 +117,7 @@ const StringVector& DataManager::GetClassNames() {
 }
 
 Item* DataManager::GenerateRandomItem() {
-	switch(rand() % 5) {
+	switch(rand() % 50) {
 		case 0:
 			return new Helm();
 		case 1:
@@ -128,7 +129,7 @@ Item* DataManager::GenerateRandomItem() {
 		case 4:
 			return new Implant();
 		default:
-			return NULL;
+			return new Consumable();
 	}
 }
 
