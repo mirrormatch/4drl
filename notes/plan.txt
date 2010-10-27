@@ -59,10 +59,10 @@ Done - 9. Death flow
 		Done - 8. Implant
 			Done - * Required level to use
 			Done - * Stat bonuses
-		9. Monsters
-			* Attack range
-			* View range
-			* Resistances
+		Done - 9. Monsters
+			Done - * Attack range
+			Done - * View range
+			Done - * Resistances
 		Done - 10. View range
 			Done - * Only 'view' items within a certain area
 			Done - * Fog of war the rest

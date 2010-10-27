@@ -55,7 +55,6 @@ void Player::CreateDefaults() {
 	SetACC(10);
 	SetAC(0);
 	m_weaponSlot = new Weapon();
-	m_inventory.AddItem(new Helm());
 }
 
 string& Player::GetName() {

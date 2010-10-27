@@ -8,6 +8,7 @@
 #include "DataManager.h"
 #include "Player.h"
 #include "Monster.h"
+#include "Weapon.h"
 
 MainView::MainView(GameState* gs, int w, int h) : 
 	View(gs, w, h), m_scrollX(0), m_scrollY(0), m_state(MVIS_MAIN) {
@@ -232,6 +233,13 @@ void MainView::DrawStats(Player* p) {
 	s << "  DEX: " << p->GetDEX();
 	s << "  ACC: " << p->GetACC();
 	s << "  AC: " << p->GetAC();
+	s << "  W: ";
+	if(p->GetWeaponItem()) {
+		s << p->GetWeaponItem()->GetDisplayName();
+	}
+	else {
+		s << "<empty>";
+	}
 	string str = s.str();
 	SetStringAt(0, 23, str, WHITE_BOLD);
 
