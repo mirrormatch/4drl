@@ -105,7 +105,7 @@ bool MainView::HandleTargetSelectInput(int ch) {
 	Level* l = DataManager::Instance()->GetCurrentLevel();
 	int tx, ty;
 	switch(ch) {
-		case 27:
+		case 'x':
 			m_state = MVIS_MAIN;
 			SetCursorVisible(false);
 			break;
@@ -258,7 +258,7 @@ void MainView::DrawStats(Player* p) {
 		DataManager::Instance()->ClearStatusString();
 	}
 	else if(m_state == MVIS_TARGET_SELECT) {
-		str = "(Place the cursor over your desired target and hit Enter)";
+		str = "(Move cursor to target and hit Enter, 'x' to exit with no target)";
 		int wd2 = str.length() / 2;
 		SetStringAt(40 - wd2, 21, str, YELLOW_BOLD);
 	}

@@ -66,7 +66,7 @@ bool InventoryView::RequestInput() {
 		case KEY_ENTER:
 			HandleItemSelection();
 			break;
-		case 27:
+		case 'x':
 			m_parent->ChangeState(GAME_STATE_MAIN);
 			break;
 	}
@@ -196,7 +196,7 @@ void InventoryView::Update() {
 	wd2 = toDraw.length() / 2;
 	SetStringAt(65 - wd2, 1, toDraw, WHITE);
 
-	toDraw = "(Arrows navigate, Enter selects, 'd' discards, Esc exits. List scrolls)";
+	toDraw = "(Arrows navigate, Enter selects, 'd' discards, 'x' exits. List scrolls)";
 	wd2 = toDraw.length() / 2;
 	SetStringAt(40 - wd2, 23, toDraw, WHITE);
 
