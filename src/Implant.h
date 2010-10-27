@@ -3,9 +3,9 @@
 #ifndef _IMPLANT_H_
 #define _IMPLANT_H_
 
-#include "Item.h"
+#include "WearableItem.h"
 
-class Implant: public Item {
+class Implant: public WearableItem {
 public:
 	Implant();
 	virtual ~Implant();

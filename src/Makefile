@@ -35,7 +35,8 @@ FILES=\
 	Room.o \
 	Sight.o \
 	View.o \
-	Weapon.o
+	Weapon.o \
+	WearableItem.o
 
 EXECUTABLE=4drl
 

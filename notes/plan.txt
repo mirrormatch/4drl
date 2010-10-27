@@ -48,17 +48,17 @@ Done - 9. Death flow
 			Done - * Stackable?
 		Done - 5. Rest->Health?
 			Done - * Not for 4drl
-		6. Armor pieces
-			* Required level to use
-			* AC
-			* Stat/HP bonuses
-		7. Weapons
-			* Required level to use
-			* Base Damage/Range
-			* Damage type
-		8. Implant
-			* Required level to use
-			* Stat bonuses
+		Done - 6. Armor pieces
+			Done - * Required level to use
+			Done - * AC
+			Done - * Stat/HP bonuses
+		Done - 7. Weapons
+			Done - * Required level to use
+			Done - * Base Damage/Range
+			Done - * Damage type
+		Done - 8. Implant
+			Done - * Required level to use
+			Done - * Stat bonuses
 		9. Monsters
 			* Attack range
 			* View range

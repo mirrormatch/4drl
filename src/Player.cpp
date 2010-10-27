@@ -48,13 +48,14 @@ void Player::CreateDefaults() {
 	SetTitle("Space Librarian");
 	SetXP(0);
 	SetLevel(1);
+	SetSTR(10);
 	SetCurrentHP(4 * m_str);
 	SetHP(4 * m_str);
-	SetSTR(10);
 	SetDEX(10);
 	SetACC(10);
 	SetAC(0);
 	m_weaponSlot = new Weapon();
+	m_inventory.AddItem(new Helm());
 }
 
 string& Player::GetName() {
@@ -136,6 +137,10 @@ int Player::GetSTR() {
 
 void Player::SetSTR(int str) {
 	m_str = str;
+	m_hp = m_str * 4;
+	if(m_currentHP > m_hp) {
+		m_currentHP = m_hp;
+	}
 }
 
 int Player::GetDEX() {
@@ -188,40 +193,48 @@ Implant* Player::GetImplantItem() {
 
 void Player::SetHeadItem(ArmorItem* newItem) {
 	if(m_headSlot) {
-		m_ac -= m_headSlot->GetAC();
+		m_headSlot->UnapplyStatChanges(this);
 	}
 	m_headSlot = newItem;
-	m_ac += newItem->GetAC();
+	m_headSlot->ApplyStatChanges(this);
 }
 
 void Player::SetBodyItem(ArmorItem* newItem) {
 	if(m_bodySlot) {
-		m_ac -= m_bodySlot->GetAC();
+		m_bodySlot->UnapplyStatChanges(this);
 	}
 	m_bodySlot = newItem;
-	m_ac += newItem->GetAC();
+	m_bodySlot->ApplyStatChanges(this);
 }
 
 void Player::SetLegsItem(ArmorItem* newItem) {
 	if(m_legsSlot) {
-		m_ac -= m_legsSlot->GetAC();
+		m_legsSlot->UnapplyStatChanges(this);
 	}
 	m_legsSlot = newItem;
-	m_ac += newItem->GetAC();
+	m_legsSlot->ApplyStatChanges(this);
 }
 
 void Player::SetWeaponItem(Weapon* newItem) {
+	if(m_weaponSlot) {
+		m_weaponSlot->UnapplyStatChanges(this);
+	}
 	m_weaponSlot = newItem;
+	m_weaponSlot->ApplyStatChanges(this);
 }
 
 void Player::SetImplantItem(Implant* newItem) {
+	if(m_implantSlot) {
+		m_implantSlot->UnapplyStatChanges(this);
+	}
 	m_implantSlot = newItem;
+	m_implantSlot->ApplyStatChanges(this);
 }
 
 void Player::ReturnHeadItemToInventory() {
 	if(m_headSlot) {
 		m_inventory.AddItem(m_headSlot);
-		m_ac -= m_headSlot->GetAC();
+		m_headSlot->UnapplyStatChanges(this);
 		m_headSlot = NULL;
 	}
 }
@@ -229,7 +242,7 @@ void Player::ReturnHeadItemToInventory() {
 void Player::ReturnBodyItemToInventory() {
 	if(m_bodySlot) {
 		m_inventory.AddItem(m_bodySlot);
-		m_ac -= m_bodySlot->GetAC();
+		m_bodySlot->UnapplyStatChanges(this);
 		m_bodySlot = NULL;
 	}
 }
@@ -237,7 +250,7 @@ void Player::ReturnBodyItemToInventory() {
 void Player::ReturnLegsItemToInventory() {
 	if(m_legsSlot) {
 		m_inventory.AddItem(m_legsSlot);
-		m_ac -= m_legsSlot->GetAC();
+		m_legsSlot->UnapplyStatChanges(this);
 		m_legsSlot = NULL;
 	}
 }
@@ -245,6 +258,7 @@ void Player::ReturnLegsItemToInventory() {
 void Player::ReturnWeaponItemToInventory() {
 	if(m_weaponSlot) {
 		m_inventory.AddItem(m_weaponSlot);
+		m_weaponSlot->UnapplyStatChanges(this);
 		m_weaponSlot = NULL;
 	}
 }
@@ -252,6 +266,7 @@ void Player::ReturnWeaponItemToInventory() {
 void Player::ReturnImplantItemToInventory() {
 	if(m_implantSlot) {
 		m_inventory.AddItem(m_implantSlot);
+		m_implantSlot->UnapplyStatChanges(this);
 		m_implantSlot = NULL;
 	}
 }

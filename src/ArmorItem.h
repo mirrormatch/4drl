@@ -3,18 +3,13 @@
 #ifndef _ARMOR_ITEM_H_
 #define _ARMOR_ITEM_H_
 
-#include "Item.h"
+#include "WearableItem.h"
 
-class ArmorItem : public Item {
+class ArmorItem : public WearableItem {
 public:
 	ArmorItem();
 	virtual ~ArmorItem();
 
-	int GetAC();
-	void SetAC(int ac);
-
-protected:
-	int m_ac;
 };
 
 #endif

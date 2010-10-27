@@ -113,7 +113,7 @@ const StringVector& DataManager::GetClassNames() {
 }
 
 Item* DataManager::GenerateRandomItem() {
-	switch(rand() % 50) {
+	switch(rand() % 6) {
 		case 0:
 			return new Helm();
 		case 1:

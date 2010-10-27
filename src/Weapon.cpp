@@ -1,7 +1,7 @@
 
 #include "Weapon.h"
 
-Weapon::Weapon() : Item() {
+Weapon::Weapon() : WearableItem() {
 	m_class = E_WEAPON;
 	m_range = 8;
 	m_baseDamage = 4;

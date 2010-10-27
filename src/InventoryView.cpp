@@ -95,6 +95,13 @@ void InventoryView::HandleItemSelection() {
 		if(inv.NumItems() > 0) {
 			Item* toUse = inv.ItemAtIndex(m_selectIdx);
 			Item* oldItem = NULL;
+			if(!toUse->CanUse()) {
+				stringstream s;
+				s << toUse->GetDisplayName() << " requires level " << toUse->GetRequiredLevel();
+				string toDisp = s.str();
+				DataManager::Instance()->AppendStatusString(toDisp);
+				return;
+			}
 			switch(toUse->GetClass()) {
 				case E_HELM:
 					inv.RemoveItem(toUse);
@@ -192,6 +199,13 @@ void InventoryView::Update() {
 	toDraw = "(Arrows navigate, Enter selects, 'd' discards, Esc exits. List scrolls)";
 	wd2 = toDraw.length() / 2;
 	SetStringAt(40 - wd2, 23, toDraw, WHITE);
+
+	toDraw = DataManager::Instance()->GetStatusString();
+	DataManager::Instance()->ClearStatusString();
+	if(toDraw != "()") {
+		wd2 = toDraw.length() / 2;
+		SetStringAt(1, 22, toDraw, YELLOW_BOLD);
+	}
 
 	toDraw = "Head: ";
 	SetStringAt(10, 6, toDraw, WHITE);

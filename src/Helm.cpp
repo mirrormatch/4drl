@@ -5,6 +5,7 @@ Helm::Helm() : ArmorItem() {
 	m_class = E_HELM;
 	SetDisplayName("Helm of Testing");
 	SetAC(2);
+	m_requiredLevel = 2;
 }
 
 Helm::~Helm() {

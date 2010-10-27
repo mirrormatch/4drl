@@ -3,9 +3,9 @@
 #ifndef _WEAPON_H_
 #define _WEAPON_H_
 
-#include "Item.h"
+#include "WearableItem.h"
 
-class Weapon: public Item {
+class Weapon: public WearableItem {
 public:
 	Weapon();
 	virtual ~Weapon();

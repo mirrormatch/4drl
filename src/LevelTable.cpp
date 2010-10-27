@@ -39,8 +39,7 @@ void LevelTable::UpdatePlayerStats(Player* p) {
 	p->SetSTR(p->GetSTR() + 2);
 	p->SetDEX(p->GetDEX() + 1);
 	p->SetACC(p->GetACC() + 2);
-	p->SetHP(p->GetSTR() * 4);
-	p->SetCurrentHP(p->GetSTR() * 4);
+	p->SetCurrentHP(p->GetHP());
 }
 
 int LevelTable::GetXPForLevel(int level) {
