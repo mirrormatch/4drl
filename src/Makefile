@@ -41,7 +41,7 @@ FILES=\
 	Weapon.o \
 	WearableItem.o
 
-EXECUTABLE=4drl
+EXECUTABLE=transmission
 
 main: $(FILES)
 	$(CPP) -o $(EXECUTABLE) $(LFLAGS) $(FILES)

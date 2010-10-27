@@ -1,1 +1,16 @@
-this is my workspace for the 4drl challenge.  Wish me luck!
+this is my workspace for the 4drl challenge.
+
+I finished with 90 minutes left to spare!
+
+It should build out of the box on linux and OS X, just cd into the src
+directory and type "make."  The executable is named "transmission"
+
+When you get into the game, hit '?' for a list of commands and a map legend.
+
+Have fun, and thanks for checking out my entry!
+
+Have an issue? Let me know!
+You can do any of the following:
+* Send me a message on github
+* Ping me on twitter (@rje)
+* Shoot me an email (me at rjevans dot net)
