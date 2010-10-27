@@ -48,7 +48,7 @@ void MonsterTable::ConvertToReaper(Monster* m) {
 	m->SetDisplayName(newName);
 	m->SetDisplayChar('R');
 	m->SetEyeRange(10);
-	m->SetAttackRange(9);
+	m->SetAttackRange(8);
 	m->SetHP(m->GetLevel() * 2);
 }
 
@@ -84,7 +84,9 @@ string MonsterTable::GetNamePrefix(int level) {
 			return "Experienced";
 		case 15:
 			return "Strong";
-		default:
+		case 16:
 			return "Deadly";
+		default:
+			return "Death";
 	}
 }

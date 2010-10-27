@@ -24,6 +24,7 @@ FILES=\
 	Item.o \
 	Level.o \
 	LevelTable.o \
+	LootTable.o \
 	Main.o \
 	MainView.o \
 	Monster.o \

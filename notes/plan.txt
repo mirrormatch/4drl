@@ -70,4 +70,4 @@ Done - 9. Death flow
 		Done - 12. - Level up
 			Done - * Stat increases
 			Done - * Reset HP
-
+		13. - Fix exit bug

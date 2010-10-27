@@ -9,7 +9,13 @@ public:
 	Consumable();
 	virtual ~Consumable();
 
+	virtual void SetHP(int hp);
+	virtual int GetHP();
+
 	virtual void ApplyEffect();
+
+protected:
+	int m_hp;
 };
 
 #endif

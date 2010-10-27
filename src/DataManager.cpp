@@ -14,6 +14,7 @@
 #include "Pathfinder.h"
 #include "Sight.h"
 #include "MonsterTable.h"
+#include "LootTable.h"
 
 DataManager* DataManager::sm_instance = NULL;
 
@@ -114,20 +115,7 @@ const StringVector& DataManager::GetClassNames() {
 }
 
 Item* DataManager::GenerateRandomItem() {
-	switch(rand() % 6) {
-		case 0:
-			return new Helm();
-		case 1:
-			return new BodyArmor();
-		case 2:
-			return new Pants();
-		case 3:
-			return new Weapon();
-		case 4:
-			return new Implant();
-		default:
-			return new Consumable();
-	}
+	return LootTable::Instance()->GenerateLoot();
 }
 
 Monster* DataManager::GenerateRandomMonster() {

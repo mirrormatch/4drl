@@ -11,6 +11,8 @@
 #include "Monster.h"
 #include "Sight.h"
 #include "LevelTable.h"
+#include "LootTable.h"
+#include "Consumable.h"
 #include <sstream>
 
 Player::Player() : 
@@ -54,7 +56,12 @@ void Player::CreateDefaults() {
 	SetDEX(10);
 	SetACC(10);
 	SetAC(0);
-	m_weaponSlot = new Weapon();
+	m_weaponSlot = LootTable::Instance()->GenerateWeapon(1);
+	m_bodySlot = LootTable::Instance()->GenerateBodyArmor(1);
+	m_legsSlot = LootTable::Instance()->GeneratePants(1);
+	Consumable* c = LootTable::Instance()->GenerateConsumable(1);
+	c->IncrementStack(4);
+	m_inventory.AddItem(c);
 }
 
 string& Player::GetName() {

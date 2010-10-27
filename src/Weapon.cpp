@@ -18,3 +18,12 @@ int Weapon::GetRange() {
 int Weapon::GetBaseDamage() {
 	return m_baseDamage;
 }
+
+void Weapon::SetRange(int range) {
+	m_range = range;
+	
+}
+
+void Weapon::SetBaseDamage(int dmg) {
+	m_baseDamage = dmg;
+}

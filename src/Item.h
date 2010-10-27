@@ -19,8 +19,10 @@ class Item : public Entity {
 		virtual int GetStackSize();
 		virtual void IncrementStack(int inc);
 		virtual int GetRequiredLevel();
+		virtual void SetRequiredLevel(int lvl);
 		virtual bool CanUse();
 		virtual int GetItemID();
+		virtual void SetItemID(int id);
 	
 	protected:
 		bool m_canStack;

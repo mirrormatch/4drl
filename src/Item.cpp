@@ -42,6 +42,10 @@ int Item::GetRequiredLevel() {
 	return m_requiredLevel;
 }
 
+void Item::SetRequiredLevel(int lvl) {
+	m_requiredLevel = lvl;
+}
+
 bool Item::CanUse() {
 	Player* p = DataManager::Instance()->GetPlayer();
 	return p->GetLevel() >= m_requiredLevel;
@@ -49,4 +53,8 @@ bool Item::CanUse() {
 
 int Item::GetItemID() {
 	return m_itemID;
+}
+
+void Item::SetItemID(int id) {
+	m_itemID = id;
 }
