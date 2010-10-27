@@ -36,6 +36,7 @@ public:
 
 	virtual void SetEyeRange(int range);
 	virtual void SetAttackRange(int range);
+	virtual void SetBaseDamage(int dmg);
 	virtual int GetLevel();
 
 protected:

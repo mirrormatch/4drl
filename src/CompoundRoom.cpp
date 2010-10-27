@@ -178,12 +178,27 @@ void CompoundRoom::ClosestPointToMiddle(int* x, int* y) {
 void CompoundRoom::GetRandomValidPoint(int* x, int* y) {
 	int tx = (rand() % m_width) + m_x;
 	int ty = (rand() % m_height) + m_y;
-	while(!IsFilled(tx, ty) && !EntityAt(tx, ty)) {
+	while(!IsFilled(tx, ty) && !EntityAt(tx, ty) && !OnEdge(tx, ty)) {
 		tx = (rand() % m_width) + m_x;
 		ty = (rand() % m_height) + m_y;
 	}
 	*x = tx;
 	*y = ty;
+}
+
+bool CompoundRoom::OnEdge(int x, int y) {
+	for(int tx = x - 1; tx <= x + 1; tx++) {
+		for(int ty = y - 1; y <= y + 1; ty++) {
+			if(tx == x && ty == y) {
+				continue;
+			}
+			else if(!IsFilled(tx, ty)) {
+				return true;
+			}
+		}
+	}
+
+	return false;
 }
 
 Entity* CompoundRoom::EntityAt(int x, int y) {
@@ -215,4 +230,8 @@ void CompoundRoom::GenerateMonsters() {
 		toAdd->SetPosition(x, y);
 		m_entities[x - m_x][y - m_y] = toAdd;
 	}
+}
+
+void CompoundRoom::SetEntityAt(int x, int y, Entity* entity) {
+	m_entities[x - m_x][y - m_y] = entity;
 }

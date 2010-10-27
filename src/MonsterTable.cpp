@@ -49,6 +49,7 @@ void MonsterTable::ConvertToReaper(Monster* m) {
 	m->SetDisplayChar('R');
 	m->SetEyeRange(10);
 	m->SetAttackRange(8);
+	m->SetBaseDamage(1 + (m->GetLevel() / 2));
 	m->SetHP(m->GetLevel() * 2);
 }
 

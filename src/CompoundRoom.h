@@ -34,6 +34,8 @@ public:
 
 	void GenerateItems();
 	void GenerateMonsters();
+	bool OnEdge(int x, int y);
+	void SetEntityAt(int x, int y, Entity* m_entity);
 
 protected:
 	int m_x;

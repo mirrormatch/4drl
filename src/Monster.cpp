@@ -178,3 +178,7 @@ void Monster::SetAttackRange(int range) {
 int Monster::GetLevel() {
 	return m_level;
 }
+
+void Monster::SetBaseDamage(int dmg) {
+	m_baseDamage = dmg;
+}

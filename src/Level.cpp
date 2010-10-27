@@ -82,10 +82,12 @@ void Level::CreateExits(CompoundRoom* first, CompoundRoom* last) {
 	m_entrance = new Entrance();
 	m_entrance->SetPosition(x, y);
 	m_grid[x][y]->entity = m_entrance;
+	first->SetEntityAt(x, y, m_entrance);
 	last->GetRandomValidPoint(&x, &y);
 	m_exit = new Exit();
 	m_exit->SetPosition(x, y);
 	m_grid[x][y]->entity = m_exit;
+	last->SetEntityAt(x, y, m_exit);
 }
 
 void Level::CreateWalls() {
