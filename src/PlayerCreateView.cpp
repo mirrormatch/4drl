@@ -3,6 +3,7 @@
 #include "DataManager.h"
 #include "GameState.h"
 #include "Player.h"
+#include <sstream>
 
 PlayerCreateView::PlayerCreateView(GameState* gs, int w, int h) :
 	View(gs, w, h) {
@@ -64,9 +65,8 @@ void PlayerCreateView::HandleNameInput(int ch) {
 void PlayerCreateView::HandleClassInput(int ch) {
 	switch(ch) {
 		case KEY_UP:
-			m_selectIdx--;
-			if(m_selectIdx < 0) {
-				m_selectIdx = 0;
+			if(m_selectIdx > 0) {
+				m_selectIdx--;
 			}
 			break;
 		case KEY_DOWN:
@@ -124,4 +124,11 @@ void PlayerCreateView::DrawClassScreen() {
 		wd2 = toDraw.length() / 2;
 		SetStringAt(40 - wd2, 12 + i, toDraw, attr);
 	}
+
+/*
+	stringstream s;
+	s << "select idx: " << m_selectIdx;
+	toDraw = s.str();
+	SetStringAt(1, 20, toDraw, WHITE);
+*/
 }

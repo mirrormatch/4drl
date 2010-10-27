@@ -114,6 +114,9 @@ void Monster::MoveTowardsTarget() {
 	Player* p = DataManager::Instance()->GetPlayer();
 	Level* l = DataManager::Instance()->GetCurrentLevel();
 	NodeList* path = Pathfinder::Instance()->PathBetweenPoints(m_x, m_y, p->GetX(), p->GetY());
+	if(!path) {
+		return;
+	}
 	Node* next = path->back();
 	if(next) {
 		l->SquareAt(m_x, m_y)->entity = NULL;
