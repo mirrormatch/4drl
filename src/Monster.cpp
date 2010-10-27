@@ -89,11 +89,19 @@ void Monster::AttackTarget() {
 		}
 		int didhit = (rand() % 100) + (levdiff * 10);
 		if(didhit >= m_hitRate) {
-			m_target->IncrementCurrentHP(-damage);
-			stringstream s;
-			s << GetDisplayName() << " hits for " << damage << ".";
-			string status = s.str();
-			DataManager::Instance()->AppendStatusString(status);
+			int armorReduction = m_target->GetAC() / 5;
+			damage -= armorReduction;
+			if(damage < 1) {
+				string status = GetDisplayName() + " does no damage.";
+				DataManager::Instance()->AppendStatusString(status);
+			}
+			else {
+				m_target->IncrementCurrentHP(-damage);
+				stringstream s;
+				s << GetDisplayName() << " hits for " << damage << ".";
+				string status = s.str();
+				DataManager::Instance()->AppendStatusString(status);
+			}
 		}
 		else {
 			string status = GetDisplayName() + " missed you.";
