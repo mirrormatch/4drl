@@ -6,6 +6,7 @@
 #include <list>
 #include <map>
 #include <tr1/unordered_map>
+#include <algorithm>
 using namespace std;
 using namespace tr1;
 typedef vector<string> StringVector;

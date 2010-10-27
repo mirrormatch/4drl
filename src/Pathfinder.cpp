@@ -61,10 +61,17 @@ NodeList* Pathfinder::PathBetweenPoints(int x1, int y1, int x2, int y2) {
 	NodeList Q;
 	PreviousNodeMap prev;
 	PopulateListWithNodes(Q);
-	ResetNodes(Q, x2, y2);
 	Node* source = m_nodeMap[x1][y1];
-	source->SetDistance(0);
 	Node* dest = m_nodeMap[x2][y2];
+	// Make sure source and dest are in Q
+	if(find(Q.begin(), Q.end(), source) == Q.end()) {
+		Q.push_back(source);
+	}
+	if(find(Q.begin(), Q.end(), dest) == Q.end()) {
+		Q.push_back(dest);
+	}
+	ResetNodes(Q, x2, y2);
+	source->SetDistance(0);
 
 	while(Q.size() > 0) {
 		Q.sort(NodesByScore);
@@ -138,7 +145,7 @@ void Pathfinder::ResetNodes(NodeList& toReset, int dx, int dy) {
 void Pathfinder::PopulateListWithNodes(NodeList& toPopulate) {
 	for(int x = 0; x < m_currentLevel->GetWidth(); x++) {
 		for(int y = 0; y < m_currentLevel->GetHeight(); y++) {
-			if(m_nodeMap[x][y]) {
+			if(m_nodeMap[x][y] && m_nodeMap[x][y]->IsOpen()) {
 				toPopulate.push_back(m_nodeMap[x][y]);
 			}
 		}
