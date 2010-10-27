@@ -16,6 +16,7 @@ protected:
 	MonsterTable();
 	~MonsterTable();
 	void ConvertToReaper(Monster* m);
+	string GetNamePrefix(int level);
 	static MonsterTable* sm_instance;
 };
 
