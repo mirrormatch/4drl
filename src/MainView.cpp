@@ -90,12 +90,18 @@ bool MainView::HandleMainInput(int ch) {
 		case 'i':
 			m_parent->ChangeState(GAME_STATE_INVENTORY);
 			return false;
+
+		case '?':
+			m_parent->ChangeState(GAME_STATE_HELP);
+			return false;
 		//case 'n':
 		//	DataManager::Instance()->GoToNextLevel();
 		//	Player* p = DataManager::Instance()->GetPlayer();
 		//	m_scrollX = p->GetX() - 40;
 		//	m_scrollY = p->GetY() - 10;
 		//	break;
+		default:
+			return false;
 	}
 	return true;
 }
@@ -286,5 +292,8 @@ void MainView::DrawStats(Player* p) {
 		int wd2 = str.length() / 2;
 		SetStringAt(40 - wd2, 21, str, YELLOW_BOLD);
 	}
+
+	str = "'?' for help";
+	SetStringAt(80 - str.length(), 23, str, WHITE);
 }
 

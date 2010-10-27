@@ -8,6 +8,7 @@
 #include "DataManager.h"
 #include "Player.h"
 #include "DeathView.h"
+#include "HelpView.h"
 #include "Level.h"
 
 GameState::GameState(unsigned long seed) : 
@@ -115,6 +116,17 @@ void GameState::ChangeState(StateType newState) {
 			}
 			else {
 				m_currentView = m_views["death"];
+				m_currentView->ResetState();
+			}
+			break;
+		case GAME_STATE_HELP:
+			if(m_views.find("help") == m_views.end()) {
+				m_currentView = new HelpView(this, 80, 24);
+				m_currentView->Initialize();
+				m_views["help"] = m_currentView;
+			}
+			else {
+				m_currentView = m_views["help"];
 				m_currentView->ResetState();
 			}
 			break;

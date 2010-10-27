@@ -17,6 +17,7 @@ FILES=\
 	Exit.o \
 	GameState.o \
 	Helm.o \
+	HelpView.o \
 	Implant.o \
 	IntroView.o \
 	Inventory.o \
