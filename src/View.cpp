@@ -66,7 +66,7 @@ void View::Update() {
 }
 
 void View::Draw() {
-	clear(); // clear the curses screen
+	erase(); // clear the curses screen
 	// draw our stuff
 	for(int y = 0; y < m_height; y++) {
 		for(int x = 0; x < m_width; x++) {

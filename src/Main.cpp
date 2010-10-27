@@ -9,6 +9,7 @@ void InitCurses() {
 	noecho();
 	refresh();
 	ColorPairs::InitializePairs();
+	clear();
 }
 
 void EndCurses() {
