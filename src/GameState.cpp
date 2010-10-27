@@ -41,6 +41,7 @@ void GameState::Update() {
 			// only update the world if the view says an action was taken
 			Level* level = DataManager::Instance()->GetCurrentLevel();
 			level->Update();
+			DataManager::Instance()->GetPlayer()->Update();
 		}
 		if(m_state == GAME_STATE_MAIN) {
 			if(DataManager::Instance()->GetPlayer()->IsDead()) {

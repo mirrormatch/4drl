@@ -67,7 +67,7 @@ Done - 9. Death flow
 			Done - * Only 'view' items within a certain area
 			Done - * Fog of war the rest
 		11. - Create loot/monster tables based on player level
-		12. - Level up
-			* Stat increases
-			* Reset HP
+		Done - 12. - Level up
+			Done - * Stat increases
+			Done - * Reset HP
 

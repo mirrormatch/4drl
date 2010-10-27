@@ -33,11 +33,7 @@ DataManager::~DataManager() {
 
 void DataManager::LoadInfo() {
 	//FIXME: This needs to come from files
-	m_classNames.push_back("Marine");
-	m_classNames.push_back("Hacker");
-	m_classNames.push_back("Librarian");
-	m_classNames.push_back("Sniper");
-	m_classNames.push_back("Engineer");
+	m_classNames.push_back("Space Marine");
 }
 
 void DataManager::CreateNewGame() {

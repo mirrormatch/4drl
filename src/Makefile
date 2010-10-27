@@ -23,6 +23,7 @@ FILES=\
 	InventoryView.o \
 	Item.o \
 	Level.o \
+	LevelTable.o \
 	Main.o \
 	MainView.o \
 	Monster.o \

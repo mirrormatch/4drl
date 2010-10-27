@@ -10,6 +10,7 @@
 #include "Implant.h"
 #include "Monster.h"
 #include "Sight.h"
+#include "LevelTable.h"
 #include <sstream>
 
 Player::Player() : 
@@ -20,6 +21,7 @@ Player::~Player() {
 }
 
 void Player::Update() {
+	LevelTable::Instance()->CheckForLevelUp(this);
 }
 
 void Player::Activate() {
@@ -46,12 +48,12 @@ void Player::CreateDefaults() {
 	SetTitle("Space Librarian");
 	SetXP(0);
 	SetLevel(1);
-	SetHP(40);
-	SetCurrentHP(40);
+	SetCurrentHP(4 * m_str);
+	SetHP(4 * m_str);
 	SetSTR(10);
 	SetDEX(10);
 	SetACC(10);
-	SetAC(10);
+	SetAC(0);
 	m_weaponSlot = new Weapon();
 }
 
