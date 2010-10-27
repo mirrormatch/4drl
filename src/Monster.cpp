@@ -29,7 +29,7 @@ void Monster::Kill() {
 	Player* p = DataManager::Instance()->GetPlayer();
 	p->SetTarget(NULL);
 	p->IncrementXP(GetXPValue(p));
-	if(rand() % 2) {
+	if(!(rand() % 4)) {
 		Item* loot = DataManager::Instance()->GenerateRandomItem();
 		loot->SetPosition(m_x, m_y);
 		Level* l = DataManager::Instance()->GetCurrentLevel();

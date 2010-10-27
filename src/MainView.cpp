@@ -146,6 +146,7 @@ void MainView::Update() {
 	Level* level = DataManager::Instance()->GetCurrentLevel();
 	int lvlWidth = level->GetWidth();
 	int lvlHeight = level->GetHeight();
+	Player* p = DataManager::Instance()->GetPlayer();
 
 	for(int x = m_scrollX; x < m_scrollX + 80; x++) {
 		for(int y = m_scrollY; y <= m_scrollY + 19; y++) {
@@ -199,8 +200,32 @@ void MainView::Update() {
 			Entity* e = level->EntityAt(x, y);
 			if(e) {
 				if(level->SquareAt(x, y)->inView) {
-					SetCharAt(x - m_scrollX, y - m_scrollY, 
-							e->GetDisplayChar(), e->GetDisplayFlags());
+					if(e->GetClass() == E_MONSTER) {
+						Monster* m = (Monster*)e;
+						int attr = WHITE_BOLD;
+						int lvldiff = m->GetLevel() - p->GetLevel();
+						if(lvldiff < -1) {
+							attr = WHITE_BOLD;
+						}
+						else if(lvldiff < 0) {
+							attr = BLUE_BOLD;
+						}
+						else if(lvldiff  < 1) {
+							attr = GREEN_BOLD;
+						}
+						else if(lvldiff < 2) {
+							attr = YELLOW_BOLD;
+						}
+						else {
+							attr = RED_BOLD;
+						}
+						SetCharAt(x - m_scrollX, y - m_scrollY, 
+								e->GetDisplayChar(), attr);
+					}
+					else {
+						SetCharAt(x - m_scrollX, y - m_scrollY, 
+								e->GetDisplayChar(), e->GetDisplayFlags());
+					}
 				}
 				else if(level->SquareAt(x, y)->hasBeenSeen && e->GetClass() != E_MONSTER) {
 					SetCharAt(x - m_scrollX, y - m_scrollY, 
@@ -210,7 +235,6 @@ void MainView::Update() {
 		}
 	}
 
-	Player* p = DataManager::Instance()->GetPlayer();
 	SetCharAt(p->GetX() - m_scrollX, p->GetY() - m_scrollY, p->GetDisplayChar(),
 		p->GetDisplayFlags());
 
