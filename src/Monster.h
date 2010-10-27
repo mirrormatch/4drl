@@ -39,6 +39,9 @@ public:
 	virtual void SetBaseDamage(int dmg);
 	virtual int GetLevel();
 
+	virtual void SetHitRate(int hitRate);
+	virtual int GetHitRate();
+
 protected:
 	int m_hp;
 	int m_xpValue;
@@ -47,6 +50,7 @@ protected:
 	int m_attackRange;
 	int m_baseDamage;
 	int m_level;
+	int m_hitRate;
 	Player* m_target;
 };
 

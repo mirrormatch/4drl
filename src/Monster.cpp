@@ -13,6 +13,7 @@ Monster::Monster() : Entity('M', RED_BOLD, E_MONSTER), m_target(NULL) {
 	m_eyeRange = 7;
 	m_attackRange = 4;
 	m_baseDamage = 1;
+	m_hitRate = 20;
 	SetDisplayName("Xoich");
 }
 
@@ -78,11 +79,26 @@ void Monster::AttackTarget() {
 	int dist = DistanceTo(m_target);
 	if(dist <= GetAttackRange()) {
 		int damage = GetBaseDamage();
-		m_target->IncrementCurrentHP(-damage);
-		stringstream s;
-		s << GetDisplayName() << " hits for " << damage << ".";
-		string status = s.str();
-		DataManager::Instance()->AppendStatusString(status);
+		int tlevel = m_target->GetLevel();
+		int levdiff = m_level - tlevel;
+		if(levdiff < 0) {
+			damage += levdiff;
+			if(damage <= 0) {
+				damage = 1;
+			}
+		}
+		int didhit = (rand() % 100) + (levdiff * 10);
+		if(didhit >= m_hitRate) {
+			m_target->IncrementCurrentHP(-damage);
+			stringstream s;
+			s << GetDisplayName() << " hits for " << damage << ".";
+			string status = s.str();
+			DataManager::Instance()->AppendStatusString(status);
+		}
+		else {
+			string status = GetDisplayName() + " missed you.";
+			DataManager::Instance()->AppendStatusString(status);
+		}
 	}
 }
 
@@ -181,4 +197,12 @@ int Monster::GetLevel() {
 
 void Monster::SetBaseDamage(int dmg) {
 	m_baseDamage = dmg;
+}
+
+void Monster::SetHitRate(int hitRate) {
+	m_hitRate = hitRate;
+}
+
+int Monster::GetHitRate() {
+	return m_hitRate;
 }
