@@ -142,9 +142,6 @@ Implant* LootTable::GenerateImplant(int lvl) {
 	string prefix = GetQualityIdentifier(lvl);
 	string variant = GetImplantVariant();
 	int points = GetPointsForLevel(lvl);
-	int armorPoints = 0; // no AC on implants
-	points = points - armorPoints;
-	toReturn->SetAC(armorPoints);
 	toReturn->SetRequiredLevel(lvl);
 	string suffix = PickStats(toReturn, points);
 	string name = prefix + " " + variant;
@@ -172,7 +169,7 @@ Consumable* LootTable::GenerateConsumable(int lvl) {
 }
 
 int LootTable::GetPointsForLevel(int lvl) {
-	return 9 + (lvl - 1) * 4;
+	return 9 + ((lvl - 1) * 4);
 }
 
 string LootTable::GetQualityIdentifier(int lvl) {
@@ -335,7 +332,6 @@ string LootTable::GetWeaponVariant() {
 string LootTable::PickStats(WearableItem* item, int points) {
 	StatTypes t = (StatTypes)(rand() % NUM_BASIC_STATS);
 	int costPer = CostForStat(t);
-	if(costPer / points) {
 		switch(t) {
 			case STAT_STR:
 				item->SetSTR(costPer/points);
@@ -352,8 +348,6 @@ string LootTable::PickStats(WearableItem* item, int points) {
 			default:
 				return "";
 		}
-	}
-	return "";
 }
 
 string LootTable::PickWeaponStats(Weapon* item, int points) {

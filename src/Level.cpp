@@ -78,12 +78,12 @@ void Level::Generate(int w, int h, int numRooms) {
 
 void Level::CreateExits(CompoundRoom* first, CompoundRoom* last) {
 	int x, y;
-	first->GetRandomValidPoint(&x, &y);
+	first->ClosestPointToMiddle(&x, &y);
 	m_entrance = new Entrance();
 	m_entrance->SetPosition(x, y);
 	m_grid[x][y]->entity = m_entrance;
 	first->SetEntityAt(x, y, m_entrance);
-	last->GetRandomValidPoint(&x, &y);
+	last->ClosestPointToMiddle(&x, &y);
 	m_exit = new Exit();
 	m_exit->SetPosition(x, y);
 	m_grid[x][y]->entity = m_exit;

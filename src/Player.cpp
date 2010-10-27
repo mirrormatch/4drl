@@ -65,6 +65,7 @@ void Player::CreateDefaults() {
 	Consumable* c = LootTable::Instance()->GenerateConsumable(1);
 	c->IncrementStack(4);
 	m_inventory.AddItem(c);
+	m_inventory.AddItem(LootTable::Instance()->GenerateImplant(1));
 }
 
 string& Player::GetName() {
