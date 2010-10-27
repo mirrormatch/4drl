@@ -13,6 +13,7 @@
 #include "Monster.h"
 #include "Pathfinder.h"
 #include "Sight.h"
+#include "MonsterTable.h"
 
 DataManager* DataManager::sm_instance = NULL;
 
@@ -130,7 +131,7 @@ Item* DataManager::GenerateRandomItem() {
 }
 
 Monster* DataManager::GenerateRandomMonster() {
-	return new Monster();
+	return MonsterTable::Instance()->GenerateNewMonster();
 }
 
 void DataManager::AppendStatusString(string& toAppend) {

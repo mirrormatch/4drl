@@ -10,11 +10,16 @@
 Monster::Monster() : Entity('M', RED_BOLD, E_MONSTER), m_target(NULL) {
 	m_isPassable = false;
 	m_hp = 10;
-	m_xpValue = 5;
 	m_eyeRange = 7;
 	m_attackRange = 4;
 	m_baseDamage = 1;
 	SetDisplayName("Xoich");
+}
+
+void Monster::SetLevel(int level) {
+	m_level = level;
+	SetHP(10 + 3 * (level - 1));
+	m_baseDamage = 1 + (level - 1);
 }
 
 Monster::~Monster() {
@@ -23,7 +28,7 @@ Monster::~Monster() {
 void Monster::Kill() {
 	Player* p = DataManager::Instance()->GetPlayer();
 	p->SetTarget(NULL);
-	p->IncrementXP(GetXPValue());
+	p->IncrementXP(GetXPValue(p));
 	if(rand() % 2) {
 		Item* loot = DataManager::Instance()->GenerateRandomItem();
 		loot->SetPosition(m_x, m_y);
@@ -143,8 +148,11 @@ bool Monster::ShouldRemove() {
 	return IsDead();
 }
 
-int Monster::GetXPValue() {
-	return m_xpValue;
+int Monster::GetXPValue(Player* p) {
+	int base = m_level * 5;
+	float mod = (float)m_level / (float)p->GetLevel();
+	base *= mod;
+	return base;
 }
 
 int Monster::GetEyeRange() {
@@ -157,4 +165,16 @@ int Monster::GetAttackRange() {
 
 int Monster::GetBaseDamage() {
 	return m_baseDamage;
+}
+
+void Monster::SetEyeRange(int range) {
+	m_eyeRange = range;
+}
+
+void Monster::SetAttackRange(int range) {
+	m_attackRange = range;
+}
+
+int Monster::GetLevel() {
+	return m_level;
 }

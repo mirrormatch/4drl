@@ -63,3 +63,7 @@ bool Entity::ShouldRemove() {
 void Entity::Kill() {
 	// do nothing by default
 }
+
+void Entity::SetDisplayChar(char ch) {
+	m_dispChar = ch;
+}

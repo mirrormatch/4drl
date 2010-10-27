@@ -39,6 +39,7 @@ class Entity {
 		virtual EntityClass GetClass();
 		virtual string& GetDisplayName();
 		virtual void SetDisplayName(string name);
+		virtual void SetDisplayChar(char ch);
 
 		virtual bool IsPassable();
 		virtual void SetIsPassable(bool val);

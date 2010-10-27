@@ -27,6 +27,7 @@ FILES=\
 	Main.o \
 	MainView.o \
 	Monster.o \
+	MonsterTable.o \
 	Node.o \
 	Pants.o \
 	Pathfinder.o \

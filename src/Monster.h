@@ -16,6 +16,7 @@ public:
 
 	virtual void Advance(int x, int y);
 
+	virtual void SetLevel(int level);
 	virtual void SetIsTarget(bool isTarget);
 	virtual int GetHP();
 	virtual void SetHP(int hp);
@@ -24,7 +25,7 @@ public:
 	virtual bool ShouldRemove();
 	virtual void Kill();
 
-	virtual int GetXPValue();
+	virtual int GetXPValue(Player* p);
 	virtual int GetEyeRange();
 	virtual int GetAttackRange();
 	virtual void AttackTarget();
@@ -33,6 +34,10 @@ public:
 	virtual void SetTarget(Player* p);
 	virtual int GetBaseDamage();
 
+	virtual void SetEyeRange(int range);
+	virtual void SetAttackRange(int range);
+	virtual int GetLevel();
+
 protected:
 	int m_hp;
 	int m_xpValue;
@@ -40,6 +45,7 @@ protected:
 	int m_eyeRange;
 	int m_attackRange;
 	int m_baseDamage;
+	int m_level;
 	Player* m_target;
 };
 
