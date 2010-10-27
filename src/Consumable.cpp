@@ -2,6 +2,7 @@
 #include "Consumable.h"
 #include "DataManager.h"
 #include "Player.h"
+#include <sstream>
 
 Consumable::Consumable() : Item() {
 	m_class = E_CONSUMABLE;
@@ -26,4 +27,11 @@ void Consumable::SetHP(int hp) {
 
 int Consumable::GetHP() {
 	return m_hp;
+}
+
+string Consumable::GetInfoString() {
+	stringstream s;
+	s << "HP +" << m_hp << " ";
+	s << "Req Level: " << m_requiredLevel;
+	return s.str();
 }

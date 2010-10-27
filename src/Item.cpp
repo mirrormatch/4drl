@@ -58,3 +58,7 @@ int Item::GetItemID() {
 void Item::SetItemID(int id) {
 	m_itemID = id;
 }
+
+string Item::GetInfoString() {
+	return "This is an item of no value.";
+}

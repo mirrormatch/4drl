@@ -13,6 +13,7 @@ public:
 	virtual int GetHP();
 
 	virtual void ApplyEffect();
+	virtual string GetInfoString();
 
 protected:
 	int m_hp;

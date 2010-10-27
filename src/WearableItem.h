@@ -11,17 +11,19 @@ public:
 	WearableItem();
 	virtual ~WearableItem();
 
-	int GetAC();
-	void SetAC(int ac);
-	int GetSTR();
-	void SetSTR(int str);
-	int GetDEX();
-	void SetDEX(int dex);
-	int GetACC();
-	void SetACC(int acc);
+	virtual int GetAC();
+	virtual void SetAC(int ac);
+	virtual int GetSTR();
+	virtual void SetSTR(int str);
+	virtual int GetDEX();
+	virtual void SetDEX(int dex);
+	virtual int GetACC();
+	virtual void SetACC(int acc);
 
-	void ApplyStatChanges(Player* p);
-	void UnapplyStatChanges(Player* p);
+	virtual void ApplyStatChanges(Player* p);
+	virtual void UnapplyStatChanges(Player* p);
+
+	virtual string GetInfoString();
 
 protected:
 	int m_ac;

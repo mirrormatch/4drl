@@ -21,6 +21,7 @@ protected:
 	void DrawPaperDollItem(Item* i, int y, int idx);
 	void HandleItemSelection();
 	bool IsIndexOnScreen(int idx);
+	void DrawSelectedInfo(Item* i);
 	bool m_inInventoryArea;
 	int m_selectIdx;
 	int m_scrollY;

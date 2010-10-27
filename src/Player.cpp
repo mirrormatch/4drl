@@ -57,8 +57,11 @@ void Player::CreateDefaults() {
 	SetACC(10);
 	SetAC(0);
 	m_weaponSlot = LootTable::Instance()->GenerateWeapon(1);
+	m_weaponSlot->ApplyStatChanges(this);
 	m_bodySlot = LootTable::Instance()->GenerateBodyArmor(1);
+	m_bodySlot->ApplyStatChanges(this);
 	m_legsSlot = LootTable::Instance()->GeneratePants(1);
+	m_legsSlot->ApplyStatChanges(this);
 	Consumable* c = LootTable::Instance()->GenerateConsumable(1);
 	c->IncrementStack(4);
 	m_inventory.AddItem(c);
@@ -316,17 +319,29 @@ void Player::AttackTarget() {
 		return;
 	}
 
-	// FIXME: put better calculations in, for now just sub the base
-	// damage
 	int damage = m_weaponSlot->GetBaseDamage();
-	m_target->IncrementHP(-damage);
-	m_target->SetTarget(this);
-	stringstream s;
-	s << "Hit " << m_target->GetDisplayName() << " for " << damage << ".";
-	string status = s.str();
-	DataManager::Instance()->AppendStatusString(status);
-	if(m_target->IsDead()) {
-		status = "You killed " + m_target->GetDisplayName() + "!";
+	int lvldiff = m_level - m_target->GetLevel();
+	if(lvldiff < 1) {
+		damage -= lvldiff;
+		if(damage < 0) {
+			damage = 1;
+		}
+	}
+	int didHit = (rand() % 100) + lvldiff * 10 + m_acc * 2 + m_dex;
+	if(didHit > 25) {
+		m_target->IncrementHP(-damage);
+		m_target->SetTarget(this);
+		stringstream s;
+		s << "Hit " << m_target->GetDisplayName() << " for " << damage << ".";
+		string status = s.str();
+		DataManager::Instance()->AppendStatusString(status);
+		if(m_target->IsDead()) {
+			status = "You killed " + m_target->GetDisplayName() + "!";
+			DataManager::Instance()->AppendStatusString(status);
+		}
+	}
+	else {
+		string status = "You missed" + m_target->GetDisplayName() + ".";
 		DataManager::Instance()->AppendStatusString(status);
 	}
 }

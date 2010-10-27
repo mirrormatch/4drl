@@ -14,6 +14,7 @@ public:
 	virtual int GetBaseDamage();
 	virtual void SetRange(int range);
 	virtual void SetBaseDamage(int dmg);
+	virtual string GetInfoString();
 
 protected:
 	int m_range;

@@ -1,6 +1,7 @@
 
 #include "WearableItem.h"
 #include "Player.h"
+#include <sstream>
 
 
 WearableItem::WearableItem() : Item(), m_ac(0), m_str(0), m_dex(0), m_acc(0) {
@@ -55,4 +56,21 @@ void WearableItem::UnapplyStatChanges(Player* p) {
 	p->SetAC(p->GetAC() - GetAC());
 }
 
+string WearableItem::GetInfoString() {
+	stringstream s;
+	if(m_str) {
+		s << "STR +" << m_str << " ";
+	}
+	if(m_dex) {
+		s << "DEX +" << m_dex << " ";
+	}
+	if(m_acc) {
+		s << "ACC +" << m_acc << " ";
+	}
+	if(m_ac) {
+		s << "AC +" << m_ac << " ";
+	}
+	s << "Req. Level: " << m_requiredLevel;
 
+	return s.str();
+}

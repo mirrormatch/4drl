@@ -23,6 +23,8 @@ class Item : public Entity {
 		virtual bool CanUse();
 		virtual int GetItemID();
 		virtual void SetItemID(int id);
+
+		virtual string GetInfoString();
 	
 	protected:
 		bool m_canStack;

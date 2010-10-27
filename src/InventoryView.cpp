@@ -241,10 +241,11 @@ void InventoryView::Update() {
 				break;
 			}
 			int attr = WHITE;
+			Item* toShow = *i;
 			if(m_inInventoryArea && counter == m_selectIdx) {
 				attr = YELLOW_BOLD;
+				DrawSelectedInfo(toShow);
 			}
-			Item* toShow = *i;
 			s.str("");
 			s << (counter + 1) << ". " << toShow->GetDisplayName();
 			if(toShow->CanStack()) {
@@ -283,8 +284,68 @@ void InventoryView::DrawPaperDollItem(Item* i, int y, int idx) {
 	}
 	if(!m_inInventoryArea && idx == m_selectIdx) {
 		attr = YELLOW_BOLD;
+		DrawSelectedInfo(i);
 	}
 	SetStringAt(16, y, toDraw, attr);
+}
+
+void InventoryView::DrawSelectedInfo(Item* i) {
+	if(!i) {
+		return;
+	}
+	string todraw = "Selected Item";
+	SetStringAt(2, 16, todraw, YELLOW_BOLD);
+	todraw = i->GetDisplayName();
+	SetStringAt(2, 17, todraw, YELLOW_BOLD);
+	todraw = i->GetInfoString();
+	SetStringAt(2, 18, todraw, YELLOW_BOLD);
+
+	Player* p = DataManager::Instance()->GetPlayer();
+	if(i->GetClass() == E_HELM) {
+		Item* ci = p->GetHeadItem();
+		todraw = "Current Item";
+		SetStringAt(2, 19, todraw, WHITE_BOLD);
+		string todraw = ci->GetDisplayName();
+		SetStringAt(2, 20, todraw, WHITE_BOLD);
+		todraw = ci->GetInfoString();
+		SetStringAt(2, 21, todraw, WHITE_BOLD);
+	}
+	else if(i->GetClass() == E_BODY) {
+		Item* ci = p->GetBodyItem();
+		todraw = "Current Item";
+		SetStringAt(2, 19, todraw, WHITE_BOLD);
+		string todraw = ci->GetDisplayName();
+		SetStringAt(2, 20, todraw, WHITE_BOLD);
+		todraw = ci->GetInfoString();
+		SetStringAt(2, 21, todraw, WHITE_BOLD);
+	}
+	else if(i->GetClass() == E_LEGS) {
+		Item* ci = p->GetLegsItem();
+		todraw = "Current Item";
+		SetStringAt(2, 19, todraw, WHITE_BOLD);
+		string todraw = ci->GetDisplayName();
+		SetStringAt(2, 20, todraw, WHITE_BOLD);
+		todraw = ci->GetInfoString();
+		SetStringAt(2, 21, todraw, WHITE_BOLD);
+	}
+	else if(i->GetClass() == E_WEAPON) {
+		Item* ci = p->GetWeaponItem();
+		todraw = "Current Item";
+		SetStringAt(2, 19, todraw, WHITE_BOLD);
+		string todraw = ci->GetDisplayName();
+		SetStringAt(2, 20, todraw, WHITE_BOLD);
+		todraw = ci->GetInfoString();
+		SetStringAt(2, 21, todraw, WHITE_BOLD);
+	}
+	else if(i->GetClass() == E_IMPLANT) {
+		Item* ci = p->GetImplantItem();
+		todraw = "Current Item";
+		SetStringAt(2, 19, todraw, WHITE_BOLD);
+		string todraw = ci->GetDisplayName();
+		SetStringAt(2, 20, todraw, WHITE_BOLD);
+		todraw = ci->GetInfoString();
+		SetStringAt(2, 21, todraw, WHITE_BOLD);
+	}
 }
 
 void InventoryView::ResetState() {
