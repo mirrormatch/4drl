@@ -1,5 +1,4 @@
 
-#include <ncurses.h>
 #include "View.h"
 #include "GameState.h"
 

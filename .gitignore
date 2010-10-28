@@ -1,5 +1,5 @@
 *~
 *.o
-4drl
-transmission
+src/4drl
+src/transmission
 *.swp

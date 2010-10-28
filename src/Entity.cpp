@@ -53,7 +53,7 @@ void Entity::SetIsPassable(bool val) {
 int Entity::DistanceTo(Entity* e) {
 	int x = m_x - e->m_x;
 	int y = m_y - e->m_y;
-	return sqrt(x * x + y * y);
+	return sqrt((double)(x * x + y * y));
 }
 
 bool Entity::ShouldRemove() {

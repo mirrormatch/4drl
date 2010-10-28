@@ -1,5 +1,4 @@
 
-#include <ncurses.h>
 #include <sstream>
 #include "MainView.h"
 #include "GameState.h"
@@ -129,6 +128,9 @@ bool MainView::HandleTargetSelectInput(int ch) {
 			break;
 		case KEY_ENTER:
 		case '\n':
+#ifdef WIN32
+		case 13:
+#endif
 			tx = m_scrollX + m_cursorX;
 			ty = m_scrollY + m_cursorY;
 			if(l->EntityAt(tx, ty) && l->EntityAt(tx, ty)->GetClass() == E_MONSTER) {

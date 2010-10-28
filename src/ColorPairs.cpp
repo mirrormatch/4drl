@@ -1,5 +1,4 @@
 
-#include <ncurses.h>
 #include "ColorPairs.h"
 
 /*

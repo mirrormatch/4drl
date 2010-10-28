@@ -5,10 +5,16 @@
 #include <vector>
 #include <list>
 #include <map>
+#ifndef WIN32
 #include <tr1/unordered_map>
+#else
+#include <unordered_map>
+#endif
 #include <algorithm>
 using namespace std;
+#ifndef WIN32
 using namespace tr1;
+#endif
 typedef vector<string> StringVector;
 
 // Because I wanted memset

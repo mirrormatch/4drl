@@ -6,7 +6,7 @@
 #include <sstream>
 
 PlayerCreateView::PlayerCreateView(GameState* gs, int w, int h) :
-	View(gs, w, h) {
+	View(gs, w, h), m_state(PC_NAME) {
 }
 
 PlayerCreateView::~PlayerCreateView() {
@@ -46,6 +46,9 @@ void PlayerCreateView::HandleNameInput(int ch) {
 		}
 		break;
 	case KEY_ENTER:
+#ifdef WIN32
+	case 13:
+#endif
 	case '\n':
 		if(m_name.length() > 0) {
 			DataManager::Instance()->GetPlayer()->SetName(m_name);
@@ -76,6 +79,9 @@ void PlayerCreateView::HandleClassInput(int ch) {
 			}
 			break;
 		case KEY_ENTER:
+#ifdef WIN32
+		case 13:
+#endif
 		case '\n':
 			DataManager::Instance()->GetPlayer()->SetTitle(
 				DataManager::Instance()->GetClassNames()[m_selectIdx]);

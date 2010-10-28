@@ -1,4 +1,4 @@
-#include <ncurses.h>
+#include "ColorPairs.h"
 #include "GameState.h"
 #include "GeneralIncludes.h"
 

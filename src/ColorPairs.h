@@ -2,7 +2,11 @@
 #ifndef _COLOR_PAIRS_H_
 #define _COLOR_PAIRS_H_
 
+#ifndef WIN32
 #include <ncurses.h>
+#else
+#include "curses.h"
+#endif
 
 enum PairNames {
 	WHITE_ON_BLACK = 1,

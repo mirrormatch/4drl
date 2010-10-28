@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{A242076C-4AE8-4AED-9F28-E80C399BD027}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>transmission</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(SolutionDir)\transmission\PDCurses;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\transmission\PDCurses;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_HAS_ITERATOR_DEBUGGING=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\ArmorItem.h" />
+    <ClInclude Include="..\..\src\BodyArmor.h" />
+    <ClInclude Include="..\..\src\ColorPairs.h" />
+    <ClInclude Include="..\..\src\CompoundRoom.h" />
+    <ClInclude Include="..\..\src\Consumable.h" />
+    <ClInclude Include="..\..\src\DataManager.h" />
+    <ClInclude Include="..\..\src\DeathView.h" />
+    <ClInclude Include="..\..\src\Entity.h" />
+    <ClInclude Include="..\..\src\Entrance.h" />
+    <ClInclude Include="..\..\src\Exit.h" />
+    <ClInclude Include="..\..\src\GameState.h" />
+    <ClInclude Include="..\..\src\GeneralIncludes.h" />
+    <ClInclude Include="..\..\src\Helm.h" />
+    <ClInclude Include="..\..\src\HelpView.h" />
+    <ClInclude Include="..\..\src\Implant.h" />
+    <ClInclude Include="..\..\src\IntroView.h" />
+    <ClInclude Include="..\..\src\Inventory.h" />
+    <ClInclude Include="..\..\src\InventoryView.h" />
+    <ClInclude Include="..\..\src\Item.h" />
+    <ClInclude Include="..\..\src\Level.h" />
+    <ClInclude Include="..\..\src\LevelTable.h" />
+    <ClInclude Include="..\..\src\LootTable.h" />
+    <ClInclude Include="..\..\src\MainView.h" />
+    <ClInclude Include="..\..\src\Monster.h" />
+    <ClInclude Include="..\..\src\MonsterTable.h" />
+    <ClInclude Include="..\..\src\Node.h" />
+    <ClInclude Include="..\..\src\Pants.h" />
+    <ClInclude Include="..\..\src\Pathfinder.h" />
+    <ClInclude Include="..\..\src\Player.h" />
+    <ClInclude Include="..\..\src\PlayerCreateView.h" />
+    <ClInclude Include="..\..\src\Room.h" />
+    <ClInclude Include="..\..\src\Sight.h" />
+    <ClInclude Include="..\..\src\View.h" />
+    <ClInclude Include="..\..\src\Weapon.h" />
+    <ClInclude Include="..\..\src\WearableItem.h" />
+    <ClInclude Include="PDCurses\curses.h" />
+    <ClInclude Include="PDCurses\panel.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PDCurses\pdcurses.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="PDCurses\pdcurses.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\ArmorItem.cpp" />
+    <ClCompile Include="..\..\src\BodyArmor.cpp" />
+    <ClCompile Include="..\..\src\ColorPairs.cpp" />
+    <ClCompile Include="..\..\src\CompoundRoom.cpp" />
+    <ClCompile Include="..\..\src\Consumable.cpp" />
+    <ClCompile Include="..\..\src\DataManager.cpp" />
+    <ClCompile Include="..\..\src\DeathView.cpp" />
+    <ClCompile Include="..\..\src\Entity.cpp" />
+    <ClCompile Include="..\..\src\Entrance.cpp" />
+    <ClCompile Include="..\..\src\Exit.cpp" />
+    <ClCompile Include="..\..\src\GameState.cpp" />
+    <ClCompile Include="..\..\src\Helm.cpp" />
+    <ClCompile Include="..\..\src\HelpView.cpp" />
+    <ClCompile Include="..\..\src\Implant.cpp" />
+    <ClCompile Include="..\..\src\IntroView.cpp" />
+    <ClCompile Include="..\..\src\Inventory.cpp" />
+    <ClCompile Include="..\..\src\InventoryView.cpp" />
+    <ClCompile Include="..\..\src\Item.cpp" />
+    <ClCompile Include="..\..\src\Level.cpp" />
+    <ClCompile Include="..\..\src\LevelTable.cpp" />
+    <ClCompile Include="..\..\src\LootTable.cpp" />
+    <ClCompile Include="..\..\src\Main.cpp" />
+    <ClCompile Include="..\..\src\MainView.cpp" />
+    <ClCompile Include="..\..\src\Monster.cpp" />
+    <ClCompile Include="..\..\src\MonsterTable.cpp" />
+    <ClCompile Include="..\..\src\Node.cpp" />
+    <ClCompile Include="..\..\src\Pants.cpp" />
+    <ClCompile Include="..\..\src\Pathfinder.cpp" />
+    <ClCompile Include="..\..\src\Player.cpp" />
+    <ClCompile Include="..\..\src\PlayerCreateView.cpp" />
+    <ClCompile Include="..\..\src\Room.cpp" />
+    <ClCompile Include="..\..\src\Sight.cpp" />
+    <ClCompile Include="..\..\src\View.cpp" />
+    <ClCompile Include="..\..\src\Weapon.cpp" />
+    <ClCompile Include="..\..\src\WearableItem.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

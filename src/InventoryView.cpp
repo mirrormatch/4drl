@@ -64,6 +64,9 @@ bool InventoryView::RequestInput() {
 			m_selectIdx = 0; break;
 		case '\n':
 		case KEY_ENTER:
+#ifdef WIN32
+		case 13:
+#endif
 			HandleItemSelection();
 			break;
 		case 'x':
