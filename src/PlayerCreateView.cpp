@@ -39,53 +39,49 @@ bool PlayerCreateView::RequestInput() {
 }
 
 void PlayerCreateView::HandleNameInput(int ch) {
-	switch(ch) {
-	case KEY_BACKSPACE:
+	KeyType t = KeyConverter::Instance()->KeyForInput(ch);
+	switch(t) {
+	case K_BACKSPACE:
 		if(m_name.length() > 0) {
 			m_name.erase(m_name.length() - 1);
 		}
 		break;
-	case KEY_ENTER:
-#ifdef WIN32
-	case 13:
-#endif
-	case '\n':
+	case K_SELECT:
 		if(m_name.length() > 0) {
 			DataManager::Instance()->GetPlayer()->SetName(m_name);
 			m_state = PC_CLASS;
 		}
 		break;
-	case '\t':
-	case ' ':
-		// throwaway whitespaces
-		break;
 	default:
+		if(ch <= ' ') {
+			// no whitespace or control codes, please
+			break;
+		}
 		m_name.append(1, (char)ch);
 		break;
 	}
 }
 
 void PlayerCreateView::HandleClassInput(int ch) {
-	switch(ch) {
-		case KEY_UP:
+	KeyType t = KeyConverter::Instance()->KeyForInput(ch);
+	switch(t) {
+		case K_UP:
 			if(m_selectIdx > 0) {
 				m_selectIdx--;
 			}
 			break;
-		case KEY_DOWN:
+		case K_DOWN:
 			m_selectIdx++;
 			if(m_selectIdx >= DataManager::Instance()->GetClassNames().size()) {
 				m_selectIdx = DataManager::Instance()->GetClassNames().size() - 1;
 			}
 			break;
-		case KEY_ENTER:
-#ifdef WIN32
-		case 13:
-#endif
-		case '\n':
+		case K_SELECT:
 			DataManager::Instance()->GetPlayer()->SetTitle(
 				DataManager::Instance()->GetClassNames()[m_selectIdx]);
 			m_parent->ChangeState(GAME_STATE_MAIN);
+			break;
+		default:
 			break;
 	}
 }

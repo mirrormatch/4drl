@@ -19,11 +19,11 @@ InventoryView::~InventoryView() {
 }
 
 bool InventoryView::RequestInput() {
-	int ch = getch();
+	KeyType t = KeyConverter::Instance()->KeyForInput(getch());
 	Player* p = DataManager::Instance()->GetPlayer();
 	Inventory& inv = p->GetInventory();
-	switch(ch) {
-		case KEY_UP:
+	switch(t) {
+		case K_UP:
 			if(m_inInventoryArea && inv.NumItems() == 0) {
 				break;
 			}
@@ -32,7 +32,7 @@ bool InventoryView::RequestInput() {
 				m_selectIdx = 0;
 			}
 		break;
-		case KEY_DOWN:
+		case K_DOWN:
 			if(m_inInventoryArea && inv.NumItems() == 0) {
 				break;
 			}
@@ -48,29 +48,28 @@ bool InventoryView::RequestInput() {
 				}
 			}
 		break;
-		case 'd':
+		case K_DISCARD:
 			if(m_inInventoryArea && m_selectIdx < inv.NumItems()) {
 				inv.RemoveItemAtIndex(m_selectIdx);
 				m_selectIdx = 0;
 				m_scrollY = 0;
 			}
 			break;
-		case KEY_LEFT:
+		case K_LEFT:
 			m_inInventoryArea = !m_inInventoryArea;
 			m_selectIdx = 0;
 		break;
-		case KEY_RIGHT:
+		case K_RIGHT:
 			m_inInventoryArea = !m_inInventoryArea;
-			m_selectIdx = 0; break;
-		case '\n':
-		case KEY_ENTER:
-#ifdef WIN32
-		case 13:
-#endif
+			m_selectIdx = 0;
+			break;
+		case K_SELECT:
 			HandleItemSelection();
 			break;
-		case 'x':
+		case K_EXIT:
 			m_parent->ChangeState(GAME_STATE_MAIN);
+			break;
+		default:
 			break;
 	}
 	if(m_inInventoryArea && !IsIndexOnScreen(m_selectIdx)) {
@@ -80,7 +79,7 @@ bool InventoryView::RequestInput() {
 		else {
 			m_scrollY = m_selectIdx - 18;
 			if(m_scrollY < 0) {
-				m_scrollY = 0;
+				
 			}
 		}
 	}

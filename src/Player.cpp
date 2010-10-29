@@ -342,7 +342,7 @@ void Player::AttackTarget() {
 		}
 	}
 	else {
-		string status = "You missed" + m_target->GetDisplayName() + ".";
+		string status = "You missed " + m_target->GetDisplayName() + ".";
 		DataManager::Instance()->AppendStatusString(status);
 	}
 }

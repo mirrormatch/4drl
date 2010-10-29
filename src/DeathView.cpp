@@ -14,9 +14,9 @@ void DeathView::Initialize() {
 }
 
 bool DeathView::RequestInput() {
-	int ch = getch();
-	switch(ch) {
-		case 'q':
+	KeyType t = KeyConverter::Instance()->KeyForInput(getch());
+	switch(t) {
+		case K_QUIT:
 			m_parent->RequestQuit();
 			break;
 		default:

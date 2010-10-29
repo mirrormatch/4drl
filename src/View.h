@@ -3,6 +3,7 @@
 #define _VIEW_H_
 
 #include "GeneralIncludes.h"
+#include "KeyConverter.h"
 
 class GameState;
 
