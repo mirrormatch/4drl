@@ -1,6 +1,6 @@
 
 CPP=g++
-CFLAGS=-g -Wall
+CFLAGS=-g -Wall -Wextra
 IFLAGS=
 LFLAGS=-lncurses
 

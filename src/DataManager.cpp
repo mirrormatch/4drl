@@ -27,7 +27,7 @@ DataManager* DataManager::Instance() {
 	return DataManager::sm_instance;
 }
 
-DataManager::DataManager() : m_statusLine(""), m_player(NULL) {
+DataManager::DataManager() : m_player(NULL), m_statusLine("") {
 }
 
 DataManager::~DataManager() {
