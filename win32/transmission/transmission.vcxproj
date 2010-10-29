@@ -97,6 +97,7 @@
     <ClInclude Include="..\..\src\Inventory.h" />
     <ClInclude Include="..\..\src\InventoryView.h" />
     <ClInclude Include="..\..\src\Item.h" />
+    <ClInclude Include="..\..\src\KeyConverter.h" />
     <ClInclude Include="..\..\src\Level.h" />
     <ClInclude Include="..\..\src\LevelTable.h" />
     <ClInclude Include="..\..\src\LootTable.h" />
@@ -141,6 +142,7 @@
     <ClCompile Include="..\..\src\Inventory.cpp" />
     <ClCompile Include="..\..\src\InventoryView.cpp" />
     <ClCompile Include="..\..\src\Item.cpp" />
+    <ClCompile Include="..\..\src\KeyConverter.cpp" />
     <ClCompile Include="..\..\src\Level.cpp" />
     <ClCompile Include="..\..\src\LevelTable.cpp" />
     <ClCompile Include="..\..\src\LootTable.cpp" />
