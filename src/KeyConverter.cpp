@@ -44,7 +44,9 @@ void KeyConverter::Initialize() {
 	m_keys['\n'] = K_SELECT;
 	m_keys['\r'] = K_SELECT;
 	m_keys[KEY_ENTER] = K_SELECT;
+#ifdef WIN32
 	m_keys[PADENTER] = K_SELECT;
+#endif
 
 	m_keys[KEY_BACKSPACE] = K_BACKSPACE;
 	m_keys['\b'] = K_BACKSPACE;
