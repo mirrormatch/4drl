@@ -1,0 +1,8 @@
+Things to do in future releases
+* Enemy descriptions
+* Revised level generator to make the levels feel more sci-fi
+* Wide cooridors
+* Automatic doors at the end of cooridors
+* Computer terminal
+* Locked doors
+	* Open with both keys and computer terminals
