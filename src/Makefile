@@ -23,6 +23,7 @@ FILES=\
 	Inventory.o \
 	InventoryView.o \
 	Item.o \
+	KeyConverter.o \
 	Level.o \
 	LevelTable.o \
 	LootTable.o \

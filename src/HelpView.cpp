@@ -13,9 +13,9 @@ void HelpView::Initialize() {
 }
 
 bool HelpView::RequestInput() {
-	int ch = getch();
-	switch(ch) {
-		case 'x':
+	KeyType t = KeyConverter::Instance()->KeyForInput(getch());
+	switch(t) {
+		case K_EXIT:
 			m_parent->ChangeState(GAME_STATE_MAIN);
 			break;
 		default:

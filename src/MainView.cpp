@@ -41,56 +41,56 @@ bool MainView::RequestInput() {
 	}
 }
 
+
 bool MainView::HandleMainInput(int ch) {
+	KeyType t = KeyConverter::Instance()->KeyForInput(ch);
 	Player* p = DataManager::Instance()->GetPlayer();
-	switch(ch) {
-		case 'q':
+	switch(t) {
+		case K_QUIT:
 			m_parent->RequestQuit();
 			return false;
-		case KEY_LEFT:
+		case K_LEFT:
 			if(p->Advance(-1, 0)) {
 				m_scrollX = p->GetX() - 40;
 				m_scrollY = p->GetY() - 10;
 			}
 			break;
-		case KEY_RIGHT:
+		case K_RIGHT:
 			if(p->Advance(1, 0)) {
 				m_scrollX = p->GetX() - 40;
 				m_scrollY = p->GetY() - 10;
 			}
 			break;
-		case KEY_UP:
+		case K_UP:
 			if(p->Advance(0, -1)) {
 				m_scrollX = p->GetX() - 40;
 				m_scrollY = p->GetY() - 10;
 			}
 			break;
-		case KEY_DOWN:
+		case K_DOWN:
 			if(p->Advance(0, 1)) {
 				m_scrollX = p->GetX() - 40;
 				m_scrollY = p->GetY() - 10;
 			}
 			break;
-		case 'a':
+		case K_ATTACK:
 			p->AttackTarget();
 			break;
-		case ' ':
+		case K_NEXT_TURN:
 			// Do nothing, just skipping a turn
 			break;
-		case 't':
+		case K_TARGET_MODE:
 			// Change to targeting mode
 			m_state = MVIS_TARGET_SELECT;
 			SetCursorVisible(true);
 			return false;
-		case 'c':
+		case K_CLEAR:
 			DataManager::Instance()->GetCurrentLevel()->ResetDebugFlags();
 			return false;
-
-		case 'i':
+		case K_INVENTORY:
 			m_parent->ChangeState(GAME_STATE_INVENTORY);
 			return false;
-
-		case '?':
+		case K_HELP:
 			m_parent->ChangeState(GAME_STATE_HELP);
 			return false;
 		//case 'n':
@@ -108,29 +108,26 @@ bool MainView::HandleMainInput(int ch) {
 bool MainView::HandleTargetSelectInput(int ch) {
 	Player* p = DataManager::Instance()->GetPlayer();
 	Level* l = DataManager::Instance()->GetCurrentLevel();
+	KeyType t = KeyConverter::Instance()->KeyForInput(ch);
 	int tx, ty;
-	switch(ch) {
-		case 'x':
+	switch(t) {
+		case K_EXIT:
 			m_state = MVIS_MAIN;
 			SetCursorVisible(false);
 			break;
-		case KEY_LEFT:
+		case K_LEFT:
 			SetCursorPosition(m_cursorX - 1, m_cursorY);
 			break;
-		case KEY_RIGHT:
+		case K_RIGHT:
 			SetCursorPosition(m_cursorX + 1, m_cursorY);
 			break;
-		case KEY_UP:
+		case K_UP:
 			SetCursorPosition(m_cursorX, m_cursorY - 1);
 			break;
-		case KEY_DOWN:
+		case K_DOWN:
 			SetCursorPosition(m_cursorX, m_cursorY + 1);
 			break;
-		case KEY_ENTER:
-		case '\n':
-#ifdef WIN32
-		case 13:
-#endif
+		case K_SELECT:
 			tx = m_scrollX + m_cursorX;
 			ty = m_scrollY + m_cursorY;
 			if(l->EntityAt(tx, ty) && l->EntityAt(tx, ty)->GetClass() == E_MONSTER) {
@@ -142,8 +139,10 @@ bool MainView::HandleTargetSelectInput(int ch) {
 				SetCursorVisible(false);
 			}
 			break;
-		case 'q':
+		case K_QUIT:
 			m_parent->RequestQuit();
+			break;
+		default:
 			break;
 	}
 	return false;
@@ -297,5 +296,6 @@ void MainView::DrawStats(Player* p) {
 
 	str = "'?' for help";
 	SetStringAt(80 - str.length(), 23, str, WHITE);
+
 }
 
