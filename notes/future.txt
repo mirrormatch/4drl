@@ -6,3 +6,5 @@ Things to do in future releases
 * Computer terminal
 * Locked doors
 	* Open with both keys and computer terminals
+* More consumables
+	* stimpaks

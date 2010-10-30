@@ -323,7 +323,7 @@ void Player::AttackTarget() {
 	int damage = m_weaponSlot->GetBaseDamage();
 	int lvldiff = m_level - m_target->GetLevel();
 	if(lvldiff < 1) {
-		damage -= lvldiff;
+		damage += lvldiff;
 		if(damage < 0) {
 			damage = 1;
 		}
