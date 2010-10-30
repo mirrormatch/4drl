@@ -45,6 +45,7 @@ bool MainView::RequestInput() {
 bool MainView::HandleMainInput(int ch) {
 	KeyType t = KeyConverter::Instance()->KeyForInput(ch);
 	Player* p = DataManager::Instance()->GetPlayer();
+	Level* l = DataManager::Instance()->GetCurrentLevel();
 	switch(t) {
 		case K_QUIT:
 			m_parent->RequestQuit();
@@ -83,6 +84,14 @@ bool MainView::HandleMainInput(int ch) {
 			// Change to targeting mode
 			m_state = MVIS_TARGET_SELECT;
 			SetCursorVisible(true);
+			if(p->GetTarget() == NULL) {
+				EntityList* monsters = l->MonstersInRange(p->GetX(), p->GetY(), 10, 5);
+				if(monsters->size() > 0) {
+					Monster* m = (Monster*)monsters->front();
+					SetCursorPosition(m->GetX() - m_scrollX, m->GetY() - m_scrollY);
+				}
+				delete monsters;
+			}
 			return false;
 		case K_CLEAR:
 			DataManager::Instance()->GetCurrentLevel()->ResetDebugFlags();
