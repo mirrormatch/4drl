@@ -291,10 +291,25 @@ void Player::SetTarget(Monster* target) {
 	}
 }
 
+Monster* Player::GetTarget() {
+	return m_target;
+}
+
 void Player::AttackTarget() {
-	// if no target, we can't do anything
+	Level* l = DataManager::Instance()->GetCurrentLevel();
+
+	// if no target, see if there's something in range
 	if(!m_target) {
-		string status = "No target, press 't' to enter targeting mode.";
+		EntityList* monsters = l->MonstersInRange(m_x, m_y, 10, 5);
+		if(monsters->size() > 0) {
+			SetTarget((Monster*)monsters->front());
+		}
+		delete monsters;
+	}
+
+	// If still no target, bail
+	if(!m_target) {
+		string status = "No target in range";
 		DataManager::Instance()->AppendStatusString(status);
 		return;
 	}
@@ -339,6 +354,7 @@ void Player::AttackTarget() {
 		if(m_target->IsDead()) {
 			status = "You killed " + m_target->GetDisplayName() + "!";
 			DataManager::Instance()->AppendStatusString(status);
+			SetTarget(NULL);
 		}
 	}
 	else {

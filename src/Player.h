@@ -65,6 +65,7 @@ public:
 	void ReturnWeaponItemToInventory();
 	void ReturnImplantItemToInventory();
 	void SetTarget(Monster* target);
+	Monster* GetTarget();
 	
 	bool IsDead();
 

@@ -21,6 +21,8 @@ enum EntityClass {
 class Entity;
 typedef list<Entity*> EntityList;
 
+bool EntitiesByDistanceToPlayer(Entity* a, Entity* b);
+
 class Entity {
 	public:
 		Entity(char c, int dispflags, EntityClass cls);

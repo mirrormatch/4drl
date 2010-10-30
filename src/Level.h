@@ -15,7 +15,6 @@ enum SquareType {
 	ST_TEST_COORIDOR
 };
 
-class Entity;
 class Entrance;
 class Exit;
 
@@ -57,6 +56,7 @@ public:
 
 	virtual void ResetVisibility();
 	virtual void LightArea(int x, int y, int xrange, int yrange);
+	virtual EntityList* MonstersInRange(int tx, int ty, int xrange, int yrange);
 
 protected:
 	virtual Room** GenerateInitialRooms(int numRooms);

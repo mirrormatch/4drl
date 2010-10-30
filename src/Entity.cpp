@@ -1,6 +1,13 @@
 
 #include "Entity.h"
+#include "DataManager.h"
+#include "Player.h"
 #include <math.h>
+
+bool EntitiesByDistanceToPlayer(Entity* a, Entity* b) {
+	Player* p = DataManager::Instance()->GetPlayer();
+	return p->DistanceTo(a) < p->DistanceTo(b);
+}
 
 Entity::Entity(char c, int df, EntityClass cls) : 
 	m_dispChar(c), m_dispFlags(df), m_class(cls), m_isPassable(true) {

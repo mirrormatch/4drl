@@ -211,7 +211,10 @@ void MainView::Update() {
 						Monster* m = (Monster*)e;
 						int attr = WHITE_BOLD;
 						int lvldiff = m->GetLevel() - p->GetLevel();
-						if(lvldiff < -1) {
+						if(p->GetTarget() == m) {
+							attr = MAGENTA_BOLD;
+						}
+						else if(lvldiff < -1) {
 							attr = WHITE_BOLD;
 						}
 						else if(lvldiff < 0) {

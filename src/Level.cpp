@@ -323,3 +323,18 @@ void Level::LightArea(int tx, int ty, int xrange, int yrange) {
 		}
 	}
 }
+
+EntityList* Level::MonstersInRange(int tx, int ty, int xrange, int yrange) {
+	EntityList* toReturn = new EntityList();
+	for(int x = tx - xrange; x < tx + xrange; x++) {
+		for(int y = ty - yrange; y < ty + yrange; y++) {
+			if(EntityAt(x, y) && EntityAt(x, y)->GetClass() == E_MONSTER) {
+				toReturn->push_back(EntityAt(x, y));
+			}
+		}
+	}
+
+	toReturn->sort(EntitiesByDistanceToPlayer);
+
+	return toReturn;
+}
