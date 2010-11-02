@@ -78,12 +78,22 @@ void Level::Generate(int w, int h, int numRooms) {
 
 void Level::CreateExits(CompoundRoom* first, CompoundRoom* last) {
 	int x, y;
-	first->ClosestPointToMiddle(&x, &y);
+	if(first != last) {
+		first->ClosestPointToMiddle(&x, &y);
+	}
+	else { // we've only got one room this time, we can't use midpoints
+		first->GetRandomValidPoint(&x, &y);
+	}
 	m_entrance = new Entrance();
 	m_entrance->SetPosition(x, y);
 	m_grid[x][y]->entity = m_entrance;
 	first->SetEntityAt(x, y, m_entrance);
-	last->ClosestPointToMiddle(&x, &y);
+	if(first != last) {
+		last->ClosestPointToMiddle(&x, &y);
+	}
+	else {
+		last->GetRandomValidPoint(&x, &y);
+	}
 	m_exit = new Exit();
 	m_exit->SetPosition(x, y);
 	m_grid[x][y]->entity = m_exit;
@@ -227,7 +237,6 @@ GridSquare* Level::SquareAt(int x, int y) {
 }
 
 bool Level::IsSquareOpen(int x, int y, bool avoidItems) {
-	// FIXME: Eventually needs to take other things into account
 	if(x < 0 || x >= m_width || y < 0 || y >= m_height) {
 		return false;
 	}
@@ -254,6 +263,9 @@ int Level::GetNumRooms() {
 }
 
 Entity* Level::EntityAt(int x, int y) {
+	if(x < 0 || x >= m_width || y < 0 || y >= m_height) {
+		return NULL;
+	}
 	return m_grid[x][y]->entity;
 }
 

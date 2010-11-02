@@ -169,10 +169,21 @@ int CompoundRoom::GetHeight() {
 void CompoundRoom::ClosestPointToMiddle(int* x, int* y) {
 	int testX = m_x + m_width / 2;
 	int testY = m_y + m_height / 2;
+	int offset = 1;
+	while(!IsFilled(testX, testY)) {
+		for(int tx = testX - offset; tx <= testX + offset; tx++) {
+			for(int ty = testY - offset; ty <= testY + offset; ty++) {
+				if(IsFilled(tx, ty) && !EntityAt(tx, ty)) {
+					testX = tx;
+					testY = ty;
+					break;
+				}
+			}
+		}
+		offset++;
+	}
 	*x = testX;
 	*y = testY;
-	// FIXME: test to make sure point is valid, and circle around until you find
-	// valid one
 }
 
 void CompoundRoom::GetRandomValidPoint(int* x, int* y) {

@@ -102,12 +102,6 @@ bool MainView::HandleMainInput(int ch) {
 		case K_HELP:
 			m_parent->ChangeState(GAME_STATE_HELP);
 			return false;
-		//case 'n':
-		//	DataManager::Instance()->GoToNextLevel();
-		//	Player* p = DataManager::Instance()->GetPlayer();
-		//	m_scrollX = p->GetX() - 40;
-		//	m_scrollY = p->GetY() - 10;
-		//	break;
 		default:
 			return false;
 	}
