@@ -4,16 +4,16 @@ New features
 * Add credits/coins
 * Add Vendors
 * Add new class (melee?)
-* Targeting mode auto-selects closest enemy
-* Attacking w/o target will select closest enemy (if one exists)
+DONE - * Targeting mode auto-selects closest enemy
+DONE - * Attacking w/o target will select closest enemy (if one exists)
 * Add Robot monster
 * Add junk loot (sell for credits)
 * Add crates (contain multiple items, can open and remove/store stuff)
 
 Bug Fixes:
-* Make sure that entry and exit are always on a valid floor tile that is not adjadjacent to a wall
-* Fix backspacing on name entry
-* Fix attack modifiers on monsters who are higher level than you
+DONE - * Make sure that entry and exit are always on a valid floor tile that is not adjadjacent to a wall
+DONE - * Fix backspacing on name entry
+DONE - * Fix attack modifiers on monsters who are higher level than you
 * Fix stat allocation to items
 * Nerf AC
 

@@ -5,6 +5,7 @@ IFLAGS=
 LFLAGS=-lncurses
 
 FILES=\
+	Actor.o \
 	ArmorItem.o \
 	BodyArmor.o \
 	ColorPairs.o \
